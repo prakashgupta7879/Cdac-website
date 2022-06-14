@@ -1,0 +1,13 @@
+#header{
+    
+    background-color: darkslategrey;
+    display: flex;
+    flex-direction: row;
+    padding: 30px 30px;
+    justify-content: space-between;
+}
+.right{
+    color: whitesmoke; 
+}
+
+
