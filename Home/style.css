@@ -430,3 +430,21 @@
     background-color: darkslategrey; 
     color: white;   
 }
+
+/* Sign Up Form */
+
+.formLogin{
+    margin: 0 auto; 
+    width:250px;    
+}
+
+.formSignup{
+    margin: 0 auto; 
+    width:250px;    
+}
+
+.loginImg{
+    margin-left: 40px;
+    margin-top: 10px;
+
+}
