@@ -67,25 +67,26 @@
         </div>
     </nav>
 
-    <form class="formSignup">
-      <img style="margin-left: 40px;margin-top: 10px;" class="mb-4" src="img/Login.png" alt="" width="80" height="80">
-      <h2 style="margin-left: 10px; margin-bottom: 8px;"class="h3 mb-3 font-weight-normal">Please Sign Up</h2>
+    <form class="forms">
+      <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
+      <h2 style="text-align: center;">Please Sign Up</h2> <br>
       <label for="inputEmail" class="sr-only">Full Name</label>
-      <input type="text" id="inputText" class="form-control" placeholder="Full Name" required="" autofocus="">
+      <input type="text" id="inputText" class="inputs" placeholder="Full Name" required="" autofocus="">
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+      <input type="email" id="inputEmail" class="inputs" placeholder="Email address" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <input type="password" id="inputPassword" class="inputs" placeholder="Password" required="">
       <label for="inputPassword" class="sr-only">Re-Enter Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Re-Enter Password" required="">
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">SIGN UP</button>
+      <input type="password" id="inputPassword" class="inputs" placeholder="Re-Enter Password" required="">
       <div>
-        <a href="login.html" target="_self">Existing User? Login</a>
+        <div>
+            <div>
+                <input type="submit" value="Sign Up" class="submitbtn">
+            </div>
+            <br>
+        </div>
+        <a class="links signUpNew" href="login.html" target="_self">Existing User? Login</a>
+        <br>
       </div>
     </form>
 

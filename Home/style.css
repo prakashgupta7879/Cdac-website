@@ -433,7 +433,7 @@
 
 /* Sign Up Form */
 
-.formLogin{
+/* .formLogin{
     margin: 0 auto; 
     width:250px;    
 }
@@ -446,5 +446,52 @@
 .loginImg{
     margin-left: 40px;
     margin-top: 10px;
+} */
 
-}
+.forms{
+    width:400px;
+    height:auto;
+    background:var(--white);
+    margin:auto;
+    border-radius:5px;
+    padding:20px 40px;
+  }
+
+.inputs{
+    width:100%;
+    padding:15px 0px;
+    border:1px solid grey;
+    border-radius:5px;
+    margin-bottom:15px;
+    outline:none;
+    font-size:18px;
+    text-indent:10px;
+  }
+
+  .loginImg{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  }
+  .forgotpsw{
+    float:left;
+    color:green;
+    text-decoration:none;
+  }
+
+  .signUpNew{
+    float:left;
+    color:green;
+    text-decoration:none;
+  }
+  .submitbtn{
+    width:100%;
+    padding:15px 10px;
+    background:cadetblue;
+    color:rgb(255, 255, 255);
+    font-size:20px;
+    outline:none;
+    border-radius:5px;
+    border:none;
+  }

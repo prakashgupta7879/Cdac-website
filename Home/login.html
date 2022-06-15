@@ -67,24 +67,24 @@
         </div>
     </nav>
 
-    <form name="myForm" class="formLogin" method="post">
+    <form name="myForm" class="forms" method="post">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
-        <h2 style="margin-left: 20px; margin-bottom: 10px;" class="h3 mb-3 font-weight-normal">Please Login</h2>
+        <h2 style="text-align: center;">Please Login</h2> <br>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input name="email" type="email" id="inputEmail" class="inputs" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
         <!-- <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"> -->
-         <input class="form-control" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+        <input class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <br>
+           <a href="#" class="forgotpsw">Forgot Password?</a> <br>
         <div>
-          <a class="links" href="" target="_self">Forgot Password?</a>
-          <a class="links" href="signup.html" target="_self">New? Sign Up</a>
-        </div>
+            <br>
+            <div>
+                <input type="submit" value="Login" class="submitbtn">
+            </div>
+            <br>
+            <a class="links signUpNew" href="signup.html" target="_self">New? Sign Up</a>
+        </div> <br>
    </form>
    
 
