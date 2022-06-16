@@ -1,0 +1,27 @@
+{
+  "name": "website-development-for-cdac",
+  "version": "1.0.0",
+  "description": "CDAC Website Silchar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RituKapur-Developer/Website-Development-for-CDAC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RituKapur-Developer/Website-Development-for-CDAC/issues"
+  },
+  "homepage": "https://github.com/RituKapur-Developer/Website-Development-for-CDAC#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
