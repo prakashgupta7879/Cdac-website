@@ -57,11 +57,20 @@
         </div>
         <div id="navbar-right">
             <div class="navbar-login">
-                <button class="btn-secondary font2" type="button" onclick="document.location.href='/login';">Login</button>
-                <button class="btn-secondary font2" type="button" onclick="document.location.href='/signup';">Sign Up</button>
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
+                <div id="myDropdown" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/login">As Co-ordinator</a>
+                  </div>
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
+                <div id="myDropdown2" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/signup';">For Student</a>
+                    <a href="/login">For Co-ordinator</a>
+                  </div>
             </div>
+
             <form class="search-bar" role="search">
-                <input class="form-control font2 type=" search" placeholder="Search.." aria-label="Search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
