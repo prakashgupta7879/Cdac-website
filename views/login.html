@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- Font styles -->
     <link
@@ -56,22 +56,41 @@
             </ul>
         </div>
         <div id="navbar-right">
+            <div class="navbar-login">
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
+                <div id="myDropdown" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/login">As Co-ordinator</a>
+                  </div>
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
+                <div id="myDropdown2" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/signup';">For Student</a>
+                    <a href="/login">For Co-ordinator</a>
+                  </div>
+            </div>
+
             <form class="search-bar" role="search">
-                <input class="form-control font2 type=" search" placeholder="Search.." aria-label="Search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div id="navbar-right">
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </nav>
 
-    <form name="myForm" class="forms" method="post">
-        <img class="loginImg" src="../public/img/Login.png" alt="" width="80" height="80">
+    <form name="myForm" action="/login" class="forms" method="POST">
+        <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
         <h2 style="text-align: center;">Please Login</h2> <br>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="email" type="email" id="inputEmail" class="inputs" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input name="username" type="username" id="username" class="inputs" placeholder="Username" required="" autofocus="">
+        <label for="password" class="sr-only">Password</label>
         <!-- <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"> -->
-        <input class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <br>  
+        <input name="password" class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <br>
            <a href="#" class="forgotpsw">Forgot Password?</a> <br>
         <div>
             <br>
@@ -79,11 +98,11 @@
                 <input type="submit" value="Login" class="submitbtn">
             </div>
             <br>
-            <a class="links signUpNew" href="signup.html" target="_self">New? Sign Up</a>
+            <a class="links signUpNew" href="/signup" target="_self">New? Sign Up</a>
         </div> <br>
    </form>
-   
-   <br>
+
+
 
     <!-- FOOTER -->
     <footer id="footer">
@@ -113,9 +132,9 @@
         </div>
     </footer>
 
-    
+
     <!-- SCRIPT LINK -->
-    <script src="../public/js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

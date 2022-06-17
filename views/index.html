@@ -59,16 +59,16 @@
             <div class="navbar-login">
                 <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
                 <div id="myDropdown" class="dropdown-cnt">
-                    <a href="#" onclick="document.location.href='login.html';">As Student</a>
-                    <a href="#">As Co-ordinator</a>
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/login">As Co-ordinator</a>
                   </div>
                 <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
                 <div id="myDropdown2" class="dropdown-cnt">
-                    <a href="#" onclick="document.location.href='signup.html';">For Student</a>
-                    <a href="#">For Co-ordinator</a>
+                    <a href="/login" onclick="document.location.href='/signup';">For Student</a>
+                    <a href="/login">For Co-ordinator</a>
                   </div>
             </div>
-            
+
             <form class="search-bar" role="search">
                 <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
@@ -159,6 +159,16 @@
                 <img src="img/bg3.jpg" style="width:100%">
             </div>
 
+            <!-- <img src="../public/img/bg1.jpg" style="width:100%">
+            </div>
+
+            <div class="bg fade">
+            <img src="../public/img/bg2.jpg" style="width:100%">
+            </div>
+
+            <div class="bg fade">
+            <img src="../public/img/bg3.jpg" style="width:100%"> -->
+
             <div style="text-align:center" class="dots-div">
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -217,11 +227,29 @@
 
 
     <!-- SECTION-3 -->
-    <!-- <section id="section-3">
-        <div class="map">
-
+    <section id="section-3">
+        <h1 class="font2">Contact Us </h1>
+        <h3 class="font2">Have Some Questions ? </h3>
+        <div id="contact-box">
+            <form action="">
+                <div class="form-group">
+                    <input type="text" name="firstname" id="firstname" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" id="email" placeholder="What's your email ?">
+                </div>
+                <div class="form-group">
+                    <textarea name="mytext" rows="5" id="des" placeholder="Your question"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="font1">Send Message</button>
+                </div>
+            </form>
         </div>
-    </section> -->
+    </section>
 
 
     <!-- FOOTER -->
@@ -252,7 +280,7 @@
         </div>
     </footer>
 
-    
+
     <!-- SCRIPT LINK -->
     <script src="js/script.js"></script>
 </body>
