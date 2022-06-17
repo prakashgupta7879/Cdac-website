@@ -105,6 +105,54 @@
     padding: 6px 9px;
     margin: 4px 4px;
 }
+
+
+/* dropdown buttons */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-cnt {
+    display: none;
+    position: absolute;
+    background-color: whitesmoke;
+    min-width:90px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+  }
+  
+  .dropdown-cnt a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-cnt a:hover {
+    background-color: rgb(37, 157, 139);
+    color: white;
+}
+  
+  .show {display: block;}
+
+
+  
 .search-bar{
     margin: auto 0px;
 }
@@ -288,7 +336,7 @@
 #section-3::before {
     position: absolute;
     content: "";
-    background: url(img/contact.jpg) no-repeat center center/cover;
+    background: url(../img/contact.jpg) no-repeat center center/cover;
     height: 330px;
     width: 100%;
     z-index: -1;
@@ -431,7 +479,7 @@
     color: white;   
 }
 
-/* Sign Up Form */
+/* ************************Sign Up Form************************   */   
 
 /* .formLogin{
     margin: 0 auto; 
