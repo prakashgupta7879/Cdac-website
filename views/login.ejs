@@ -82,6 +82,23 @@
         </div>
     </nav>
 
+    <% if(error && error.length>0) { %>
+      <div class="alert" style="background-color: red;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= error %></p>
+        </div>
+      </div>
+    <% } %>
+    <% if(success && success.length>0) { %>
+      <div class="alert" style="background-color: #0bff00;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= success %></p>
+        </div>
+      </div>
+    <% } %>
+
     <form name="myForm" action="/login" class="forms" method="POST">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
         <h2 style="text-align: center;">Please Login</h2> <br>
@@ -135,6 +152,34 @@
 
     <!-- SCRIPT LINK -->
     <script src="script.js"></script>
+    <style>
+    .alert {
+      /* padding: 20px;
+      background-color: #f44336; /* Red */
+      /* color: white; */
+      /* margin-bottom: 15px; */
+      padding: 5px;
+      /* background-color: #0bff00; */
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
 </body>
 
 </html>

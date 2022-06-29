@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var Faculty = require('./modules/faculty.js');
+var flash=require('connect-flash');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -18,11 +19,6 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-app.use(function(req, res, next) {
-    res.locals.newUser = req.user;
-    next();
-});
-
 mongoose.connect("mongodb://localhost/cdac");
 // mongoose.connect("mongodb+srv://cdac:cdac2022@cluster0.cvr5pyu.mongodb.net/?retryWrites=true&w=majority");
 
@@ -31,6 +27,7 @@ app.use(bodyParser.urlencoded('extended: true'));
 app.use(methodOverride('_method'));
 
 app.use(express.static('public'));
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -38,13 +35,12 @@ passport.use(new LocalStrategy(Faculty.authenticate()));
 passport.serializeUser(Faculty.serializeUser());
 passport.deserializeUser(Faculty.deserializeUser());
 
-
-
-
-
-
-
-
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
+});
 
 //Static  Files
 app.use('/css', express.static(__dirname + 'public/css'))
@@ -58,7 +54,8 @@ app.get("/",(req, res) => {
 
 //ADMINLOGIN
 app.get("/admin_cdac", function(req, res) {
-    res.sendFile(__dirname + '/views/admin_cdac.html');
+    // res.sendFile(__dirname + '/views/admin_cdac.html');
+    res.render('admin_cdac.ejs');
 });
 
 //SIGNUP
@@ -72,16 +69,25 @@ app.post("/signup", function(req, res) {
     console.log(req.body);
     Faculty.register(newUser, req.body.password, function(err, user) {
         if(err) {
-          console.log(err);
+            // console.log(err);
+            if(newUser.username.length == 0) {
+                req.flash("error", "Invalid username");
+            } else if(req.body.password.length == 0) {
+                req.flash("error", "Invalid password");
+            } else {
+                req.flash("error", "A user with the given username is already registered");
+            }
+            // res.send('ulululu');
             res.redirect("/signup");
+        } else {
+          passport.authenticate('local')(req, res, function() {
+            console.log("user");
+            req.flash("success", "Registered successfully!!");
+            // res.send();
+            // res.sendFile(__dirname + '/views/index.html');
+              res.redirect('/');
+          });
         }
-        console.log("jj");
-        passport.authenticate('local')(req, res, function() {
-          console.log("user");
-          // res.send();
-          // res.sendFile(__dirname + '/views/index.html');
-            res.redirect('/');
-        });
     });
 });
 
