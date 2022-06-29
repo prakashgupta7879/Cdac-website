@@ -32,7 +32,7 @@
 
 
     <!-- NAVIGATION BAR -->
-    <nav id="navbar">
+    <!-- <nav id="navbar">
         <div id="navbar-items">
             <ul>
                 <li class="item"><a href="index.html" class="active">Home</a></li>
@@ -65,40 +65,35 @@
                 <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
                 <div id="myDropdown2" class="dropdown-cnt">
                     <a href="/login" onclick="document.location.href='/signup';">For Student</a>
-                    <!-- <a href="/login">For Co-ordinator</a> -->
-                  </div>
+                    <a href="/login">For Co-ordinator</a> -->
+                  <!-- </div>
             </div>
 
-            <!-- <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form> -->
-        </div>
-        <div id="navbar-right">
             <form class="search-bar" role="search">
                 <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
-    </nav>
+        
+    </nav> --> 
 
     <form name="myForm" action="/login" class="forms" method="POST">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
         <h2 style="text-align: center;">Please Login</h2> <br>
         <label for="inputEmail" class="sr-only">Username</label>
         <input name="username" type="username" id="username" class="inputs" placeholder="Username" required="" autofocus="">
-        <label for="password" class="sr-only">Password</label>
+        <label for="password" placeholder="Password" class="sr-only">Password</label>
         <!-- <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"> -->
         <input placeholder="Password" name="password" class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <br>
+        <!-- <br>
            <a href="#" class="forgotpsw">Forgot Password?</a> <br>
-        <div>
+        <div> -->
             <br>
             <div>
                 <input type="submit" value="Login" class="submitbtn">
             </div>
             <br>
-            <a class="links signUpNew" href="/signup" target="_self">New? Sign Up</a>
+            <!-- <a class="links signUpNew" href="/signup" target="_self">New? Sign Up</a> -->
         </div> <br>
    </form>
 
