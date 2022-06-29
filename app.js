@@ -24,6 +24,7 @@ app.use(function(req, res, next) {
 });
 
 mongoose.connect("mongodb://localhost/cdac");
+// mongoose.connect("mongodb+srv://cdac:cdac2022@cluster0.cvr5pyu.mongodb.net/?retryWrites=true&w=majority");
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
@@ -51,12 +52,14 @@ app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
 
 app.get("/",(req, res) => {
-    res.sendFile(__dirname + '/views/index.html')
+    // res.sendFile(__dirname + '/views/index.html')
+    res.render('index.ejs')
 })
 
 //SIGNUP
 app.get("/signup", function(req, res) {
-    res.sendFile(__dirname + '/views/signup.html');
+    // res.sendFile(__dirname + '/views/signup.html');
+    res.render('signup.ejs');
 });
 
 app.post("/signup", function(req, res) {
@@ -79,7 +82,8 @@ app.post("/signup", function(req, res) {
 
 //LOGIN
 app.get("/login", function(req, res) {
-    res.sendFile(__dirname + '/views/login.html');
+    // res.sendFile(__dirname + '/views/login.html');
+    res.render('login.ejs');
 });
 
 app.post("/login", passport.authenticate("local", {
