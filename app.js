@@ -56,6 +56,11 @@ app.get("/",(req, res) => {
     res.render('index.ejs')
 })
 
+//ADMINLOGIN
+app.get("/admin_cdac", function(req, res) {
+    res.sendFile(__dirname + '/views/admin_cdac.html');
+});
+
 //SIGNUP
 app.get("/signup", function(req, res) {
     // res.sendFile(__dirname + '/views/signup.html');
