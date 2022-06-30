@@ -19,10 +19,8 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-mongoose.connect("mongodb+srv://admin-cdac:Admin@cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
-
-
-
+mongoose.connect("mongodb://localhost/cdac");
+// mongoose.connect("mongodb+srv://cdac:cdac2022@cluster0.cvr5pyu.mongodb.net/?retryWrites=true&w=majority");
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
@@ -54,18 +52,6 @@ app.get("/",(req, res) => {
     res.render('index.ejs')
 })
 
-//ABOUTUSPAGE
-app.get("/about", function(req, res) {
-    // res.sendFile(__dirname + '/views/admin_cdac.html');
-    res.render('about.ejs');
-});
-
-//CONTACTUSPAGE
-app.get("/contact", function(req, res) {
-    // res.sendFile(__dirname + '/views/admin_cdac.html');
-    res.render('contact.ejs');
-});
-
 //ADMINLOGIN
 app.get("/admin_cdac", function(req, res) {
     // res.sendFile(__dirname + '/views/admin_cdac.html');
@@ -91,7 +77,6 @@ app.post("/signup", function(req, res) {
             } else {
                 req.flash("error", "A user with the given username is already registered");
             }
-            // res.send('ulululu');
             res.redirect("/signup");
         } else {
           passport.authenticate('local')(req, res, function() {
