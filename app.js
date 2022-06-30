@@ -54,6 +54,18 @@ app.get("/",(req, res) => {
     res.render('index.ejs')
 })
 
+//ABOUTUSPAGE
+app.get("/about", function(req, res) {
+    // res.sendFile(__dirname + '/views/admin_cdac.html');
+    res.render('about.ejs');
+});
+
+//CONTACTUSPAGE
+app.get("/contact", function(req, res) {
+    // res.sendFile(__dirname + '/views/admin_cdac.html');
+    res.render('contact.ejs');
+});
+
 //ADMINLOGIN
 app.get("/admin_cdac", function(req, res) {
     // res.sendFile(__dirname + '/views/admin_cdac.html');
