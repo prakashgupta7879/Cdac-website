@@ -1,0 +1,252 @@
+[33mcommit d800b9e1e56884caf2beee79206149cab5617ee5[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Thu Jun 30 19:40:36 2022 +0530
+
+    added about & contact us pages
+
+[33mcommit ad69bc208502250ffcb4538e7a1d4e106f3b7443[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Thu Jun 30 13:36:28 2022 +0530
+
+    connected to mongoDB atlas
+
+[33mcommit fbd941944890d0bb08d1f1174e049ed1d3f9ad81[m
+Author: Ankita Jhanwar <ankitajhanwar991@gmail.com>
+Date:   Wed Jun 29 23:24:15 2022 +0530
+
+    added alert messages
+
+[33mcommit 597aab8926bbda51d11edc6cd0f1edc5ae334899[m
+Merge: f93d344 d298dfe
+Author: Ankita Jhanwar <ankitajhanwar991@gmail.com>
+Date:   Wed Jun 29 21:47:52 2022 +0530
+
+    Merge branch 'main' of https://github.com/RituKapur-Developer/Website-Development-for-CDAC
+
+[33mcommit f93d3447354a53dc5e347a90a5141a4697e700f8[m
+Author: Ankita Jhanwar <ankitajhanwar991@gmail.com>
+Date:   Wed Jun 29 21:47:33 2022 +0530
+
+    modified
+
+[33mcommit d298dfe3ec179f2d7b92961f38e19ea09a2cf5d9[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Wed Jun 29 21:10:08 2022 +0530
+
+    admin login route added
+
+[33mcommit 2be15290bfb990a41f3bcdb90be49352eb44692c[m
+Merge: 6bf3a4f be2450b
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Wed Jun 29 20:31:09 2022 +0530
+
+    Merge branch 'main' of https://github.com/RituKapur-Developer/Website-Development-for-CDAC
+
+[33mcommit be2450b151772f1164ffacdaac9a03c5b068a252[m
+Author: Keerthi Satya Sai Sundar <80591471+sundar68@users.noreply.github.com>
+Date:   Tue Jun 21 23:29:37 2022 +0530
+
+    Update README.md
+
+[33mcommit 6bf3a4fa8068c9b19967b0b32596058994ef7c52[m
+Merge: 818fa21 eea5927
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Fri Jun 17 22:45:36 2022 +0530
+
+    Merge branch 'main' of https://github.com/RituKapur-Developer/Website-Development-for-CDAC
+
+[33mcommit 818fa218c070f0cf654c136bb052d847a9d417b0[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Fri Jun 17 22:42:05 2022 +0530
+
+    commit
+
+[33mcommit eea5927d6100b6f9767c707f3747712586a8163c[m
+Merge: ca1a763 34b83b5
+Author: Ankita Jhanwar <ankitajhanwar991@gmail.com>
+Date:   Fri Jun 17 22:39:58 2022 +0530
+
+    login and signup backend added
+
+[33mcommit 34b83b591e98218ff2c33fd76d0863c9601a0053[m
+Merge: e5cc7f4 3a74caa
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Fri Jun 17 19:12:58 2022 +0530
+
+    Merge https://github.com/RituKapur-Developer/Website-Development-for-CDAC
+
+[33mcommit e5cc7f4e8dddb93fd8b10ed2f8dd3dd262c0f3b0[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Fri Jun 17 19:06:29 2022 +0530
+
+    commit
+
+[33mcommit 3a74caa2ef4e73798b01f2cb87ce0fce1c877f85[m
+Merge: 6c44f39 d783735
+Author: Kaustubh Patil <63522187+kausti18@users.noreply.github.com>
+Date:   Fri Jun 17 19:01:51 2022 +0530
+
+    Merge pull request #1 from robinanand000/main
+    
+    added dropdown
+
+[33mcommit ca1a763b936a6a32bca5c6c094f2b1822cf7ece1[m
+Author: Ankita Jhanwar <ankitajhanwar991@gmail.com>
+Date:   Fri Jun 17 18:23:42 2022 +0530
+
+    login and signup form for course instructor backend
+
+[33mcommit d7837355e19cfcbae9396ae49c59d6bdabe21965[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Fri Jun 17 18:23:11 2022 +0530
+
+    added dropdown
+
+[33mcommit 6c44f393284f90ef48a52f34ee19f19372d9b719[m
+Merge: 510bd36 57d8078
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Thu Jun 16 19:42:21 2022 +0530
+
+    Merge branch 'main' of https://github.com/RituKapur-Developer/Website-Development-for-CDAC
+
+[33mcommit 510bd36dc7753199e039a2023c689164941976c3[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Thu Jun 16 19:38:18 2022 +0530
+
+    node and express is added
+
+[33mcommit 57d8078bf05cfd0519673dde94b0f4e157ccabd4[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Thu Jun 16 00:25:25 2022 +0530
+
+    Delete style.css
+
+[33mcommit 7b25a9202c48a9b53fe25817757d634f3f8237ef[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Thu Jun 16 00:25:16 2022 +0530
+
+    Delete reg.html
+
+[33mcommit 08898ddd16797ef960ca0c19b29b0c3992194f41[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Thu Jun 16 00:25:07 2022 +0530
+
+    Delete index.html
+
+[33mcommit 1ab617d478324c89ce808c1a667c197ca93a86f0[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Thu Jun 16 00:24:50 2022 +0530
+
+    Delete Stc/images directory
+
+[33mcommit a87df454479e77acf78a350e663497f49ccd0de5[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Thu Jun 16 00:24:18 2022 +0530
+
+    Delete captcha.php
+
+[33mcommit 1f88d41006ad01f164aa1d387f4a7c08c358d769[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Wed Jun 15 21:39:27 2022 +0530
+
+    Added ReadMD
+
+[33mcommit d508dc128eaa1cdf86407da193594b255840f149[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Wed Jun 15 21:29:13 2022 +0530
+
+    Added CSS to Login and signUp Form
+
+[33mcommit 63ef3ab957d42554e676bd5db2e9d66dfe970371[m
+Author: kausti18 <kaustubh_ug@ece.nits.ac.in>
+Date:   Wed Jun 15 01:27:45 2022 +0530
+
+    added login and signup and form validation
+
+[33mcommit 6c812af78ee70a0731ebf74524cc29bedbb40cbb[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Tue Jun 14 15:38:20 2022 +0530
+
+    Add files via upload
+    
+    Saperate files for Log in and Sign up page
+
+[33mcommit b333c1f2f8d1a47548e0046e5f58db6865fe903d[m
+Author: prakashgupta7879 <86587821+prakashgupta7879@users.noreply.github.com>
+Date:   Tue Jun 14 15:36:25 2022 +0530
+
+    Add files via upload
+    
+    STC registration page
+
+[33mcommit d1d177a8db4ff894b762c5a0833fce6aaa204c99[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:08:43 2022 +0530
+
+    Home
+
+[33mcommit b3a3248751eea42724770dc2de42887d386f35ed[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:48 2022 +0530
+
+    Delete Project-CDAC/Home directory
+
+[33mcommit 9fca4059bedd5e4fa985f85c38cd48ff26205466[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:34 2022 +0530
+
+    Delete contact.jpg
+
+[33mcommit f8cec3252f413139c6f27540e7381b09fc4f5903[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:26 2022 +0530
+
+    Delete bg3.jpg
+
+[33mcommit 6394ad922f07b8747d39b8e765af75f89880cc0e[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:19 2022 +0530
+
+    Delete index.html
+
+[33mcommit 61e4fbd03e27bd767f96c6ad0ff32acf4acc6f69[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:11 2022 +0530
+
+    Delete script.js
+
+[33mcommit 606257c63007d3212c02b0ef15d001c910e800f1[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:07:05 2022 +0530
+
+    Delete bg2.jpg
+
+[33mcommit b52f2c15a4b2df449d734d0aa122f868c3a24b1c[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:06:58 2022 +0530
+
+    Delete style.css
+
+[33mcommit 59d47b780252a0744b1c96005dde9597301f62e6[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:06:50 2022 +0530
+
+    Delete bg1.jpg
+
+[33mcommit aff6c65e2a8ce9374d3cf7dc02022baaa2b3f809[m
+Author: Robins Anand <107298444+robinanand000@users.noreply.github.com>
+Date:   Tue Jun 14 15:04:04 2022 +0530
+
+    uploading to folders
+
+[33mcommit b84369e0478ea545c3532a2b8cf82cbd1192e4ce[m
+Author: robinanand000 <107298444+robinanand000@users.noreply.github.com>
+Date:   Sun Jun 12 03:54:45 2022 +0530
+
+    Add files via upload
+
+[33mcommit f900d01d7e3e27fa2e7510d2bd21dd8f63b1be87[m
+Author: Dr. Ritu Kapur <dev.ritu.kapur@gmail.com>
+Date:   Sat Jun 11 13:03:48 2022 +0530
+
+    Initial commit

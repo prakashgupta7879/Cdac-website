@@ -19,8 +19,10 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-mongoose.connect("mongodb://localhost/cdac");
-// mongoose.connect("mongodb+srv://cdac:cdac2022@cluster0.cvr5pyu.mongodb.net/?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+
+
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
@@ -84,7 +86,7 @@ app.post("/signup", function(req, res) {
             req.flash("success", "Registered successfully!!");
             // res.send();
             // res.sendFile(__dirname + '/views/index.html');
-              res.redirect('/');
+              res.redirect('/dash_index');
           });
         }
     });
@@ -97,7 +99,7 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", passport.authenticate("local", {
-        successRedirect: "/",
+        successRedirect: "/dash_index",
         failureRedirect: "/login"
     }), function(req, res) {
       console.log(res);
@@ -113,6 +115,35 @@ app.get('/logout', function(req, res, next) {
   });
 });
 
+//ABOUT US
+app.get('/about', function (req,res) {
+  res.render('about.ejs');
+})
+
+//CONTACT US
+app.get('/contact', function (req,res) {
+  res.render('contact.ejs');
+})
+
+//COURSES
+app.get('/courses', function (req,res) {
+  res.render('courses.ejs');
+})
+
+//ABOUT COURSES
+app.get('/about_course', function (req,res) {
+  res.render('about_course.ejs');
+})
+
+//COURSES ENROLLED
+app.get('/enrolled_course', function (req,res) {
+  res.render('enrolled_course.ejs');
+})
+
+//STUDENT DASHBOARD
+app.get('/dash_index', function (req,res) {
+  res.render('dash_index.ejs');
+})
 
 //listen on port 3000
 app.listen(3000);

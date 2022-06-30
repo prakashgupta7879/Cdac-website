@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/courses.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header id="header">
+        <div class="logo">
+            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
+        </div>
+        <span class="right font2">Branch : CINE (CDAC in North-East), Silchar</span>
+    </header>
+
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="/">Home</a></li>
+                <li class="item"><a href="#" class="active">STC Registration</a></li>
+                <li class="item"><a href="#">Internships</a></li>
+                <li class="item dropdown"><a href="#">Adminstration</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item dropdown"><a href="#">Important Links</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="/about">About us</a></li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div id="navbar-right">
+
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type=" search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <% if(error && error.length>0) { %>
+      <div class="alert" style="background-color: red;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= error %></p>
+        </div>
+      </div>
+    <% } %>
+    <% if(success && success.length>0) { %>
+      <div class="alert" style="background-color: #0bff00;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= success %></p>
+        </div>
+      </div>
+    <% } %>
+
+
+    <div class="container">
+        <aside id="aside">
+            <ul class="aside-list">
+                <li class="aside-item active"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+                <li class="aside-item"><a href="/courses" class="font6"><div>Courses</div></a></li>
+                <li class="aside-item"><a href="/enrolled_course" class="font6"><div> Courses Enrolled</div></a></li>
+                <li class="aside-item"><a href="#" class="font6"><div>Upload your Institute ID Card</div></a></li>
+                <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
+                <li class="aside-item"><a href="#" class="font6"><div>Change Password</div></a></li>
+            </ul>
+        </aside>
+
+        <section id="section">
+            <div class="section-bar">
+                <strong class="font3">Welcome ROBINS ANAND..!</strong>
+                <div class="logout"><a href="/logout"><button class="btn-secondary logout-btn">Logout</button></a></div>
+            </div>
+            <h1 class="font1">Profile</h1>
+            <div class="profile">
+                <div class="info">
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Name (in BLOCK letters)</div>
+                        <div class="data">Anything</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Date of Birth</div>
+                        <div class="data">03-11-2000</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Highest Qualification</div>
+                        <div class="data">B.TECH</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Designation</div>
+                        <div class="data">WEB DEVELOPER</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Department</div>
+                        <div class="data">ECE</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Area of specialization/ Interest</div>
+                        <div class="data">WEB DEVELOPEMENT</div>
+                    </div>
+                    <div class="related-to">Institute/ Organization Details</div>
+                    <div class="info-row">
+                        <div class="data">Name</div>
+                        <div class="data">NIT SILCHAR</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Place</div>
+                        <div class="data">SILCHAR</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">State</div>
+                        <div class="data">ASSAM</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Nature</div>
+                        <div class="data">GOVT.</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Type</div>
+                        <div class="data">ENGINEERING</div>
+                    </div>
+                    <div class="related-to">Address for Corresspondence</div>
+                    <div class="info-row">
+                        <div class="data">Address</div>
+                        <div class="data">Address</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">State</div>
+                        <div class="data">State</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">District</div>
+                        <div class="data">District</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Pincode</div>
+                        <div class="data">100999</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        &nbsp;
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Phone No.</div>
+                        <div class="data">8877686777</div>
+                    </div>
+                    <hr>
+                    <div class="info-row">
+                        <div class="data">Email ID</div>
+                        <div class="data">example123@gmail.com</div>
+                    </div>
+                    <hr>
+                    <button class="btn-secondary">Edit & Update</button>
+                </div>
+                <div class="photo">
+                    <img src="img/photo.png" alt="No Photo Available">
+                    <div class="change">
+                        <a href="#" class="font3">Upload Photo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="contact-logo">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="other-links">
+            <p class="presskit-links font6">
+                <a href="#" class="copyrights">Website Policies</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Copyright Policy</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Terms &amp; Conditions </a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Help</a>
+                <span class="copyrights">|</span>
+                <span class="copyrights">© 2022</span>
+                <span class="copyrights"> C-DAC. All rights reserved</span>
+                <span class="copyrights">|</span>
+                <span id="LastUpdated" class="copyrights">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
+                <br>
+                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
+            </p>
+        </div>
+    </footer>
+
+    <style>
+    .alert {
+      padding: 5px;
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
+
+</body>
+
+</html>
