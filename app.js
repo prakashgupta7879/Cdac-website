@@ -19,8 +19,10 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-mongoose.connect("mongodb://localhost/cdac");
-// mongoose.connect("mongodb+srv://cdac:cdac2022@cluster0.cvr5pyu.mongodb.net/?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://admin-cdac:Admin@cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+
+
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
