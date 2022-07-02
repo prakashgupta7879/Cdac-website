@@ -10,6 +10,12 @@ var mongoose = require('mongoose');
 var Faculty = require('./modules/faculty.js');
 var flash=require('connect-flash');
 
+//ADMIN BRO
+const adminRouter = require('./src/routers/admin.router')
+app.use('/admin', adminRouter)
+
+
+
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
@@ -20,7 +26,6 @@ app.use(require('express-session')({
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
-
 
 
 
@@ -44,15 +49,21 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+
 //Static  Files
 app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
 
+
 app.get("/",(req, res) => {
     // res.sendFile(__dirname + '/views/index.html')
     res.render('index.ejs')
 })
+
+
+
 
 //ADMINLOGIN
 app.get("/admin_cdac", function(req, res) {
