@@ -36,8 +36,8 @@
     <nav id="navbar">
         <div id="navbar-items">
             <ul>
-                <li class="item"><a href="index.html" class="active">Home</a></li>
-                <li class="item"><a href="#">About us</a></li>
+                <li class="item"><a href="/" class="active">Home</a></li>
+                <li class="item"><a href="/about">About us</a></li>
                 <li class="item dropdown"><a href="#">Adminstration</a>
                     <div class="dropdown-content">
                         <a href="#">Link 1</a>
@@ -53,10 +53,11 @@
                         <a href="#">Link 3</a>
                     </div>
                 </li>
-                <li class="item"><a href="#">Contact Us</a></li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
             </ul>
         </div>
         <div id="navbar-right">
+          <% if(!currentUser) { %>
             <div class="navbar-login">
                 <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
                 <div id="myDropdown" class="dropdown-cnt">
@@ -65,11 +66,15 @@
                   </div>
                 <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
                 <div id="myDropdown2" class="dropdown-cnt">
-                    <a href="/login" onclick="document.location.href='/signup';">For Student</a>
-                    <a href="/login">For Co-ordinator</a>
+                    <a href="/signup" onclick="document.location.href='/signup';">For Student</a>
+                    <!-- <a href="/login">For Co-ordinator</a> -->
                   </div>
             </div>
-
+          <% } else { %>
+            <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
+                <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
+            </div>
+          <% } %>
             <form class="search-bar" role="search">
                 <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
@@ -97,14 +102,18 @@
     <form class="forms" action="/signup" method="POST">
       <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
       <h2 style="text-align: center;">Please Sign Up</h2> <br>
-      <label for="inputEmail" class="sr-only">Full Name</label>
-      <input type="text" id="inputText" class="inputs" name="username" placeholder="Full Name" required="" autofocus="">
+      <label for="inputEmail" class="sr-only">First Name</label>
+      <input type="text" id="inputText" class="inputs" name="firstname" placeholder="First Name" required="true" autofocus="">
+      <label for="inputEmail" class="sr-only">Last Name</label>
+      <input type="text" id="inputText" class="inputs" name="lastname" placeholder="Last Name" required="true" autofocus="">
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input type="text" id="inputText" class="inputs" name="username" placeholder="Username" required="true" autofocus="">
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="" autofocus="">
+      <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
+      <label for="inputEmail" class="sr-only">Mobile No.</label>
+      <input type="number" id="inputNumber" name="MobileNo" class="inputs" placeholder="Mobile No." required="" autofocus="">
       <label for="inputPassword" class="sr-only">Password</label>
       <input name="password" class="inputs" type="password" id="psw" name="psw" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-      <label for="inputPassword" class="sr-only">Re-Enter Password</label>
-      <input name="password1" class="inputs" type="password" id="psw" name="psw" placeholder="Re enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
       <div>
         <div>
             <div>
