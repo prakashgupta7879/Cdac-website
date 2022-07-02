@@ -7,8 +7,9 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
-var Faculty = require('./modules/faculty.js');
+var Student = require('./modules/student.js');
 var flash=require('connect-flash');
+var middlewareObj = require("./middleware/index.js");
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -33,9 +34,9 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(Faculty.authenticate()));
-passport.serializeUser(Faculty.serializeUser());
-passport.deserializeUser(Faculty.deserializeUser());
+passport.use(new LocalStrategy(Student.authenticate()));
+passport.serializeUser(Student.serializeUser());
+passport.deserializeUser(Student.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -67,9 +68,11 @@ app.get("/signup", function(req, res) {
 });
 
 app.post("/signup", function(req, res) {
-    var newUser = new Faculty({ username: req.body.username, email: req.body.email});
-    console.log(req.body);
-    Faculty.register(newUser, req.body.password, function(err, user) {
+  console.log(req.body);
+    var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
+    lastname: req.body.lastname, MobileNo: req.body.MobileNo});
+
+    Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
             // console.log(err);
             if(newUser.username.length == 0) {
@@ -82,11 +85,9 @@ app.post("/signup", function(req, res) {
             res.redirect("/signup");
         } else {
           passport.authenticate('local')(req, res, function() {
-            console.log("user");
             req.flash("success", "Registered successfully!!");
-            // res.send();
-            // res.sendFile(__dirname + '/views/index.html');
-              res.redirect('/dash_index');
+            // res.render("dash_index.ejs",{id: user._id.toString()});
+            res.redirect('/dash_index');
           });
         }
     });
@@ -99,20 +100,55 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", passport.authenticate("local", {
-        successRedirect: "/dash_index",
         failureRedirect: "/login"
     }), function(req, res) {
-      console.log(res);
+      console.log(req.body);
+      Student.find({username: req.body.username}, function(err,student){
+        if(err){
+          req.flash("error","Incorrect Username or Password.");
+          res.redirect("/login");
+        } else {
+          // res.render("dash_index.ejs");
+          res.redirect('/dash_index');
+        }
+      })
 });
 
 //LOGOUT
-app.get('/logout', function(req, res, next) {
+app.get('/logout', middlewareObj.isLoggedIn, function(req, res, next) {
     req.logout(function(err) {
       if (err) {
         return next(err);
       }
       res.redirect('/');
   });
+});
+
+//EDIT
+app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
+    Student.findById(req.user._id, function(err, student) {
+        if(err) {
+            req.flash("error", "Something went wrong");
+            res.redirect("/dash_index");
+        } else {
+            res.render("profile-edit", {student: student});
+        }
+    });
+});
+
+//UPDATE
+app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
+  console.log(req.body);
+    Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
+        if(err) {
+          // console.log(err);
+            req.flash("error","Something went wrong.");
+            res.redirect("/dash_index");
+        } else {
+            console.log(student);
+            res.redirect("/dash_index");
+        }
+    });
 });
 
 //ABOUT US
@@ -131,17 +167,17 @@ app.get('/courses', function (req,res) {
 })
 
 //ABOUT COURSES
-app.get('/about_course', function (req,res) {
+app.get('/about_course', middlewareObj.isLoggedIn, function (req,res) {
   res.render('about_course.ejs');
 })
 
 //COURSES ENROLLED
-app.get('/enrolled_course', function (req,res) {
+app.get('/enrolled_course', middlewareObj.isLoggedIn, function (req,res) {
   res.render('enrolled_course.ejs');
 })
 
 //STUDENT DASHBOARD
-app.get('/dash_index', function (req,res) {
+app.get('/dash_index', middlewareObj.isLoggedIn, function (req,res) {
   res.render('dash_index.ejs');
 })
 

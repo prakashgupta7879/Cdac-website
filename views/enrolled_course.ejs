@@ -62,6 +62,7 @@
 
 
     <div class="container">
+      <% if(currentUser) { %>
         <aside id="aside">
             <ul class="aside-list">
                 <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
@@ -72,7 +73,7 @@
                 <li class="aside-item"><a href="#" class="font6"><div>Change Password</div></a></li>
             </ul>
         </aside>
-
+      <% } %>
 
         <section id="course-section">
             <div class="section-bar">

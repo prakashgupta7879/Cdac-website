@@ -13,4 +13,4 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('Faculty', UserSchema);
+module.exports = mongoose.model('Student', UserSchema);

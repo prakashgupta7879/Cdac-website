@@ -14,6 +14,7 @@
 
     <!-- Icon libraray -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/courses.css">
 </head>
 
 <body>
@@ -92,7 +93,7 @@
 
         <section id="section">
             <div class="section-bar">
-                <strong class="font3">Welcome ROBINS ANAND..!</strong>
+                <strong class="font3">Welcome <%= currentUser.firstname %>!</strong>
                 <div class="logout"><a href="/logout"><button class="btn-secondary logout-btn">Logout</button></a></div>
             </div>
             <h1 class="font1">Profile</h1>
@@ -100,95 +101,95 @@
                 <div class="info">
                     <hr>
                     <div class="info-row">
-                        <div class="data">Name (in BLOCK letters)</div>
-                        <div class="data">Anything</div>
+                        <div class="data">Name</div>
+                        <div class="data"><%= currentUser.firstname %> <%= currentUser.lastname %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Date of Birth</div>
-                        <div class="data">03-11-2000</div>
+                        <div class="data"><%= currentUser.dob %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Highest Qualification</div>
-                        <div class="data">B.TECH</div>
+                        <div class="data"><%= currentUser.qualification %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Designation</div>
-                        <div class="data">WEB DEVELOPER</div>
+                        <div class="data"><%= currentUser.Designation %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Department</div>
-                        <div class="data">ECE</div>
+                        <div class="data"><%= currentUser.Department %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Area of specialization/ Interest</div>
-                        <div class="data">WEB DEVELOPEMENT</div>
+                        <div class="data"><%= currentUser.AreaOfSpecialization %></div>
                     </div>
                     <div class="related-to">Institute/ Organization Details</div>
                     <div class="info-row">
                         <div class="data">Name</div>
-                        <div class="data">NIT SILCHAR</div>
+                        <div class="data"><%= currentUser.Institute.name %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Place</div>
-                        <div class="data">SILCHAR</div>
+                        <div class="data"><%= currentUser.Institute.place %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">State</div>
-                        <div class="data">ASSAM</div>
+                        <div class="data"><%= currentUser.Institute.state %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Nature</div>
-                        <div class="data">GOVT.</div>
+                        <div class="data"><%= currentUser.Institute.nature %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Type</div>
-                        <div class="data">ENGINEERING</div>
+                        <div class="data"><%= currentUser.Institute.type %></div>
                     </div>
                     <div class="related-to">Address for Corresspondence</div>
                     <div class="info-row">
                         <div class="data">Address</div>
-                        <div class="data">Address</div>
+                        <div class="data"><%= currentUser.address %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">State</div>
-                        <div class="data">State</div>
+                        <div class="data"><%= currentUser.state %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">District</div>
-                        <div class="data">District</div>
+                        <div class="data"><%= currentUser.district %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Pincode</div>
-                        <div class="data">100999</div>
+                        <div class="data"><%= currentUser.pincode %></div>
                     </div>
                     <hr>
-                    <div class="info-row">
+                    <!-- <div class="info-row">
                         &nbsp;
-                    </div>
-                    <hr>
+                    </div> -->
+                    <!-- <hr> -->
                     <div class="info-row">
                         <div class="data">Phone No.</div>
-                        <div class="data">8877686777</div>
+                        <div class="data"><%= currentUser.MobileNo %></div>
                     </div>
                     <hr>
                     <div class="info-row">
                         <div class="data">Email ID</div>
-                        <div class="data">example123@gmail.com</div>
+                        <div class="data"><%= currentUser.email %></div>
                     </div>
                     <hr>
-                    <button class="btn-secondary">Edit & Update</button>
+                    <a href="/dash_index/edit"><button class="btn-secondary">Edit Profile</button></a>
                 </div>
                 <div class="photo">
                     <img src="img/photo.png" alt="No Photo Available">
