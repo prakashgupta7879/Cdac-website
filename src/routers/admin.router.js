@@ -6,13 +6,21 @@ const mongoose = require('mongoose')
 
 AdminBro.registerAdapter(AdminBroMongoose)
 
+// const Faculty = mongoose.model('faculty',{
+//     username: String,
+//     password: String
+// })
+// const Studnent = mongoose.model('student',{
+//     username: String,
+//     password: String
+// })
 
 const adminBro = new AdminBro({
   databases: [mongoose],
   rootPath: '/admin',
   branding:{
     logo: 'https://upload.wikimedia.org/wikipedia/en/d/db/C-DAC_LogoTransp.png',
-    companyName: 'CDAC Silcchar',
+    companyName: 'CDAC Silchar',
   }
 })
 

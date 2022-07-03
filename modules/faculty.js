@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
+const AdminBroMongoose = require('admin-bro-mongoose')
+
+AdminBro.registerAdapter(AdminBroMongoose)
 
 var UserSchema = new mongoose.Schema({
     username: String,
@@ -13,4 +16,4 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('Student', UserSchema);
+module.exports = mongoose.model('Faculty', UserSchema);
