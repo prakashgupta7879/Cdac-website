@@ -6,7 +6,7 @@ AdminBro.registerAdapter(AdminBroMongoose)
 
 var UserSchema = new mongoose.Schema({
     username: String,
-    email: String,
+    // email: String,
     // facultyid: Number,
     // Department: String,
     // Designation: String,

@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Login</title>
     <!-- CSS Link -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Font styles -->
@@ -75,6 +74,7 @@
                 <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
             </div>
           <% } %>
+
             <form class="search-bar" role="search">
                 <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
                 <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
@@ -99,32 +99,27 @@
       </div>
     <% } %>
 
-    <form class="forms" action="/signup" method="POST">
-      <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
-      <h2 style="text-align: center;">Please Sign Up</h2> <br>
-      <label for="inputEmail" class="sr-only">First Name</label>
-      <input type="text" id="inputText" class="inputs" name="firstname" placeholder="First Name" required="true" autofocus="">
-      <label for="inputEmail" class="sr-only">Last Name</label>
-      <input type="text" id="inputText" class="inputs" name="lastname" placeholder="Last Name" required="true" autofocus="">
-      <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="inputText" class="inputs" name="username" placeholder="Username" required="true" autofocus="">
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
-      <label for="inputEmail" class="sr-only">Mobile No.</label>
-      <input type="number" id="inputNumber" name="MobileNo" class="inputs" placeholder="Mobile No." required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input name="password" class="inputs" type="password" id="psw" name="psw" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-      <div>
+    <form name="myForm" action="/login" class="forms" method="POST">
+        <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
+        <h2 style="text-align: center;">Faculty Login</h2> <br>
+        <label for="inputEmail" class="sr-only">Employee ID</label>
+        <input name="username" type="username" id="username" class="inputs" placeholder="Employee ID" required="" autofocus="">
+        <label for="password" class="sr-only">Password</label>
+        <!-- <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"> -->
+        <input placeholder="Password" name="password" class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <br>
+           <a href="#" class="forgotpsw">Forgot Password?</a> <br>
         <div>
+            <br>
             <div>
-                <input type="submit" value="Sign Up" class="submitbtn">
+                <input type="submit" value="Login" class="submitbtn">
             </div>
             <br>
-        </div>
-        <a class="links signUpNew" href="/login" target="_self">Existing User? Login</a>
-        <br>
-      </div>
-    </form>
+            <!-- <a class="links signUpNew" href="/signup" target="_self">New? Sign Up</a> -->
+        </div> <br>
+   </form>
+
+
 
     <!-- FOOTER -->
     <footer id="footer">
