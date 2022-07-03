@@ -3,7 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
     username: String,
-    email: String,
+    // email: String,
     // facultyid: Number,
     // Department: String,
     // Designation: String,
@@ -13,4 +13,4 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('Student', UserSchema);
+module.exports = mongoose.model('Faculty', UserSchema);

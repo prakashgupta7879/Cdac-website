@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var Student = require('./modules/student.js');
+var Faculty = require('./modules/faculty.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 
@@ -93,7 +94,7 @@ app.post("/signup", function(req, res) {
     });
 });
 
-//LOGIN
+//STUDENT LOGIN
 app.get("/login", function(req, res) {
     // res.sendFile(__dirname + '/views/login.html');
     res.render('login.ejs');
@@ -110,6 +111,26 @@ app.post("/login", passport.authenticate("local", {
         } else {
           // res.render("dash_index.ejs");
           res.redirect('/dash_index');
+        }
+      })
+});
+
+//FACULTY LOGIN
+app.get("/faculty-login", function(req, res) {
+    // res.sendFile(__dirname + '/views/login.html');
+    res.render('faculty-login.ejs');
+});
+
+app.post("/faculty-login", passport.authenticate("local", {
+        failureRedirect: "/faculty-login"
+    }), function(req, res) {
+      // console.log(req.body);
+      Faculty.find({username: req.body.username}, function(err,student){
+        if(err){
+          req.flash("error","Incorrect Username or Password.");
+          res.redirect("/faculty-login");
+        } else {
+          res.redirect('/');
         }
       })
 });
