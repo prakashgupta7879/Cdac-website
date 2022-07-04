@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
-const AdminBroMongoose = require('admin-bro-mongoose')
+// const AdminBroMongoose = require('admin-bro-mongoose')
 
-AdminBro.registerAdapter(AdminBroMongoose)
+// AdminBro.registerAdapter(AdminBroMongoose)
 
 var UserSchema = new mongoose.Schema({
     username: String,

@@ -13,8 +13,8 @@ var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 
 //ADMIN BRO
-const adminRouter = require('./src/routers/admin.router')
-app.use('/admin', adminRouter)
+// const adminRouter = require('./src/routers/admin.router')
+// app.use('/admin', adminRouter)
 
 
 
