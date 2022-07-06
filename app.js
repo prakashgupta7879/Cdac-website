@@ -12,11 +12,6 @@ var Faculty = require('./modules/faculty.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 
-//ADMIN BRO
-// const adminRouter = require('./src/routers/admin.router')
-// app.use('/admin', adminRouter)
-
-
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -43,6 +38,9 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
+passport.use(new LocalStrategy(Faculty.authenticate()));
+passport.serializeUser(Faculty.serializeUser());
+passport.deserializeUser(Faculty.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -59,19 +57,74 @@ app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
 
 
+//ADMIN
+app.get("/admin", function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('admin_cdac.ejs');
+});
+app.get("/adminRegister", function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('admin_cdac_register.ejs');
+});
+
+app.get("/view", function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('table.ejs');
+});
+app.get("/add", function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('form.ejs');
+});
+app.post("/add", function(req, res) {
+  console.log(req.body);
+    var newUser = new Faculty({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email});
+
+    Faculty.register(newUser, req.body.password, function(err, user) {
+        if(err) {
+            // console.log(err);
+            if(newUser.username.length == 0) {
+                req.flash("error", "Invalid Inputs");
+            } else if(req.body.password.length == 0) {
+                req.flash("error", "Invalid password");
+            } else {
+                req.flash("error", "A user with the given username is already registered");
+            }
+            res.redirect("/add");
+        } else {
+          passport.authenticate('local')(req, res, function() {
+            req.flash("success", "Registered successfully!!");
+            // res.render("dash_index.ejs",{id: user._id.toString()});
+            res.redirect('/');
+          });
+        }
+    });
+});
+
+//FACULTY LOGIN
+app.get("/faculty-login", function(req, res) {
+  // res.sendFile(__dirname + '/views/login.html');
+  res.render('faculty-login.ejs');
+});
+
+app.post("/faculty-login", passport.authenticate("local", {
+      failureRedirect: "/faculty-login"
+  }), function(req, res) {
+    console.log(req.body);
+    Faculty.find({username: req.body.username}, function(err,student){
+      if(err){
+        req.flash("error","Incorrect Username or Password.");
+        res.redirect("/faculty-login");
+      } else {
+        res.redirect('/');
+      }
+    })
+});
+
 app.get("/",(req, res) => {
     // res.sendFile(__dirname + '/views/index.html')
     res.render('index.ejs')
 })
 
-
-
-
-//ADMINLOGIN
-app.get("/admin_cdac", function(req, res) {
-    // res.sendFile(__dirname + '/views/admin_cdac.html');
-    res.render('admin_cdac.ejs');
-});
 
 //SIGNUP
 app.get("/signup", function(req, res) {
@@ -126,25 +179,7 @@ app.post("/login", passport.authenticate("local", {
       })
 });
 
-//FACULTY LOGIN
-app.get("/faculty-login", function(req, res) {
-    // res.sendFile(__dirname + '/views/login.html');
-    res.render('faculty-login.ejs');
-});
 
-app.post("/faculty-login", passport.authenticate("local", {
-        failureRedirect: "/faculty-login"
-    }), function(req, res) {
-      // console.log(req.body);
-      Faculty.find({username: req.body.username}, function(err,student){
-        if(err){
-          req.flash("error","Incorrect Username or Password.");
-          res.redirect("/faculty-login");
-        } else {
-          res.redirect('/');
-        }
-      })
-});
 
 //LOGOUT
 app.get('/logout', middlewareObj.isLoggedIn, function(req, res, next) {

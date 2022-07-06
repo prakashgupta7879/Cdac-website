@@ -23,81 +23,11 @@
 
 <body>
     <!-- HEADER -->
-    <header id="header">
-        <div class="logo">
-            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
-        </div>
-        <span class="right font2">Branch : Silchar</span>
-    </header>
+    <%- include('header'); -%>
 
 
     <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/" class="active">Home</a></li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="#">Internships</a></li>
-                <li class="item dropdown"><a href="#">Important Links</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div id="navbar-right">
-          <% if(!currentUser) { %>
-            <div class="navbar-login">
-                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
-                <div id="myDropdown" class="dropdown-cnt">
-                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
-                    <a href="/faculty-login">As Co-ordinator</a>
-                  </div>
-                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
-                <div id="myDropdown2" class="dropdown-cnt">
-                    <a href="/signup" onclick="document.location.href='/signup';">For Student</a>
-                    <!-- <a href="/login">For Co-ordinator</a> -->
-                  </div>
-            </div>
-          <% } else { %>
-            <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
-                <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
-            </div>
-          <% } %>
-
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
-
-    <% if(error && error.length>0) { %>
-      <div class="alert" style="background-color: red;">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <div style="font-size: larger;" class="alert alert-danger" role="alert">
-            <p style="text-align: center;"><%= error %></p>
-        </div>
-      </div>
-    <% } %>
-    <% if(success && success.length>0) { %>
-      <div class="alert" style="background-color: #0bff00;">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <div style="font-size: larger;" class="alert alert-danger" role="alert">
-            <p style="text-align: center;"><%= success %></p>
-        </div>
-      </div>
-    <% } %>
+    <%- include('navbar'); -%>
 
     <form name="myForm" action="/login" class="forms" method="POST">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
@@ -122,32 +52,7 @@
 
 
     <!-- FOOTER -->
-    <footer id="footer">
-        <div class="contact-logo">
-            <a href="#" class="fa fa-facebook"></a>
-            <a href="#" class="fa fa-linkedin"></a>
-            <a href="#" class="fa fa-twitter"></a>
-            <a href="#" class="fa fa-instagram"></a>
-        </div>
-        <div class="other-links">
-            <p class="presskit-links font1">
-                <a href="#" class="copyrights font1">Website Policies</a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Copyright Policy</a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Terms &amp; Conditions </a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Help</a>
-                <span class="copyrights font1">|</span>
-                <span class="copyrights font1">© 2022</span>
-                <span class="copyrights font1"> C-DAC. All rights reserved</span>
-                <span class="copyrights font1">|</span>
-                <span id="LastUpdated" class="copyrights font1">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
-                <br>
-                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
-            </p>
-        </div>
-    </footer>
+    <%- include('footer'); -%>
 
 
     <!-- SCRIPT LINK -->

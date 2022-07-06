@@ -44,7 +44,7 @@ var UserSchema = new mongoose.Schema({
       type: {
     type: String,
     default: ''
-}
+} 
     },
     address: {
     type: String,

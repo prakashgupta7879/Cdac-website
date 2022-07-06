@@ -23,12 +23,7 @@
 
 <body>
     <!-- HEADER -->
-    <header id="header">
-        <div class="logo">
-            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
-        </div>
-        <span class="right font2">Branch : Silchar</span>
-    </header>
+    <%- include('header'); -%>
 
 
     <!-- NAVIGATION BAR -->
@@ -100,33 +95,7 @@
 
 
     <!-- FOOTER -->
-    <footer id="footer">
-        <div class="contact-logo">
-            <a href="#" class="fa fa-facebook"></a>
-            <a href="#" class="fa fa-linkedin"></a>
-            <a href="#" class="fa fa-twitter"></a>
-            <a href="#" class="fa fa-instagram"></a>
-        </div>
-        <div class="other-links">
-            <p class="presskit-links font1">
-                <a href="#" class="copyrights font1">Website Policies</a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Copyright Policy</a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Terms &amp; Conditions </a>
-                <span class="copyrights">|</span>
-                <a href="#" class="copyrights font1">Help</a>
-                <span class="copyrights font1">|</span>
-                <span class="copyrights font1">© 2022</span>
-                <span class="copyrights font1"> C-DAC. All rights reserved</span>
-                <span class="copyrights font1">|</span>
-                <span id="LastUpdated" class="copyrights font1">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
-                <br>
-                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
-            </p>
-        </div>
-    </footer>
-
+    <%- include('footer'); -%>
 
     <!-- SCRIPT LINK -->
     <script src="script.js"></script>
