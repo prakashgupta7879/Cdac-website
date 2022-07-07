@@ -2,8 +2,14 @@ var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
-    firstname: String,
-    lastname: String,
+    firstname: {
+    type: String,
+    default: ''
+},
+    lastname: {
+    type: String,
+    default: ''
+},
     dob: {
     type: String,
     default: ''
@@ -44,7 +50,7 @@ var UserSchema = new mongoose.Schema({
       type: {
     type: String,
     default: ''
-} 
+}
     },
     address: {
     type: String,
@@ -74,8 +80,38 @@ var UserSchema = new mongoose.Schema({
     type: String,
     default: ''
 },
-    password: String
-});
+    password: {
+    type: String,
+    default: ''
+},
+    usertype: {
+    type: String,
+    default: ''
+}
+}
+// faculty: {
+//   username: {
+//   type: String,
+//   default: ''
+// },
+//   firstname: {
+//   type: String,
+//   default: ''
+// },
+//   lastname: {
+//   type: String,
+//   default: ''
+// },
+//   email: {
+//   type: String,
+//   default: ''
+// },
+//   password: {
+//   type: String,
+//   default: ''
+// },
+// }
+);
 
 UserSchema.plugin(passportLocalMongoose);
 

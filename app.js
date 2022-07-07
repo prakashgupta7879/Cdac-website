@@ -9,9 +9,9 @@ var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var Student = require('./modules/student.js');
 var Faculty = require('./modules/faculty.js');
+var Course = require('./modules/courses.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
-
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -23,6 +23,7 @@ app.use(require('express-session')({
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+
 
 
 
@@ -38,9 +39,9 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
-passport.use(new LocalStrategy(Faculty.authenticate()));
-passport.serializeUser(Faculty.serializeUser());
-passport.deserializeUser(Faculty.deserializeUser());
+// passport.use(new LocalStrategy(Faculty.authenticate()));
+// passport.serializeUser(Faculty.serializeUser());
+// passport.deserializeUser(Faculty.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -49,19 +50,23 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
 //Static  Files
 app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
 
+//HOME PAGE
+app.get("/",(req, res) => {
+    // res.sendFile(__dirname + '/views/index.html')
+    res.render('index.ejs')
+})
 
 //ADMIN
 app.get("/admin", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('admin_cdac.ejs');
 });
+
 app.get("/adminRegister", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('admin_cdac_register.ejs');
@@ -71,15 +76,18 @@ app.get("/view", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('table.ejs');
 });
+
 app.get("/add", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('form.ejs');
 });
+
+//FACULTY SIGNUP
 app.post("/add", function(req, res) {
   console.log(req.body);
-    var newUser = new Faculty({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email});
+    var newUser = new Student({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, usertype: "faculty" });
 
-    Faculty.register(newUser, req.body.password, function(err, user) {
+    Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
             // console.log(err);
             if(newUser.username.length == 0) {
@@ -110,7 +118,7 @@ app.post("/faculty-login", passport.authenticate("local", {
       failureRedirect: "/faculty-login"
   }), function(req, res) {
     console.log(req.body);
-    Faculty.find({username: req.body.username}, function(err,student){
+    Student.find({username: req.body.username, usertype: "faculty"}, function(err,student){
       if(err){
         req.flash("error","Incorrect Username or Password.");
         res.redirect("/faculty-login");
@@ -120,13 +128,7 @@ app.post("/faculty-login", passport.authenticate("local", {
     })
 });
 
-app.get("/",(req, res) => {
-    // res.sendFile(__dirname + '/views/index.html')
-    res.render('index.ejs')
-})
-
-
-//SIGNUP
+//STUDENT SIGNUP
 app.get("/signup", function(req, res) {
     // res.sendFile(__dirname + '/views/signup.html');
     res.render('signup.ejs');
@@ -135,7 +137,7 @@ app.get("/signup", function(req, res) {
 app.post("/signup", function(req, res) {
   console.log(req.body);
     var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
-    lastname: req.body.lastname, MobileNo: req.body.MobileNo});
+    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student" });
 
     Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
@@ -168,7 +170,7 @@ app.post("/login", passport.authenticate("local", {
         failureRedirect: "/login"
     }), function(req, res) {
       console.log(req.body);
-      Student.find({username: req.body.username}, function(err,student){
+      Student.find({username: req.body.username, usertype: "student" }, function(err,student){
         if(err){
           req.flash("error","Incorrect Username or Password.");
           res.redirect("/login");
@@ -178,8 +180,6 @@ app.post("/login", passport.authenticate("local", {
         }
       })
 });
-
-
 
 //LOGOUT
 app.get('/logout', middlewareObj.isLoggedIn, function(req, res, next) {
@@ -192,7 +192,7 @@ app.get('/logout', middlewareObj.isLoggedIn, function(req, res, next) {
 });
 
 //EDIT
-app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
+app.get("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) {
     Student.findById(req.user._id, function(err, student) {
         if(err) {
             req.flash("error", "Something went wrong");
@@ -204,7 +204,7 @@ app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 });
 
 //UPDATE
-app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
+app.put("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) {
   console.log(req.body);
     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
         if(err) {
@@ -230,23 +230,84 @@ app.get('/contact', function (req,res) {
 
 //COURSES
 app.get('/courses', function (req,res) {
-  res.render('courses.ejs');
+  Course.find({}, function (err, courses) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      console.log("/////");
+      console.log(courses);
+      res.render('courses.ejs', {courses: courses});
+    }
+  })
 })
 
 //ABOUT COURSES
-app.get('/about_course', middlewareObj.isLoggedIn, function (req,res) {
-  res.render('about_course.ejs');
+app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
+  // console.log(req);
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      console.log(course);
+      res.render('about_course.ejs',{ course: course[0] });
+    }
+  })
 })
 
 //COURSES ENROLLED
-app.get('/enrolled_course', middlewareObj.isLoggedIn, function (req,res) {
+app.get('/enrolled_course', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('enrolled_course.ejs');
 })
 
 //STUDENT DASHBOARD
-app.get('/dash_index', middlewareObj.isLoggedIn, function (req,res) {
+app.get('/dash_index', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('dash_index.ejs');
 })
+
+//COURSE UPLOAD
+app.get('/course-upload', middlewareObj.isFacultyLoggedIn, function (req,res) {
+  res.render('course-upload');
+})
+
+app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) {
+    // var username;
+    var query = Course.find();
+    query.count(function (err, count) {
+      if (err) {
+          console.log(err);
+          req.flash("error", "Something went wrong");
+          res.redirect('/course-upload');
+      }
+      else {
+        var c = count+1;
+        var username = c.toString();
+        var name = req.body.name;
+        var syllabus = req.body.syllabus;
+        var description = req.body.description;
+        var duration = req.body.duration;
+        var instructor = {
+          name: req.body.instructor_name,
+          designation: req.body.instructor_designation,
+          college : req.body.instructor_college
+        };
+        var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
+        console.log(newCourse);
+        Course.create(newCourse, function(err, allCourse) {
+            if(err) {
+                console.log(err);
+                req.flash("error", "Something went wrong");
+                res.redirect('/course-upload');
+            } else {
+                console.log(allCourse);
+                req.flash("success", "Course uploaded successfully.");
+                res.redirect("/courses");
+            }
+        });
+      }
+    });
+});
 
 //listen on port 3000
 app.listen(3000);

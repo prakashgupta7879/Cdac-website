@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Course</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="/css/courses.css">
 
     <!-- Font styles -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -36,14 +36,7 @@
     <section id="course-section1">
         <div class="course-section1-content">
             <span class="font5">About this Course</span>
-            <p class="font5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid odio pariatur inventore ratione quidem
-                expedita doloribus vitae doloremque esse, labore facere dolorem ducimus laboriosam corrupti quis, rerum,
-                delectus tempora molestiae saepe dicta repellat obcaecati magni asperiores cumque? Quas temporibus nulla
-                quam minima distinctio? Possimus repellendus consectetur aspernatur ad. Unde expedita facere commodi
-                nemo et, veniam accusantium vitae vel. Maxime facere id at impedit aliquam, minima, modi eligendi
-                accusamus soluta provident magnam optio facilis consequuntur aliquid maiores et assumenda quasi, commodi
-                voluptatibus rerum officia quis. Quibusdam, consequuntur nihil? Nesciunt, enim sint ducimus ipsam
-                mollitia vel quos totam. Fugiat illum cupiditate accusamus!</p>
+            <p class="font5"><%= course.description %></p>
         </div>
         <div class="product-glance">
             <div class="product-glance-item">
@@ -58,7 +51,7 @@
                     </svg></div>
                 <div class="productglance-content">
                     <div class="sub font1"><span>Course Duration</span></div>
-                    <div class="font5">Jul-Oct  2022</div>
+                    <div class="font5"><%= course.duration %></div>
                 </div>
             </div>
             <div class="product-glance-item">
@@ -134,28 +127,19 @@
     <section id="course-section2">
         <span id="head" class="font5">Instructor</span>
         <div class="instructor-data">
-            <img src="img/photo2.png" alt="Not Available">
+            <img src="/img/photo2.png" alt="Not Available">
             <div class="data font5">
-                <span id="head2">Dr. Bruce Banner</span>
-                <span>Assistant Professor</span>
-                <span>Faculty of NIT Silchar</span>
-                <span>1 course</span>
+                <span id="head2"><%= course.instructor.name %></span>
+                <span><%= course.instructor.designation %></span>
+                <span><%= course.instructor.college %></span>
+                <!-- <span>1 course</span> -->
             </div>
         </div>
     </section>
-
     <section id="course-section3">
         <span class="font5">Syllabus - What you will learn from this Course</span>
         <div class="syllabus font5">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi accusantium non itaque ab quisquam modi
-            temporibus fugiat, dolorum minima, repudiandae quam. Molestias eius deleniti, voluptates quis blanditiis
-            unde pariatur ipsam adipisci soluta nemo sapiente saepe necessitatibus labore doloribus quae architecto
-            laudantium! Officia aperiam officiis exercitationem ducimus provident. Facere beatae quidem quia. Fugiat
-            incidunt a perferendis delectus ipsum accusamus, eum repudiandae reiciendis quaerat ipsa animi sed dicta
-            dolorem ea esse eos corrupti enim, sunt et beatae alias autem maxime. A suscipit voluptas, rerum, vel velit
-            quaerat provident laboriosam expedita repellendus quibusdam tempora veritatis. Rem ab, consequatur facere
-            mollitia quae nemo illum!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus quibusdam ipsam iste aperiam dolore vel quis suscipit laudantium. Accusantium assumenda atque magnam pariatur sint nulla aliquid saepe quidem incidunt quis! Aliquid consequuntur, voluptatum at, repellat hic iure, perferendis excepturi exercitationem sequi cupiditate tenetur impedit veritatis nam atque repudiandae maiores recusandae eaque nulla omnis expedita ratione aspernatur itaque earum? Ducimus ipsa voluptas voluptatem assumenda dicta veniam blanditiis ratione, ab vero modi atque velit laborum sapiente quod qui nobis nisi, laudantium facere dolorum praesentium fuga corporis? Nesciunt consequatur earum eius sit, amet odit optio praesentium. Animi incidunt nulla, aspernatur ad tenetur accusamus?
+          <%= course.syllabus %>
         </div>
     </section>
 
@@ -170,7 +154,7 @@
             <p>You can share your Course Certificates in the Certifications section of your LinkedIn profile, on printed resumes, CVs, or other documents.</p>
         </div>
         <div class="cert-img">
-            <img src="img/cert.jpg" alt="Not Available">
+            <img src="/img/cert.jpg" alt="Not Available">
         </div>
     </section>
 
@@ -214,14 +198,6 @@
             </ul>
         </div>
     </section>
-
-
-
-
-
-
-    <!-- FOOTER -->
-    <%- include('footer'); -%>
 
     <!-- SCRIPT LINK -->
     <script src="js/courses.js"></script>
