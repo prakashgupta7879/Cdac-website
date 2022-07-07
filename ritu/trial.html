@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDAC Silchar</title>
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="trial.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    
+    <!-- HEADER -->
+    <header id="header">
+        <div class="logo">
+            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
+        </div>
+        <span class="right font2">Branch : CINE (CDAC in North-East), Silchar</span>
+    </header>
+
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="#" class="active">Home</a></li>
+                <li class="item"><a href="/about">About us</a></li>
+                <li class="item dropdown"><a href="#">Administration</a>
+                    <div class="dropdown-content">
+                        <a href="#">Project Head</a>
+                        <a href="#">Students</a>
+                        <a href="#">Interns</a>
+                    </div>
+                </li>
+                <li class="item"><a href="#">Internships</a></li>
+                <li class="item dropdown"><a href="#">Important Links</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+
+        <div id="navbar-right">
+            <div class="navbar-login">
+                <button class="btn-secondary dropbtn" onclick="dropdownbtn()"  type="button">Login</button>
+                <div id="myDropdown" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/login">As Co-ordinator</a>
+                  </div>
+                <button class="btn-secondary" onclick="document.location.href='/signup';" type="button">Sign Up</button>
+            </div>
+
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <div id="container">
+        <div id="aside">
+            <!-- here added -->
+            <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <!-- <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i><h1>COORDINATOR PROFILE </h1></h3> -->
+                <h2>COORDINATOR Profile </h2>
+            </a>
+            <div class="d-flex align-items-center ms-4 mb-4">
+                <div class="position-relative">
+                    <img class="rounded-circle" src="ritu.jpg" alt="" style="width: 80px; height: 80px;">
+                    <div
+                        class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <h6 class="mb-0">
+                        <h2>Dr.Ritu Kapur</h2>
+                    </h6>
+                    <span><b>Admin</b></span>
+                </div>
+            </div>
+            <ul class="aside-list">
+                <li class="aside-item active"><a href="#" class="font4"><b>Name</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Designation</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Department</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Do You want to offer a new course?</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Edit profile</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>View Profile</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Courses uploaded list</b></a></li>
+                <li class="aside-item"><a href="#" class="font4"><b>Change Password</b></a></li>
+            </ul>
+        </div>
+        <!-- here also added -->
+        <div id="section">
+           
+            <div class="container2">
+              
+                <form id="contact" action="" method="post">
+                    <h1 class="font2"><b>Offer a New course</b> </h1>
+                    <div class="row">
+                        <!-- first column -->
+                        <div class="column">
+                            <fieldset>
+                                <b>Course Name*</b> <input type="text" cols="42" rows="1" name="name" required
+                                    autofocus>
+                            </fieldset>
+                            <fieldset>
+                                <b> Department*</b><input type="text" name="fname" required autofocus>
+                            </fieldset>
+
+                            <fieldset>
+                                <b>Prerequisite *</b> <textarea name="" id="" cols="42" rows="5" required
+                                    autofocus></textarea>
+                            </fieldset>
+
+                            <fieldset>
+                                <b>Duration*</b><input type="text" name="time" onfocus="(this.type = 'time')" required
+                                    autofocus>
+                            </fieldset>
+                            <fieldset>
+                                <p><b>Upload Syllabus File</b></p>
+                                <input type="file" id="file" placeholder="Upload The Syllabus File" required>
+                            </fieldset>
+                            <!-- this is second column -->
+                        </div claass="column">
+                        <div>
+
+                            <fieldset>
+                                <b> Number of Lactures*</b> <input type="number" name="name" required autofocus>
+                            </fieldset>
+                            <fieldset>
+                                <b>Credits*</b> <input type="number" required autofocus>
+                            </fieldset>
+                            <fieldset>
+                                <b> Abstract(Brief about the course)*</b> <textarea name="" id="" cols="42" rows="5"
+                                    required autofocus></textarea>
+                            </fieldset>
+                            <fieldset>
+                                <b> Course offered for*</b> <input type="text" name="name" required autofocus>
+                            </fieldset>
+                            <fieldset>
+                                <p><b>Upload Tutorial Sheet</b></p>
+                                <input type="file" id="file" placeholder="Upload The Tutorial Sheet" required>
+                            </fieldset>
+                        </div>
+
+                    </div>
+                    <!-- submit button -->
+                    <fieldset>
+                        <button type="submit" id="button"><b>Submit Now</b></button>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+        <!-- HERE I AM ADDING COURSES -->
+        <div id="course-section">
+            <!-- <div class="section-bar">
+                <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
+                    <input type="text" placeholder="Search.." name="search2">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <div class="logout"><button class="btn-secondary logout-btn">Logout</button></div>
+            </div> -->
+            <h1 id="h1line">Courses offered</h1>
+            <div class="courses-list">
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+                <div class="course-card">
+                    <div class="card-content">
+                        <div id="card-name" class="clr font5 card-info">NOC: Wireless Communication and Networking</div>
+                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering
+                        </div>
+                        <div id="meta-data" class="card-info">
+                            <span class="font5 clr">Dr. Devendra Gurjar</span>
+                            <span class="font5 clr">NIT Silchar</span>
+                        </div>
+                    </div>
+                    <span class="btn3 font5"><a href="/about_course.html">Course Details</a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="contact-logo">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="other-links">
+            <p class="presskit-links font1">
+                <a href="#" class="copyrights">Website Policies</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Copyright Policy</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Terms &amp; Conditions </a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Help</a>
+                <span class="copyrights">|</span>
+                <span class="copyrights">© 2022</span>
+                <span class="copyrights"> C-DAC. All rights reserved</span>
+                <span class="copyrights">|</span>
+                <span id="LastUpdated" class="copyrights">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
+                <br>
+                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT LINK -->
+    <script src="trial.js"></script>
+
+</body>
+
+</html>
