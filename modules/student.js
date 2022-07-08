@@ -87,7 +87,21 @@ var UserSchema = new mongoose.Schema({
     usertype: {
     type: String,
     default: ''
-}
+},
+    courses : [
+      {
+          username: String,
+          name: String,
+          description: String,
+          syllabus: String,
+          duration: String,
+          instructor: {
+            name: String,
+            designation: String,
+            college: String,
+          }
+      }
+    ]
 }
 // faculty: {
 //   username: {

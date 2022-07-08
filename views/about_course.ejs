@@ -147,7 +147,9 @@
         <div class="course-enroll font5">
             <span>Start Learning Today</span>
             <a href="#">Financial aid available</a>
-            <button class="btn4">Enroll Now </button>
+            <form action="/<%= currentUser._id %>/course/<%= course._id %>" method="POST">
+              <button class="btn4">Enroll Now </button>
+            </form>
         </div>
         <div class="course-enroll-info font5">
             <span>Sharable on <strong>LinkedIn</strong></span>

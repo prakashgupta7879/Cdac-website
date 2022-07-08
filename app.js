@@ -67,7 +67,7 @@ app.get("/",(req, res) => {
 //   // res.sendFile(__dirname + '/admin/html/index.html');
 //   res.render('admin_cdac_register.ejs');
 // });
-// 
+//
 // app.post("/adminRegister", function(req, res) {
 //   // console.log(req.body);
 //     var newUser = new Student({ username: req.body.username, usertype: "admin" });
@@ -283,6 +283,10 @@ app.get('/courses', function (req,res) {
   })
 })
 
+app.get('/faculty-dash', function (req, res) {
+  res.render('trial');
+})
+
 //ABOUT COURSES
 app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
   // console.log(req.params.id);
@@ -291,7 +295,7 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-      console.log(course);
+      console.log(req.user);
       res.render('about_course.ejs',{ course: course });
     }
   })
@@ -299,7 +303,13 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
 
 //COURSES ENROLLED
 app.get('/enrolled_course', middlewareObj.isStudentLoggedIn, function (req,res) {
-  res.render('enrolled_course.ejs');
+  Student.remove({username: 'hy'}, function(err,student) {
+    if(err) {
+      res.redirect('/');
+    } else {
+      res.render('enrolled_course');
+    }
+  })
 })
 
 //STUDENT DASHBOARD
@@ -349,6 +359,31 @@ app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) 
     //   }
     // });
 });
+
+//ENROLL COURSE
+app.post('/:id/course/:courseid', function (req, res) {
+  Student.findById(req.params.id, function(err, student) {
+        if(err) {
+            req.flash("error", "Something went wrong");
+            res.redirect("/courses");
+        } else {
+            Course.findById(req.params.courseid, function (err, course) {
+                if(err) {
+                    req.flash("error", "Something went wrong");
+                    res.redirect('/courses');
+                } else {
+                    // console.log("%%%%%%%%%%%%%%");
+                    // console.log(course);
+                    // console.log("%%%%%%%%%%%%%%");
+                    student.courses.push(course);
+                    student.save();
+                    res.redirect("/about_course/" + req.params.courseid);
+                }
+            });
+        }
+    });
+})
+
 
 //listen on port 3000
 app.listen(3000);
