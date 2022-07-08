@@ -12,6 +12,7 @@ var Faculty = require('./modules/faculty.js');
 var Course = require('./modules/courses.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
+const {v4 : uuidv4} = require('uuid');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -244,14 +245,14 @@ app.get('/courses', function (req,res) {
 
 //ABOUT COURSES
 app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
-  // console.log(req);
-  Course.find({ username: req.params.id }, function (err, course) {
+  // console.log(req.params.id);
+  Course.findById(req.params.id, function (err, course) {
     if(err) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
       console.log(course);
-      res.render('about_course.ejs',{ course: course[0] });
+      res.render('about_course.ejs',{ course: course });
     }
   })
 })
@@ -273,16 +274,16 @@ app.get('/course-upload', middlewareObj.isFacultyLoggedIn, function (req,res) {
 
 app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) {
     // var username;
-    var query = Course.find();
-    query.count(function (err, count) {
-      if (err) {
-          console.log(err);
-          req.flash("error", "Something went wrong");
-          res.redirect('/course-upload');
-      }
-      else {
-        var c = count+1;
-        var username = c.toString();
+    // var query = Course.find();
+    // query.count(function (err, count) {
+    //   if (err) {
+    //       console.log(err);
+    //       req.flash("error", "Something went wrong");
+    //       res.redirect('/course-upload');
+    //   }
+    //   else {
+        // var c = count+1;
+        var username = uuidv4();
         var name = req.body.name;
         var syllabus = req.body.syllabus;
         var description = req.body.description;
@@ -305,8 +306,8 @@ app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) 
                 res.redirect("/courses");
             }
         });
-      }
-    });
+    //   }
+    // });
 });
 
 //listen on port 3000
