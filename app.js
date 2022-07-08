@@ -63,28 +63,68 @@ app.get("/",(req, res) => {
 })
 
 //ADMIN
+// app.get("/adminRegister", function(req, res) {
+//   // res.sendFile(__dirname + '/admin/html/index.html');
+//   res.render('admin_cdac_register.ejs');
+// });
+// 
+// app.post("/adminRegister", function(req, res) {
+//   // console.log(req.body);
+//     var newUser = new Student({ username: req.body.username, usertype: "admin" });
+//
+//     Student.register(newUser, req.body.password, function(err, user) {
+//         if(err) {
+//             // console.log(err);
+//             if(newUser.username.length == 0) {
+//                 req.flash("error", "Invalid Inputs");
+//             } else if(req.body.password.length == 0) {
+//                 req.flash("error", "Invalid password");
+//             } else {
+//                 req.flash("error", "A user with the given username is already registered");
+//             }
+//             res.redirect("/add");
+//         } else {
+//           passport.authenticate('local')(req, res, function() {
+//             req.flash("success", "Registered successfully!!");
+//             // res.render("dash_index.ejs",{id: user._id.toString()});
+//             res.redirect('/add');
+//           });
+//         }
+//     });
+// });
+
 app.get("/admin", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('admin_cdac.ejs');
 });
 
-app.get("/adminRegister", function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('admin_cdac_register.ejs');
+app.post("/admin", passport.authenticate("local", {
+      failureRedirect: "/admin"
+  }), function(req, res) {
+    // console.log(req.body);
+    Student.find({username: req.body.username, usertype: "admin"}, function(err,admin){
+      if(err){
+        req.flash("error","Incorrect Username or Password.");
+        res.redirect("/admin");
+      } else {
+        // console.log(admin);
+        res.redirect('/add');
+      }
+    })
 });
 
-app.get("/view", function(req, res) {
+app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('table.ejs');
 });
 
-app.get("/add", function(req, res) {
+app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('form.ejs');
 });
 
 //FACULTY SIGNUP
-app.post("/add", function(req, res) {
+app.post("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
   console.log(req.body);
     var newUser = new Student({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, usertype: "faculty" });
 

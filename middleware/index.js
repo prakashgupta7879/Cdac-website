@@ -9,6 +9,16 @@ middlewareObj.isLoggedIn = function(req, res, next) {
     res.redirect("/login");
 }
 
+middlewareObj.isAdminLoggedIn = function(req, res, next) {
+  // console.log(req.headers.authorization);
+    if(req.isAuthenticated() && req.user.usertype == "admin") {
+        return next();
+    }
+    // console.log(req.user);
+    req.flash("error", "Unauthorized");
+    res.redirect("/");
+}
+
 middlewareObj.isStudentLoggedIn = function(req, res, next) {
   // console.log(req.headers.authorization);
     if(req.isAuthenticated() && req.user.usertype == "student") {
