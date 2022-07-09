@@ -1,0 +1,372 @@
+/* CSS Reset */
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+/* *::-webkit-scrollbar {
+    display: none;                 ***** TO REMOVE THE SCROLL BAR FROM SCREEN *****
+} */                                                
+
+/* HEADER */
+#header{
+    background-color: darkslategrey;
+    display: flex;
+    flex-direction: row;
+    padding: 30px 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.right{
+    color: whitesmoke; 
+}
+/* NAVIGATION BAR */
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    background-color: powderblue;
+    margin-top: 1px;
+    }
+#navbar-items{
+    margin-left: 1rem;
+}
+#navbar-items ul{
+    display: flex;
+}
+#navbar-items ul li{
+    list-style: none;
+    padding: 0.9rem 0.9rem;
+}
+#navbar-items ul li a{
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    color: darkgreen;
+    padding: 7px 9px;
+    font-size: medium;
+}
+#navbar-items ul li a:hover{
+    background-color: cadetblue;
+    border-radius: 3px;
+    transform: scale(1.06);
+    transition: all 0.4s;
+    color: whitesmoke;
+}
+#navbar-items ul li a.active{
+    background-color: darkslategrey;
+    border-radius: 3px;
+    transform: scale(1.07);
+    color: whitesmoke;
+}
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+.dropdown-content{
+    display: none;
+    z-index: 1;
+    position: absolute;
+    background-color: lightskyblue;
+    min-width: 140px;
+    border-radius: 4px;
+    animation-name: anime1;
+    animation-duration: 0.2s;
+    animation-timing-function:ease-in;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+}
+@keyframes anime1{
+    0%{
+        height: 0%;
+    }
+    100%{
+        height: 100px;
+    }
+}
+.dropdown-content a{
+    display: block;
+}
+.dropdown-content:hover{
+    background-color: skyblue;
+}
+#navbar-right{
+    display: flex;
+    margin-right: 2rem;
+}
+
+.search-bar{
+    margin: auto 0px;
+}
+.search-bar input{
+    padding: 7px 10px;
+    border: 2px solid white;
+    border-radius: 2px;
+    outline: none;
+}
+
+/* CONTAINER */
+.container{
+    display: flex;
+    height: 100%;
+    background-color: #f6f6f6;
+}
+
+/* CONTAINER - ASIDE */
+
+#aside{
+    height: 680px;
+    width: 25%;
+    /* background-color: yellow; */
+    margin: 2rem;
+}
+
+.aside-list{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
+}
+.aside-item{
+    border: 1px solid grey;
+    margin-top: -1px;
+    padding: 12px 28px;
+    background-color: lightsteelblue;
+}
+.aside-item:hover,.aside-item:hover a{
+    background-color: #007bb5;
+    color: white;
+}
+
+.aside-item a{
+    text-decoration: none;
+    color: black;
+}
+
+/*  CONTAINER - SECTION */
+
+#section{
+    grid-area: section;
+    height: 100%;
+    width: 75%;
+    margin-top: -1px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 2rem;
+    overflow: hidden;
+}
+#section h1{
+    text-align: center;
+    margin-top: 4px;
+}
+.section-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: lightsteelblue;
+    padding: 10px;
+}
+.logout{
+    margin-right: 2rem;
+}
+.logout-btn{
+    border: none;
+    padding: 7px 12px;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.photo{
+    /* background-color: #007bb5; */
+    width: 200px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 100%;
+}
+.photo img{
+    height: 15rem;
+    width: 200px;
+    margin: auto;
+}
+.change{
+    display: flex;
+    justify-content: center;
+    border-radius: 3px;
+    border: 1px solid grey;
+}
+.change a{
+    text-decoration: none;
+    padding: 2px 2px;
+    color: black;
+    font-size: 12px;
+}
+.change:hover,.change:hover a{
+    background-color: #007bb5;
+    color: white;
+}
+.info{
+    border-radius: 5px;
+    height: 100%;
+    margin-left: 2rem;
+    margin-top: 2px;
+    width: 100%;
+}
+.info-row{
+    display: flex;
+    flex-direction: row;
+}
+.related-to{
+    background-color: lightgrey;
+    padding: 6px;
+    font-family: 'Baloo Bhai 2', cursive;
+}
+.data{
+    width: 50%;
+    padding: 3px 10px;
+    font-family: 'Overpass', sans-serif;
+    
+}
+.info button{
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+}
+
+
+/* FOOTER */
+#footer{
+    height: 110px;
+    background-color: cadetblue;
+    color: black;
+    text-align: center;
+}
+.other-links{
+    margin-top: 5px;
+}
+.presskit-links{
+    color: white;
+    font-size: 0.9rem;
+}
+.copyrights{
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+}
+
+
+
+/* *******************  Utility Classes  ******************** */
+
+/* Fonts used */
+.font1{
+    font-family: 'Baloo Bhai 2', cursive;
+}
+.font2{
+    font-family: 'Ubuntu', sans-serif;
+}
+.font3{
+    font-family: 'Roboto Mono', monospace;
+}
+.font4{
+    font-family: 'Overpass', sans-serif;
+}
+.font5{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+/* external social icons */
+.fa {
+    padding: 6px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 12px 10px;
+    border-radius: 3px;
+}
+.fa:hover{
+    transform: scale(1.14);
+    transition: all 0.3s;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+.fa-linkedin {
+    background: #007bb5;
+    color: white;
+}
+.fa-instagram {
+    background: #8a3ab9;
+    color: white;
+}
+.fa-search{
+    background-color: transparent;
+    color: #007bb5;
+    transform: scale(1.06);
+    padding: 8px 2px;
+    margin: 2px 3px;
+}
+
+
+  /* Buttons */
+.btn-primary{
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.btn-primary:hover{
+    transform: scale(1.08);
+    transition: all 0.5s;
+}
+.btn-secondary{
+    border-radius: 3px;
+    outline: none;
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    border: 0px solid white;
+    background-color:steelblue ;
+    font-family: 'Ubuntu', sans-serif;
+}
+.btn-secondary:hover{
+    cursor: pointer;
+    transform: scale(1.07);
+    transition: all 0.5s;
+    background-color:#11397e ; 
+    color: white;   
+}
+
+
+
+
+/* ************************************************** CSS For Courses Page *************************************************** */
+
+/* COURSES-SECTION */
+#course-section{
+    height: 100%;
+    width: 75%;
+    margin-top: -1px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 2rem;
+    overflow: hidden;
+}
+.courses-list{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-gap: 2rem;
+    margin: 2rem;
+}
+.card{
+    height: 165px;
+    border: 2px solid black;
+}
+
+/*  */
