@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+Bhai+2:wght@600&family=Dancing+Script:wght@500&family=Lobster&family=Permanent+Marker&family=Ubuntu&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Glyphicon Icons -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+</head>
+
+<body>
+    <!-- HEADER -->
+    <%- include('header'); -%>
+
+
+    <!-- NAVIGATION BAR -->
+    <%- include('navbar'); -%>
+
+    <form name="myForm" action="/send-email" class="forms" method="POST">
+        <h3 style="text-align: center; padding-right: 2.59em;"><i class="fa fa-lock fa-4x"></i></h3>
+        <h2 style="text-align: center;">Forgot Password</h2> <br>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input name="email" type="email" id="username" class="inputs" placeholder="Email" required="" autofocus="">
+        <div>
+            <div>
+                <input type="submit" value="Send" class="submitbtn">
+            </div>
+        </div> <br>
+   </form>
+
+
+
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
+
+
+    <!-- SCRIPT LINK -->
+    <script src="script.js"></script>
+    <style>
+    .alert {
+      /* padding: 20px;
+      background-color: #f44336; /* Red */
+      /* color: white; */
+      /* margin-bottom: 15px; */
+      padding: 5px;
+      /* background-color: #0bff00; */
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
+</body>
+
+</html>

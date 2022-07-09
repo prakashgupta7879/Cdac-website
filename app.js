@@ -13,6 +13,7 @@ var Course = require('./modules/courses.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
+var nodemailer = require('nodemailer');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -239,6 +240,9 @@ app.get("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) 
             req.flash("error", "Something went wrong");
             res.redirect("/dash_index");
         } else {
+          console.log("/////");
+          console.log(student.password);
+          console.log("///");
             res.render("profile-edit", {student: student});
         }
     });
@@ -303,13 +307,7 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
 
 //COURSES ENROLLED
 app.get('/enrolled_course', middlewareObj.isStudentLoggedIn, function (req,res) {
-  Student.remove({username: 'hy'}, function(err,student) {
-    if(err) {
-      res.redirect('/');
-    } else {
-      res.render('enrolled_course');
-    }
-  })
+  res.render('enrolled_course');
 })
 
 //STUDENT DASHBOARD
@@ -381,6 +379,106 @@ app.post('/:id/course/:courseid', function (req, res) {
                 }
             });
         }
+    });
+})
+
+//SEND EMAIL
+app.get('/send-email', function (req, res) {
+  res.render('send-email');
+})
+
+app.post('/send-email', function (req, res) {
+  Student.find({ email: req.body.email }, function (err, student) {
+    if(err) {
+      req.flash("error","Invalid email.");
+      res.redirect('/send-email');
+    } else {
+      var transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+          user: 'c_dac@outlook.com',
+          pass: 'Cdac@2022'
+        }
+      });
+
+      var mailOptions = {
+        from: 'c_dac@outlook.com',
+        to: req.body.email,
+        subject: 'Reset Password link',
+        text: 'http://localhost:3000/reset-password'
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+          res.redirect('/login');
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.redirect('/send-email');
+        }
+      });
+    }
+  })
+});
+
+//RESET PASSWORD
+app.get('/reset-password', function (req, res) {
+  res.render('reset-password');
+})
+
+app.post('/reset-password', function (req, res) {
+    Student.find({username: req.body.username}, function (err, stud) {
+      if(err) {
+        req.flash("error","Please enter valid password.");
+        res.redirect('/reset-password');
+      } else {
+        // console.log(student);
+        var student = stud[0];
+        var newUser = {
+          username: student.username,
+          firstname: student.firstname,
+          lastname: student.lastname,
+          dob: student.dob,
+          qualification: student.qualification,
+          Designation: student.Designation,
+          Department: student.Department,
+          AreaOfSpecialization: student.AreaOfSpecialization,
+          Institute: student.Institute,
+          address: student.address,
+          state: student.state,
+          district: student.district,
+          pincode: student.pincode,
+          email: student.email,
+          MobileNo: student.MobileNo,
+          usertype: student.usertype,
+          courses: student.courses
+        };
+        // console.log("//////////");
+        // console.log(newUser);
+        // console.log("//////////");
+        Student.remove({ username: student.username }, function (err, student) {
+          if(err) {
+            console.log(err);
+            req.flash("error","Something went wrong.");
+            res.redirect('/reset-password');
+          } else {
+            console.log(student);
+            Student.register(newUser, req.body.password, function(err, user) {
+                if(err) {
+                  // console.log("//////////**********");
+                  // console.log(err);
+                  req.flash("error","Something went wrong.");
+                  res.redirect('/reset-password');
+                } else {
+                  passport.authenticate('local')(req, res, function() {
+                    req.flash("success", "Password changed successfully!!");
+                    res.redirect('/logout');
+                  });
+                }
+            });
+          }
+        })
+      }
     });
 })
 
