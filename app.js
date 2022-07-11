@@ -502,7 +502,6 @@ app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
       req.flash("error","Please enter valid password.");
       res.redirect('/change-password');
     } else {
-      // console.log(student);
       var student = stud[0];
       var newUser = {
         username: student.username,
