@@ -2,6 +2,7 @@
 const port = 3000;
 const express = require("express");
 const app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -14,6 +15,13 @@ var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
 var nodemailer = require('nodemailer');
+var MongoStore = require("connect-mongodb-session")(session);
+var auth = require('passport-local-authenticate');
+var multer = require("multer");
+var crypto = require("crypto");
+var path = require("path");
+const sharp = require('sharp');
+const fs = require('fs');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -24,7 +32,7 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+// mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
 
 
 
@@ -44,6 +52,57 @@ passport.deserializeUser(Student.deserializeUser());
 // passport.use(new LocalStrategy(Faculty.authenticate()));
 // passport.serializeUser(Faculty.serializeUser());
 // passport.deserializeUser(Faculty.deserializeUser());
+
+// IMAGE FILE STORAGE
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var upload = multer({
+  storage: storage,
+  fileFilter: fileFilter
+});
+
+// var storage=multer.memoryStorage({
+//     destination: function(req, file, callback) {
+//         callback(null, '');
+//     },
+//     filename: function(req, file, cb){
+//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// })
+//
+// var upload=multer({
+//     storage:storage,
+//     limits:{
+//         fileSize:1024*1024*5,
+//     },
+//     fileFilter: (req, file, cb) => {
+//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//           cb(null, true);
+//         } else {
+//           cb(null, false);
+//           return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+//         }
+//       }
+// }).single('image');
+
+// app.use(multer({ storage: fileStorage, fileFilter: filefilter }).single("image"));
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -116,7 +175,14 @@ app.post("/admin", passport.authenticate("local", {
 
 app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('table.ejs');
+  Student.find({usertype: "faculty"}, function (err, faculty) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('table',{faculty: faculty});
+    }
+  })
 });
 
 app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
@@ -179,7 +245,7 @@ app.get("/signup", function(req, res) {
 app.post("/signup", function(req, res) {
   console.log(req.body);
     var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
-    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student" });
+    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
 
     Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
@@ -194,6 +260,9 @@ app.post("/signup", function(req, res) {
             res.redirect("/signup");
         } else {
           passport.authenticate('local')(req, res, function() {
+            console.log(req);
+            console.log("/////////////");
+            console.log(user);
             req.flash("success", "Registered successfully!!");
             // res.render("dash_index.ejs",{id: user._id.toString()});
             res.redirect('/dash_index');
@@ -308,8 +377,8 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-      console.log(req.user);
-      res.render('about_course.ejs',{ course: course });
+        // console.log(req.user);
+        res.render('about_course.ejs',{ course: course });
     }
   })
 })
@@ -398,7 +467,7 @@ app.post('/:id/course/:courseid', function (req, res) {
                     // console.log("%%%%%%%%%%%%%%");
                     student.courses.push(course);
                     student.save();
-                    res.redirect("/about_course/" + req.params.courseid);
+                    res.redirect("/enrolled_course");
                 }
             });
         }
@@ -451,7 +520,7 @@ app.get('/reset-password', function (req, res) {
 
 app.post('/reset-password', function (req, res) {
     Student.find({username: req.body.username}, function (err, stud) {
-      if(err) {
+      if(err || req.body.password != req.body.password1) {
         req.flash("error","Please enter valid password.");
         res.redirect('/reset-password');
       } else {
@@ -505,6 +574,125 @@ app.post('/reset-password', function (req, res) {
     });
 })
 
+//CHANGE PASSWORD
+app.get('/change-password', middlewareObj.isLoggedIn, function (req, res) {
+  res.render('change-password');
+})
+
+app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
+  Student.find({username: req.body.username}, function (err, stud) {
+    if(err) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else if(req.body.password != req.body.password1 || stud[0].password != req.body.oldPassword || req.body.captcha != req.body.inputCaptcha) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else {
+      var student = stud[0];
+      var newUser = {
+        username: student.username,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        dob: student.dob,
+        qualification: student.qualification,
+        Designation: student.Designation,
+        Department: student.Department,
+        AreaOfSpecialization: student.AreaOfSpecialization,
+        Institute: student.Institute,
+        address: student.address,
+        state: student.state,
+        district: student.district,
+        pincode: student.pincode,
+        email: student.email,
+        MobileNo: student.MobileNo,
+        usertype: student.usertype,
+        courses: student.courses,
+        password: req.body.password
+      };
+      // console.log("//////////");
+      // console.log(newUser);
+      // console.log("//////////");
+      Student.remove({ username: student.username }, function (err, student) {
+        if(err) {
+          console.log(err);
+          req.flash("error","Something went wrong.");
+          res.redirect('/change-password');
+        } else {
+          console.log(student);
+          Student.register(newUser, req.body.password, function(err, user) {
+              if(err) {
+                // console.log("//////////**********");
+                // console.log(err);
+                req.flash("error","Something went wrong.");
+                res.redirect('/change-password');
+              } else {
+                passport.authenticate('local')(req, res, function() {
+                  req.flash("success", "Password changed successfully!!");
+                  res.redirect('/logout');
+                });
+              }
+          });
+        }
+      })
+    }
+  });
+})
+
+//UPLOAD INSTITUTE ID
+app.get('/upload-id', middlewareObj.isStudentLoggedIn, function (req, res) {
+  res.render('upload');
+})
+
+app.post("/upload-id", upload.single('image'), middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.Institute.id_card = imageUrl;
+    user.save();
+    req.flash("success", "Institute ID uploaded successfully.");
+    res.redirect("/upload-id");
+  });
+});
+
+//UPLOAD ADDRESS PROOF
+app.post("/upload-address", upload.single('image1'),  middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.Institute.address_proof = imageUrl;
+    user.save();
+    req.flash("success", "Address proof uploaded successfully.");
+    res.redirect("/upload-id");
+  });
+});
+
+//UPLOAD PROFILE
+app.post("/upload-profile", upload.single('image'),  middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.profileImage = imageUrl;
+    user.save();
+    // console.log(user);
+    req.flash("success", "Profile photo uploaded successfully.");
+    res.redirect("/dash_index");
+  });
+});
 
 //listen on port 3000
 app.listen(3000);
