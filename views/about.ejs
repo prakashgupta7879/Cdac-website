@@ -1,67 +1,196 @@
 <!DOCTYPE html>
-<html> 
+<html lang="en">
+
 <head>
-        <title> About us </title>
-        <meta charset="utf-8" />
-        <meta name="viewpoint" content="width=device-width intial-scale=1 shrink-to-fit=no" />
-        <link rel="icon" href="fav.ico" />
-        <link rel="stylesheet" type="text/css" href="css/about.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/about.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
+
 <body>
-  <%- include('header'); -%>
-  <%- include('navbar'); -%>
 
- 
-  <div style="width: 100%; display: table;">
+    <!-- HEADER -->
 
-    <div style="display: table-row" >
-      <div style="width: 15%; display: table-cell; background-color:#f9fcfc"></div>
+    <header id="header">
+        <div class="logo">
+            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
+        </div>
+        <span class="right font2">Branch : CINE (CDAC in North-East), Silchar</span>
+    </header>
 
-      <div style="width: 70%; display: table-cell; background-color: #d5fcfe"> 
-     
-      
-       <center>
-      <font color="#660000" size="9x" align=""> ABOUT US  <br></font>
-      </center>
-      
-      <br>
-      <center>
-      <br>
-      </center>
-          
-      <p  style="background-color: #d5fcfe; margin-left: 18px; font-size: larger;">
-          Centre for Development of  Advanced Computing (C-DAC) is the premier R&amp;D organization of the  Ministry of Electronics and Information Technology (MeitY) for carrying out R&amp;D in IT, Electronics and  associated areas.&nbsp; Different areas of  C-DAC, had originated at different times, many of which came out as a result of  identification of opportunities.
-        </p>            
-          <ul class="custom-ul-tender" style="font-size:larger; margin-right: 18px;">
-                
-                            <li> The setting up of C-DAC in 1988 itself was to  built Supercomputers in context of denial of import of Supercomputers by USA.  Since then C-DAC has been undertaking building of multiple generations of  Supercomputer starting from PARAM with 1 GF in 1988. <br><br></li>
-                   
-                            <li>Almost at the same time, C-DAC started building  Indian Language Computing Solutions with setting up of GIST group (Graphics and Intelligence based Script Technology);  National Centre for Software Technology (NCST) set up in 1985 had also  initiated work in Indian Language Computing around the same period.<br><br></li>
-                         
-                            <li> Electronic Research  and Development Centre of India (ER&amp;DCI) with various constituents starting  as adjunct entities of various State Electronic Corporations, had been brought  under the hold of Department of Electronics and Telecommunications (now MeitY) in  around 1988. They were focusing on various aspects of applied electronics,  technology and applications. <br><br></li>
-                          
-                            <li>With the passage of  time as a result of creative ecosystem that got set up in C-DAC, more areas  such as Health Informatics, etc., got created; while right from the beginning  the focus of NCST was on Software Technologies; similarly C-DAC started its  education &amp; training activities in 1994 as a spin-off with the passage of  time, it grew to a large efforts to meet the growing needs of Indian Industry  for finishing schools.<br><br></li>
-                    </ul>
-                   
-         <p style="font-size:larger; margin-left: 18px; margin-right: 18px;">   C-DAC has today  emerged as a premier  R&amp;D organization in IT&amp;E (Information  Technologies and Electronics) in the country working on strengthening national  technological capabilities in the context of global developments in the field  and responding to change in the market need in selected foundation areas.&nbsp; In that process, C-DAC represents a unique  facet working in close junction with MeitY to realize nation’s policy and  pragmatic interventions and initiatives in Information Technology. <br><br>                                   As an  institution for high-end Research and Development (R&amp;D), C-DAC has been at  the forefront of the Information Technology (IT) revolution, constantly  building capacities in emerging/enabling technologies and innovating and  leveraging its expertise, caliber, skill sets to develop and deploy IT products  and solutions for different sectors of the economy, as per the mandate of its  parent, the Ministry of Electronics and Information Technology, Ministry of Communications  and Information Technology, Government of India and other stakeholders  including funding agencies, collaborators, users and the market-place.&nbsp; 
-         </p>
-       
-      </div>
-             
-      <div style="width: 15%; display: table-cell; background-color:#ffffff"></div>
-          
-    </div>
-      
-  </div>
-      
-      
-      
-      
-      
-     <!-- FOOTER -->
-     <%- include('footer'); -%>
-      
-    </body>
-</html>      
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="/">Home</a></li>
+                <li class="item"><a href="/about" class="active">About us</a></li>
+                <li class="item dropdown"><a href="#">Adminstration</a>
+                  <div class="dropdown-content">
+                    <a href="#">Head of Organisation</a>
+                    <a href="#">Head of Department</a>
+                    <a href="#">Project Head</a>
+                    <a href="#">Project Engineer</a>
+                    <a href="#">Students</a>
+                </div>
+                </li>
+                <li class="item"><a href="#">Internships</a></li>
+                <li class="item"><a href="/courses">Courses</a></li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+    
+    
+        <div id="navbar-right">
+            <div class="navbar-login">
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
+                <div id="myDropdown" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/faculty-login">As Co-ordinator</a>
+                  </div>
+                <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';" type="button">Sign Up</button>
+            </div>
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- SECTION-1 -->
+    <section id="sec-1">
+        <h1>About Us</h1>
+        <p id="p1" class="para">
+            Centre for Development of Advanced Computing (C-DAC) is the premier Research and Development (R&D) organization of the Ministry of Electronics and Information Technology (MeitY) for carrying out R&D in Information Technologies and Electronics (IT&E) and associated areas.  Different areas of C-DAC, had originated at different times, many of which came out as a result of identification of opportunities. 
+            <div class="p1-box">
+                <ul>
+                    <li>
+                        <p>The setting up of C-DAC in 1988 itself was to built Supercomputers in context of denial of import of Supercomputers by USA. Since then C-DAC has been undertaking building of multiple generations of Supercomputer starting from PARAM with 1 GF in 1988.</p>
+                    </li>
+                    <li>
+                        <p>Almost at the same time, C-DAC started building Indian Language Computing Solutions with setting up of GIST group (Graphics and Intelligence based Script Technology); National Centre for Software Technology (NCST) set up in 1985 had also initiated work in Indian Language Computing around the same period.</p>
+                    </li>
+                    <li>
+                        <p>Electronic Research and Development Centre of India (ER&DCI) with various constituents starting as adjunct entities of various State Electronic Corporations, had been brought under the hold of Department of Electronics and Telecommunications (now MeitY) in around 1988. They were focusing on various aspects of applied electronics, technology and applications.</p>
+                    </li>
+                    <li>
+                        <p>With the passage of time as a result of creative ecosystem that got set up in C-DAC, more areas such as Health Informatics, etc., got created; while right from the beginning the focus of NCST was on Software Technologies; similarly C-DAC started its education & training activities in 1994 as a spin-off with the passage of time, it grew to a large efforts to meet the growing needs of Indian Industry for finishing schools.</p>
+                    </li>
+                </ul>
+            </div>
+        </p>
+            
+        <p id="p2" class="para">
+            C-DAC has today emerged as a premier R&D organization in IT&E in the country working on strengthening national technological capabilities in the context of global developments in the field and responding to change in the market need in selected foundation areas.  In that process, C-DAC represents a unique facet working in close junction with MeitY to realize nation’s policy and pragmatic interventions and initiatives in Information Technology. As an institution for high-end R&D, C-DAC has been at the forefront of the IT revolution, constantly building capacities in emerging/enabling technologies and innovating and leveraging its expertise, caliber, skill sets to develop and deploy IT products and solutions for different sectors of the economy, as per the mandate of its parent, the Ministry of Electronics and Information Technology, Ministry of Communications and Information Technology, Government of India and other stakeholders including funding agencies, collaborators, users and the market-place. 
+        </p>
+    </section>
+    
+    <!-- SECTION - 2 -->
+    <section id="sec-2">
+        <div class="sec-box">
+            <span class="heading">Vision</span>
+            <p class="box-para">
+                To emerge as the premier R&D institution for the design, development and deployment of world class electronic and IT solutions for economic and human advancement.
+            </p>
+        </div>
+        <div class="sec-box">
+            <span class="heading">Mision</span>
+            <p class="box-para">
+                C-DAC's Mission statement has evolved after deep thought and in consultation with the members of C-DAC. The Mission Statement as defined below, reflects the fabric and character of C-DAC and integrates in the fulfillment of C-DAC's Vision.
+            </p>
+            <ul class="box-list">
+                <li>
+                    <p>Expand the frontiers of Electronics and Information Technology.</p>
+                </li>
+                <li>
+                    <p>Evolve technology solutions - architectures, systems and standards for nationally important problems.</p>
+                </li>
+                <li>
+                    <p>Achieve rapid and effective spread of knowledge by overcoming language barriers through application of technologies.</p>
+                </li>
+                <li>
+                    <p>Share experience and know-how to help build advanced competence in the areas of Electronics and Information Technology.</p>
+                </li>
+                <li>
+                    <p>Bring benefits of Electronics and Information Technology to society.</p>
+                </li>
+                <li>
+                    <p>Utilize the Intellectual Property generated by converting it to business opportunity.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="sec-box">
+            <span class="heading">Values</span>
+            <p class="box-para">
+                The essence of C-DAC's philosophy and the bed rock of our Corporate Culture...
+            </p>
+            <ul class="box-list">
+                <li>
+                    <p>Innovation and pursuit of excellence in 'Applications', 'Research' and 'Technology' (ART).</p>
+                </li>
+                <li>
+                    <p>Integrity, transparency and openness in all our actions.</p>
+                </li>
+                <li>
+                    <p>Working with and through the 'Teams' is our way of life.</p>
+                </li>
+                <li>
+                    <p>Distributed Leadership across the organization at various levels.</p>
+                </li>
+                <li>
+                    <p>Strive to continuously improve our processes and quality.</p>
+                </li>
+                <li>
+                    <p>Address the needs of the society through user centric initiatives.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="contact-logo">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="other-links">
+            <p class="presskit-links font1">
+                <a href="#" class="copyrights">Website Policies</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Copyright Policy</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Terms &amp; Conditions </a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Help</a>
+                <span class="copyrights">|</span>
+                <span class="copyrights">© 2022</span>
+                <span class="copyrights"> C-DAC. All rights reserved</span>
+                <span class="copyrights">|</span>
+                <span id="LastUpdated" class="copyrights">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
+                <br>
+                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPT LINK -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
