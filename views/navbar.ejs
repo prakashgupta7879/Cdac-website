@@ -4,11 +4,13 @@
             <li class="item"><a href="/" class="active">Home</a></li>
             <li class="item"><a href="/about">About us</a></li>
             <li class="item dropdown"><a href="#">Adminstration</a>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+              <div class="dropdown-content">
+                <a href="#">Head of Organisation</a>
+                <a href="#">Head of Department</a>
+                <a href="#">Project Head</a>
+                <a href="#">Project Engineer</a>
+                <a href="#">Students</a>
+            </div>
             </li>
             <li class="item"><a href="#">Internships</a></li>
             <li class="item"><a href="/courses">Courses</a></li>
@@ -25,11 +27,7 @@
                 <a href="/login" onclick="document.location.href='/login';">As Student</a>
                 <a href="/faculty-login">As Co-ordinator</a>
               </div>
-            <button class="btn-secondary dropbtn font2" onclick="dropdownbtn2()"  type="button">Sign Up</button>
-            <div id="myDropdown2" class="dropdown-cnt">
-                <a href="/signup" onclick="document.location.href='/signup';">For Student</a>
-                <!-- <a href="/login">For Co-ordinator</a> -->
-              </div>
+            <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';" type="button">Sign Up</button>
         </div>
       <% } else { %>
         <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
