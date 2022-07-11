@@ -17,6 +17,11 @@ const {v4 : uuidv4} = require('uuid');
 var nodemailer = require('nodemailer');
 var MongoStore = require("connect-mongodb-session")(session);
 var auth = require('passport-local-authenticate');
+var multer = require("multer");
+var crypto = require("crypto");
+var path = require("path");
+const sharp = require('sharp');
+const fs = require('fs');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -47,6 +52,57 @@ passport.deserializeUser(Student.deserializeUser());
 // passport.use(new LocalStrategy(Faculty.authenticate()));
 // passport.serializeUser(Faculty.serializeUser());
 // passport.deserializeUser(Faculty.deserializeUser());
+
+// IMAGE FILE STORAGE
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var upload = multer({
+  storage: storage,
+  fileFilter: fileFilter
+});
+
+// var storage=multer.memoryStorage({
+//     destination: function(req, file, callback) {
+//         callback(null, '');
+//     },
+//     filename: function(req, file, cb){
+//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// })
+//
+// var upload=multer({
+//     storage:storage,
+//     limits:{
+//         fileSize:1024*1024*5,
+//     },
+//     fileFilter: (req, file, cb) => {
+//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//           cb(null, true);
+//         } else {
+//           cb(null, false);
+//           return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+//         }
+//       }
+// }).single('image');
+
+// app.use(multer({ storage: fileStorage, fileFilter: filefilter }).single("image"));
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -119,7 +175,14 @@ app.post("/admin", passport.authenticate("local", {
 
 app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('table.ejs');
+  Student.find({usertype: "faculty"}, function (err, faculty) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('table',{faculty: faculty});
+    }
+  })
 });
 
 app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
@@ -305,8 +368,8 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-      console.log(req.user);
-      res.render('about_course.ejs',{ course: course });
+        // console.log(req.user);
+        res.render('about_course.ejs',{ course: course });
     }
   })
 })
@@ -381,7 +444,7 @@ app.post('/:id/course/:courseid', function (req, res) {
                     // console.log("%%%%%%%%%%%%%%");
                     student.courses.push(course);
                     student.save();
-                    res.redirect("/about_course/" + req.params.courseid);
+                    res.redirect("/enrolled_course");
                 }
             });
         }
@@ -489,7 +552,7 @@ app.post('/reset-password', function (req, res) {
 })
 
 //CHANGE PASSWORD
-app.get('/change-password', function (req, res) {
+app.get('/change-password', middlewareObj.isLoggedIn, function (req, res) {
   res.render('change-password');
 })
 
@@ -551,6 +614,62 @@ app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
     }
   });
 })
+
+//UPLOAD INSTITUTE ID
+app.get('/upload-id', middlewareObj.isStudentLoggedIn, function (req, res) {
+  res.render('upload');
+})
+
+app.post("/upload-id", upload.single('image'), middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.Institute.id_card = imageUrl;
+    user.save();
+    req.flash("success", "Institute ID uploaded successfully.");
+    res.redirect("/upload-id");
+  });
+});
+
+//UPLOAD ADDRESS PROOF
+app.post("/upload-address", upload.single('image1'),  middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.Institute.address_proof = imageUrl;
+    user.save();
+    req.flash("success", "Address proof uploaded successfully.");
+    res.redirect("/upload-id");
+  });
+});
+
+//UPLOAD PROFILE
+app.post("/upload-profile", upload.single('image'),  middlewareObj.isStudentLoggedIn, function(req, res) {
+  Student.findById(req.user._id, function (err, user) {
+    let imageUrl;
+    console.log(req.file);
+    if(req.file) {
+        imageUrl = `${req.file.filename}`;
+    } else {
+        imageUrl = '';
+    }
+    user.profileImage = imageUrl;
+    user.save();
+    // console.log(user);
+    req.flash("success", "Profile photo uploaded successfully.");
+    res.redirect("/dash_index");
+  });
+});
 
 //listen on port 3000
 app.listen(3000);

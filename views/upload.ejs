@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Institute ID</title>
+
+    <link rel="stylesheet" href="css/change-password.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header id="header">
+        <div class="logo">
+            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
+        </div>
+        <span class="right font2">Branch : Cine, Silchar</span>
+    </header>
+
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="#" class="active">Home</a></li>
+                <li class="item"><a href="#">About us</a></li>
+                <li class="item dropdown"><a href="#">Adminstration</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="#">Internships</a></li>
+                <li class="item dropdown"><a href="#">Important Links</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div id="navbar-right">
+
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container">
+      <% if(currentUser) { %>
+        <aside id="aside">
+            <ul class="aside-list">
+                <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                  <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
+                <% } %>
+                <li class="aside-item active"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+                <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
+                <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
+            </ul>
+        </aside>
+      <% } %>
+
+
+        <section id="course-section">
+            <div class="section-bar">
+                <strong class="font3">Welcome <%= currentUser.username %></strong>
+                <div class="logout"><button class="btn-secondary logout-btn">Logout</button></div>
+            </div>
+            <div>
+                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <div class="file-upload">
+                  <!-- <form method="POST" action="/upload-id"  enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="photo" class="form-control-label">Change Photo</label>
+                      <input type="file" name="image" class="form-control" />
+                    </div>
+                    <input type="submit" class="btn btn-sm btn-primary m-2" value="Submit" />
+                  </form> -->
+                  <form method="POST" action="/upload-id"  enctype="multipart/form-data">
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image of Your Institute ID</button>
+
+                    <div class="image-upload-wrap">
+                        <input class="file-upload-input" type='file' name="image" onchange="readURL(this);" accept="image/*" />
+                        <div class="drag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
+                        </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                    <div class="buttonWrapper">
+                      <button type="submit" class="submitButton pure-button pure-button-primary">
+                        <span>Submit</span>
+                        <span id="loader"></span>
+                      </button>
+                    </div>
+                  </form>
+                  <form method="POST" action="/upload-address"  enctype="multipart/form-data">
+                    <button class="ffile-upload-btn" type="button" onclick="$('.ffile-upload-input').trigger( 'click' )">Add Image of Address Proof</button>
+
+                    <div class="iimage-upload-wrap">
+                        <input class="ffile-upload-input" type='file' name="image1" onchange="rreadURL(this);" accept="image/*" />
+                        <div class="ddrag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
+                        </div>
+                    </div>
+                    <div class="ffile-upload-content">
+                        <img class="ffile-upload-image" src="#" alt="your image" />
+                        <div class="iimage-title-wrap">
+                            <button type="button" onclick="rremoveUpload()" class="rremove-image">Remove <span class="iimage-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                    <div class="buttonWrapper">
+                      <button type="submit" class="submitButton pure-button pure-button-primary">
+                        <span>Submit</span>
+                        <span id="loader"></span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+              <script>
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+
+                      var reader = new FileReader();
+
+                      reader.onload = function(e) {
+                        $('.image-upload-wrap').hide();
+
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+
+                        $('.image-title').html(input.files[0].name);
+                      };
+
+                      reader.readAsDataURL(input.files[0]);
+
+                    } else {
+                      removeUpload();
+                    }
+                  }
+
+                  function removeUpload() {
+                    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                    $('.file-upload-content').hide();
+                    $('.image-upload-wrap').show();
+                  }
+                  $('.image-upload-wrap').bind('dragover', function () {
+                          $('.image-upload-wrap').addClass('image-dropping');
+                      });
+                      $('.image-upload-wrap').bind('dragleave', function () {
+                          $('.image-upload-wrap').removeClass('image-dropping');
+                  });
+
+                  function rreadURL(input) {
+                    if (input.files && input.files[0]) {
+
+                      var reader = new FileReader();
+
+                      reader.onload = function(e) {
+                        $('.iimage-upload-wrap').hide();
+
+                        $('.ffile-upload-image').attr('src', e.target.result);
+                        $('.ffile-upload-content').show();
+
+                        $('.iimage-title').html(input.files[0].name);
+                      };
+
+                      reader.readAsDataURL(input.files[0]);
+
+                    } else {
+                      rremoveUpload();
+                    }
+                  }
+
+                  function rremoveUpload() {
+                    $('.ffile-upload-input').replaceWith($('.ffile-upload-input').clone());
+                    $('.ffile-upload-content').hide();
+                    $('.iimage-upload-wrap').show();
+                  }
+                  $('.iimage-upload-wrap').bind('dragover', function () {
+                          $('.iimage-upload-wrap').addClass('image-dropping');
+                      });
+                      $('.iimage-upload-wrap').bind('dragleave', function () {
+                          $('.iimage-upload-wrap').removeClass('image-dropping');
+                  });
+
+              </script>
+
+              <style>
+
+                .buttonWrapper {
+                  margin-top: 40px;
+                }
+                  .submitButton {
+                    width: 40%;
+                    height: 40px;
+                    margin: auto;
+                    display: block;
+                    color: #fff;
+                    background-color:#065492;
+                    border-color:#065492;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+                    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
+                    border-radius: 4px;
+                    font-size: 14px;
+                    cursor: pointer;
+                  }
+                .submitButton:disabled,
+                button[disabled] {
+                  border: 1px solid #cccccc;
+                  background-color: #cccccc;
+                  color: #666666;
+                }
+
+                  .file-upload {
+                    background-color: #ffffff;
+                    width: 700px;
+                    margin: 0 auto;
+                    padding: 20px;
+                  }
+
+                  .file-upload-btn {
+                    width: 90%;
+                    margin: 40px;
+                    color: black;
+                    background-color: #71b3ea;
+                    border-color:#71b3ea;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 4px;
+
+                    transition: all .2s ease;
+                    outline: none;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                  }
+
+                  .file-upload-btn:hover {
+                    color:black;
+                    transition: all .2s ease;
+                    cursor: pointer;
+                  }
+
+                  .file-upload-btn:active {
+                    border: 0;
+                    transition: all .2s ease;
+                  }
+
+                  .file-upload-content {
+                    display: none;
+                    text-align: center;
+
+                  }
+
+                  .file-upload-input {
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    opacity: 0;
+                    cursor: pointer;
+                  }
+
+                  .image-upload-wrap {
+                    margin-top: 20px;
+                    border: 4px dashed#71b3ea;
+                    position: relative;
+                  }
+
+                  .image-dropping,
+                  .image-upload-wrap:hover {
+                    background-color: #c4edf0;
+                    border: 4px dashed #ffffff;
+                  }
+
+                  .image-title-wrap {
+                    padding: 0 15px 15px 15px;
+                    color: #222;
+                  }
+
+                  .drag-text {
+                    text-align: center;
+                  }
+
+                  .drag-text h3 {
+                    font-weight: 100;
+                    text-transform: uppercase;
+                    color: #153d82;
+                    padding: 60px 0;
+                  }
+
+                  .file-upload-image {
+                    max-height: 200px;
+                    max-width: 200px;
+                    margin: auto;
+                    padding: 20px;
+                  }
+
+                  .remove-image {
+                    width: 200px;
+                    margin: 0;
+                    color: #fff;
+                    background: #cd4535;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 4px;
+                    border-bottom: 4px solid #b02818;
+                    transition: all .2s ease;
+                    outline: none;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                  }
+
+                  .remove-image:hover {
+                    background: #c13b2a;
+                    color: #ffffff;
+                    transition: all .2s ease;
+                    cursor: pointer;
+                  }
+
+                  .remove-image:active {
+                    border: 0;
+                    transition: all .2s ease;
+                  }
+
+                  /*2nd box */
+                  .ffile-upload-btn {
+                    width: 90%;
+                    margin: 40px;
+                    color:black;
+                    background-color:#71b3ea;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 4px;
+
+                    border-bottom: 4px solid#71b3ea;
+                    transition: all .2s ease;
+                    outline: none;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                  }
+
+                  .ffile-upload-btn:hover {
+
+                    background:#71b3ea;
+                    color: black;
+                    transition: all .2s ease;
+                    cursor: pointer;
+                  }
+
+                  .ffile-upload-btn:active {
+                    border: 0;
+                    transition: all .2s ease;
+                  }
+
+                  .ffile-upload-content {
+                    display: none;
+                    text-align: center;
+                  }
+
+                  .ffile-upload-input {
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    opacity: 0;
+                    cursor: pointer;
+                  }
+
+                  .iimage-upload-wrap {
+                    margin-top: 10px;
+                    border: 4px dashed#71b3ea;
+                    position: relative;
+                  }
+
+                  .iimage-dropping,
+                  .iimage-upload-wrap:hover {
+                    background-color: #c4edf0;
+                    border: 4px dashed #ffffff;
+                  }
+
+                  .iimage-title-wrap {
+
+                    padding: 0 15px 15px 15px;
+                    color: #222;
+                  }
+
+                  .ddrag-text {
+                    text-align: center;
+                  }
+
+                  .ddrag-text h3 {
+                    font-weight: 100;
+                    text-transform: uppercase;
+                    color: #153f82;
+                    padding: 60px 0;
+                  }
+
+                  .ffile-upload-image {
+                    max-height: 200px;
+                    max-width: 200px;
+                    margin: auto;
+                    padding: 20px;
+                  }
+
+                  .rremove-image {
+                    width: 200px;
+                    margin: 0;
+                    color: #fff;
+                    background: #cd4535;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 4px;
+                    border-bottom: 4px solid #b02818;
+                    transition: all .2s ease;
+                    outline: none;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                  }
+
+                  .rremove-image:hover {
+                    background: #c13b2a;
+                    color: #ffffff;
+                    transition: all .2s ease;
+                    cursor: pointer;
+                  }
+
+                  .rremove-image:active {
+                    border: 0;
+                    transition: all .2s ease;
+                  }
+              </style>
+
+
+            </div>
+        </section>
+    </div>
+
+
+    <!-- FOOTER
+    <footer id="footer">
+        <div class="contact-logo">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="other-links">
+            <p class="presskit-links font1">
+                <a href="#" class="copyrights font1">Website Policies</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights font1">Copyright Policy</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights font1">Terms &amp; Conditions </a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights font1">Help</a>
+                <span class="copyrights font1">|</span>
+                <span class="copyrights font1">© 2022</span>
+                <span class="copyrights font1"> C-DAC. All rights reserved</span>
+                <span class="copyrights font1">|</span>
+                <span id="LastUpdated" class="copyrights font1">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
+                <br>
+                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

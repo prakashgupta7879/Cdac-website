@@ -83,7 +83,7 @@
                   <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
                 <% } %>
                 <li class="aside-item"><a href="/enrolled_course" class="font6"><div> Courses Enrolled</div></a></li>
-                <li class="aside-item"><a href="#" class="font6"><div>Upload your Institute ID Card</div></a></li>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
                 <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
             </ul>
@@ -190,9 +190,12 @@
                     <a href="/dash_index/edit"><button class="btn-secondary">Edit Profile</button></a>
                 </div>
                 <div class="photo">
-                    <img src="img/photo.png" alt="No Photo Available">
-                    <div class="change">
-                        <a href="#" class="font3">Upload Photo</a>
+                    <img src="images/<%= currentUser.profileImage %>" alt="No Photo Available">
+                    <div class="change" style="display: block;">
+                      <form method="POST" action="/upload-profile"  enctype="multipart/form-data">
+                        <input type="file" name="image"/>
+                        <input type="submit" style="width: 100%; background-color: #c9ddff;" value="Upload" />
+                      </form>
                     </div>
                 </div>
             </div>
