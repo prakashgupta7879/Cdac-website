@@ -8,7 +8,7 @@
     <title>Internships</title>
 
     <!-- CSS Link -->
-    <link rel="stylesheet" href="intern.css">
+    <link rel="stylesheet" href="css/intern.css">
 
     <!-- Font styles -->
     <link
@@ -22,51 +22,12 @@
 
 <body>
 
-    <header id="header">
-        <div class="logo">
-            <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
-        </div>
-        <span class="right font1">Branch : CINE (CDAC in North-East), Silchar</span>
-    </header>
-
-    <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/" class="active">Home</a></li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Head of Organisation</a>
-                        <a href="#">Head of Department</a>
-                        <a href="#">Project Head</a>
-                        <a href="#">Project Engineer</a>
-                        <a href="#">Students</a>
-                    </div>
-                </li>
-                <li class="item"><a href="#">Internships</a></li>
-                <li class="item"><a href="/courses">Courses</a></li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
+<!-- HEADER -->
+<%- include('header'); -%>
 
 
-        <div id="navbar-right">
-            <div class="navbar-login">
-                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()" type="button">Login</button>
-                <div id="myDropdown" class="dropdown-cnt">
-                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
-                    <a href="/faculty-login">As Co-ordinator</a>
-                </div>
-                <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';"
-                    type="button">Sign Up</button>
-            </div>
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
+<!-- NAVIGATION BAR -->
+<%- include('navbar'); -%>
 
     <!-- heading -->
     <div id="heading">

@@ -71,24 +71,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</tr>
 							</thead>
 							<tbody>
+								<% faculty.forEach(function(faculty) { %>
 								<tr>
-								  <th scope="row">1</th>
-								  <td>Mark</td>
-								  <td>Otto</td>
-								  <td>@mdo</td>
+									
+  								  <td><%= faculty.firstname %></td>
+								  <td><%= faculty.lastname %></td>
+								  <td><%= faculty.username %></td>
+								  
 								</tr>
-								<tr>
-								  <th scope="row">2</th>
-								  <td>Jacob</td>
-								  <td>Thornton</td>
-								  <td>@fat</td>
-								</tr>
-								<tr>
-								  <th scope="row">3</th>
-								  <td>Larry</td>
-								  <td>the Bird</td>
-								  <td>@twitter</td>
-								</tr>
+								<% }) %>
 							</tbody>
 						</table>
 					</div>

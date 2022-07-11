@@ -263,6 +263,15 @@ app.put("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) 
     });
 });
 
+//INTERNSHIP
+app.get('/internships', function (req,res) {
+  res.render('internship.ejs');
+})
+
+app.get('/enroll', function (req,res) {
+  res.render('enroll-now.ejs');
+})
+
 //ABOUT US
 app.get('/about', function (req,res) {
   res.render('about.ejs');
@@ -301,6 +310,20 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
     } else {
       console.log(req.user);
       res.render('about_course.ejs',{ course: course });
+    }
+  })
+})
+
+//FACULTY TABLE
+app.get('/view', middlewareObj.isAdminLoggedIn, function (req,res) {
+  // console.log(req.params.id);
+  Student.find({usertype: "faculty"}, function (err, faculty) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      console.log(faculty);
+      res.render('table.ejs',{ faculty: faculty});
     }
   })
 })
