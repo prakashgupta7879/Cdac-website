@@ -26,6 +26,7 @@
     "body-parser": "^1.20.0",
     "boom": "^7.3.0",
     "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
@@ -40,6 +41,7 @@
     "nodemailer": "^6.7.7",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "passport-local-authenticate": "^1.2.0",
     "passport-local-mongoose": "^7.1.2",
     "uuid": "^8.3.2"
   },
