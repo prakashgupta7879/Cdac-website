@@ -123,18 +123,18 @@ footer{
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
+}
 
-  .dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus {
     background-color: #2980B9;
-  }
+}
 
-  .dropdown {
+.dropdown {
     position: relative;
     display: inline-block;
-  }
+}
 
-  .dropdown-cnt {
+.dropdown-cnt {
     display: none;
     position: absolute;
     background-color: whitesmoke;
@@ -143,25 +143,25 @@ footer{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 5px;
-  }
+}
 
-  .dropdown-cnt a {
+.dropdown-cnt a {
     color: black;
     padding: 4px 8px;
     text-decoration: none;
     display: block;
   }
 
-  .dropdown-cnt a:hover {
+.dropdown-cnt a:hover {
     background-color: rgb(37, 157, 139);
     color: white;
 }
 
-  .show {display: block;}
+.show {display: block;}
 
 
 
-  .search-bar{
+.search-bar{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -173,92 +173,85 @@ footer{
     outline: none;
 }
 
+/* CONTAINER */
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
-
-/* SECTION - 1 */
-#sec-1{
+.form-img img{
+    height: 600px;
+    opacity: 0.9;
+}
+.enroll-form{
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px 10px;
+    align-items: center;
 }
-#sec-1 h1{
-    margin-left: 2rem;
+.enroll-form h1{
+    text-align: center ;
+    margin: 1rem 0rem;
     font-family: 'Overpass', sans-serif;
     color: rgb(31,31,31);
 }
-#sec-1 p{
+.form{
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 50%;
+    background-color: aliceblue;
+}
+label{
     font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
-    font-size: 15px;
+    font-weight: 600;
+    margin: 0px 2rem;
+    font-size: 18px;
 }
-.para{
-    margin: 1rem 2rem;
-    text-align: justify;
+.form-div{
+    padding: 5px 0px;
+    display: flex;
+    flex-direction: column;
 }
-.p1-box{
-    margin-left: 4rem;
-    margin-right: 2rem;
+.form-div input{
+    padding: 6px;
+    margin: 3px 2rem;
+    outline: none;
+    border: 1px solid lightslategray;
+    background-color: aliceblue;
+    border-radius: 3px;
 }
-.p1-box ul li{
-    padding: 3px 0px;
+.form-div select{
+    background-color: aliceblue;
+    padding: 6px;
+    margin: 3px 2rem;
+    outline: none;
+    border: 1px solid lightslategray;
+    border-radius: 3px;
+    font-size: 14px;
 }
-.p1-box p{
-    text-align: justify;
+.form-div select option{
+    font-size: 14px;
+    background-color: aliceblue;
 }
-
-
-/* SECTION - 2 */
-#sec-2{
+.form-div textarea{
+    padding: 4px 6px;
+    margin: 3px 2rem;
+    outline: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid lightslategray;
+    background-color: aliceblue;
+    resize: none;
+}
+.form-btn{
+    padding: 10px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 1rem 2.4rem;
 }
-.sec-box{
-    width: 33%;
-    /* border: 1px solid gray; */
-    overflow: hidden;
-    border-radius: 6px;
-    background-color: aliceblue;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
-}
-.sec-box:hover{
-    transform: scale(0.99);
-}
-.heading{
-    display: block;
-    background-color: royalblue;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 6px 4px;
-    text-align: center;
-    font-family: 'Overpass', sans-serif;
-    width: 100%;
-    color: white;
-    border-bottom: 1px solid gray;
-    z-index: 2;
-}
-
-.box-para{
-    margin: 1rem;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
-    font-size: 15px;
-    text-align: justify;
-}
-.box-list{
-    margin: 1rem 2rem;
-    text-align: justify;
-}
-.box-list p{
-    padding: 3px 0px;
-    font-size: 15px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
-
+.form-btn input{
+    margin: 0px 4rem;
 }
 
 
@@ -354,7 +347,6 @@ footer{
 }
 
 
-
   /* Buttons */
 .btn-primary{
     border: 1px solid gray;
@@ -370,12 +362,14 @@ footer{
     outline: none;
     font-size: 12px;
     color:whitesmoke;
-    border: 0px solid white;
-    background-color:cadetblue;
+    border: 1px solid #e3e4e5;
+    background-color: #008bcd;
+    padding: 5px 8px;
 }
 .btn-secondary:hover{
     cursor: pointer;
-    transform: scale(1.07);
-    transition: all 0.2s;
+    transform: scale(0.99);
+    transition: all 0.1s;
     color: white;
+    background-color: #0062e4;
 }

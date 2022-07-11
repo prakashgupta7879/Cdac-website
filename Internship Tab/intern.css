@@ -123,18 +123,18 @@ footer{
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
+}
 
-  .dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus {
     background-color: #2980B9;
-  }
+}
 
-  .dropdown {
+.dropdown {
     position: relative;
     display: inline-block;
-  }
+}
 
-  .dropdown-cnt {
+.dropdown-cnt {
     display: none;
     position: absolute;
     background-color: whitesmoke;
@@ -143,25 +143,25 @@ footer{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 5px;
-  }
+}
 
-  .dropdown-cnt a {
+.dropdown-cnt a {
     color: black;
     padding: 4px 8px;
     text-decoration: none;
     display: block;
   }
 
-  .dropdown-cnt a:hover {
+.dropdown-cnt a:hover {
     background-color: rgb(37, 157, 139);
     color: white;
 }
 
-  .show {display: block;}
+.show {display: block;}
 
 
 
-  .search-bar{
+.search-bar{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -172,95 +172,90 @@ footer{
     border-radius: 2px;
     outline: none;
 }
-
-
-
-/* SECTION - 1 */
-#sec-1{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px;
-}
-#sec-1 h1{
-    margin-left: 2rem;
-    font-family: 'Overpass', sans-serif;
-    color: rgb(31,31,31);
-}
-#sec-1 p{
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
-    font-size: 15px;
-}
-.para{
-    margin: 1rem 2rem;
-    text-align: justify;
-}
-.p1-box{
-    margin-left: 4rem;
-    margin-right: 2rem;
-}
-.p1-box ul li{
-    padding: 3px 0px;
-}
-.p1-box p{
-    text-align: justify;
+/* heading */
+#heading{
+    text-align: center;
+    margin: 2rem;
+    padding: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    border-bottom: 1px solid grey;
 }
 
 
-/* SECTION - 2 */
-#sec-2{
+/* Internship Section */
+#int-container{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 1rem 2.4rem;
-}
-.sec-box{
-    width: 33%;
-    /* border: 1px solid gray; */
-    overflow: hidden;
-    border-radius: 6px;
-    background-color: aliceblue;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
-}
-.sec-box:hover{
-    transform: scale(0.99);
-}
-.heading{
-    display: block;
-    background-color: royalblue;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 6px 4px;
-    text-align: center;
-    font-family: 'Overpass', sans-serif;
-    width: 100%;
-    color: white;
-    border-bottom: 1px solid gray;
-    z-index: 2;
-}
-
-.box-para{
     margin: 1rem;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
-    font-size: 15px;
-    text-align: justify;
 }
-.box-list{
-    margin: 1rem 2rem;
-    text-align: justify;
+.card{
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
+    background-color: lightblue;
+    border-radius: 4px;
 }
-.box-list p{
-    padding: 3px 0px;
-    font-size: 15px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: rgb(31,31,31);
+.card:hover{
+    transform: scale(0.99);
+    transition: all 90ms;
+}
+.card-img{
+    display: flex;
+    justify-content: space-around;
+}
+.card-img img{
+    border-radius: 3px;
+    height: 150px;
+    width: 175px;
+    opacity: 0.9;
+}
+.meta-data h3{
+    text-align: center;
+    padding: 5px 0px;
+    font-family: 'Overpass', sans-serif;
+    color: rgb(51,51,51);
 
 }
+.meta-data p{
+    padding: 0.5rem 1.5rem;
+    font-size: 15px;
+    line-height: 22px;
+    font-family: 'Overpass', sans-serif;
+    text-align: center;
+    min-height: 55px;
+    color: #484848;
+}
+.enroll{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
 
+.enroll span{
+    padding: 1.5rem;
+    font-family: 'Overpass', sans-serif;
+    font-size: 13px;
+    
+}
+.btn{
+    padding: 4px 5px;
+    height: 25px;
+    font-size: 16px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-right: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #008bdc;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+}
+.btn:hover{
+    color: #0062e4;
+}
 
 /* FOOTER */
 #footer{
@@ -288,7 +283,6 @@ footer{
     text-decoration: none;
     font-size: 12px;
 }
-
 
 
 /* *******************  Utility Classes  ******************** */
@@ -352,7 +346,6 @@ footer{
     padding: 4px;
     margin: 2px 2px;
 }
-
 
 
   /* Buttons */
