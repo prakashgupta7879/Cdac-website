@@ -195,27 +195,38 @@ app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
 //FACULTY SIGNUP
 app.post("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
   console.log(req.body);
-    var newUser = new Student({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, usertype: "faculty" });
+    var newUser = new Student({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, usertype: "faculty", password: req.body.password });
 
-    Student.register(newUser, req.body.password, function(err, user) {
-        if(err) {
-            // console.log(err);
-            if(newUser.username.length == 0) {
-                req.flash("error", "Invalid Inputs");
-            } else if(req.body.password.length == 0) {
-                req.flash("error", "Invalid password");
-            } else {
-                req.flash("error", "A user with the given username is already registered");
-            }
-            res.redirect("/add");
-        } else {
-          passport.authenticate('local')(req, res, function() {
-            req.flash("success", "Registered successfully!!");
-            // res.render("dash_index.ejs",{id: user._id.toString()});
-            res.redirect('/');
-          });
-        }
-    });
+    Student.create(newUser, function (err, faculty) {
+         if(err) {
+             // console.log(err);
+             req.flash("success", "Successfully added a Faculty.");
+             res.redirect('/add');
+         } else {
+           req.flash("success", "Successfully added a Faculty.");
+           res.redirect('/add');
+         }
+     });
+
+    // Student.register(newUser, req.body.password, function(err, user) {
+    //     if(err) {
+    //         // console.log(err);
+    //         if(newUser.username.length == 0) {
+    //             req.flash("error", "Invalid Inputs");
+    //         } else if(req.body.password.length == 0) {
+    //             req.flash("error", "Invalid password");
+    //         } else {
+    //             req.flash("error", "A user with the given username is already registered");
+    //         }
+    //         res.redirect("/add");
+    //     } else {
+    //       passport.authenticate('local')(req, res, function() {
+    //         req.flash("success", "Registered successfully!!");
+    //         // res.render("dash_index.ejs",{id: user._id.toString()});
+    //         res.redirect('/');
+    //       });
+    //     }
+    // });
 });
 
 //FACULTY LOGIN
@@ -224,11 +235,9 @@ app.get("/faculty-login", function(req, res) {
   res.render('faculty-login.ejs');
 });
 
-app.post("/faculty-login", passport.authenticate("local", {
-      failureRedirect: "/faculty-login"
-  }), function(req, res) {
+app.post("/faculty-login", function(req, res) {
     console.log(req.body);
-    Student.find({username: req.body.username, usertype: "faculty"}, function(err,student){
+    Student.find({username: req.body.username, password: req.body.password, usertype: "faculty"}, function(err,student){
       if(err){
         req.flash("error","Incorrect Username or Password.");
         res.redirect("/faculty-login");
