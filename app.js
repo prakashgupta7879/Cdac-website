@@ -32,7 +32,7 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
-// mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+ mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
 
 
 
@@ -152,6 +152,8 @@ app.get("/",(req, res) => {
 //         }
 //     });
 // });
+
+
 
 app.get("/admin", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
@@ -340,6 +342,8 @@ app.get('/internships', function (req,res) {
 app.get('/enroll', function (req,res) {
   res.render('enroll-now.ejs');
 })
+
+
 
 //ABOUT US
 app.get('/about', function (req,res) {

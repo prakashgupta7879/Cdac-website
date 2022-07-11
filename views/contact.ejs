@@ -8,7 +8,9 @@
         <link rel="icon" href="fav.ico" />
 
         <!-- CSS Link -->
-        <link rel="stylesheet" href="css/contact.css">
+        <!-- <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/contact.css"> -->
+        <link rel="stylesheet" href="css/style.css">
 
          <!-- Font styles -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -19,95 +21,50 @@
 <body>
       
     <%- include('header'); -%>
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/">Home</a></li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                  <div class="dropdown-content">
-                    <a href="#">Head of Organisation</a>
-                    <a href="#">Head of Department</a>
-                    <a href="#">Project Head</a>
-                    <a href="#">Project Engineer</a>
-                    <a href="#">Students</a>
-                </div>
-                </li>
-                <li class="item"><a href="#">Internships</a></li>
-                <li class="item"><a href="/courses">Courses</a></li>
-                <li class="item"><a href="/contact" class="active">Contact Us</a></li>
-            </ul>
-        </div>
-    
-    
-        <div id="navbar-right">
-          <% if(!currentUser) { %>
-            <div class="navbar-login">
-                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
-                <div id="myDropdown" class="dropdown-cnt">
-                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
-                    <a href="/faculty-login">As Co-ordinator</a>
-                  </div>
-                <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';" type="button">Sign Up</button>
-            </div>
-          <% } else { %>
-            <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
-                <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
-            </div>
-          <% } %>
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
+    <%- include('navbar'); -%>
 
-    <!-- Section-1 -->
-    <div class="condiv">
-        <h1 class="subtopic">CONTACT US</h1>
+  
+
+
+    
+
+    <a href="https://www.google.com/maps/place/C-DAC+Silchar/@24.7588071,92.7885525,625m/data=!3m2!1e3!4b1!4m5!3m4!1s0x374e49c2683c9f95:0x9698a07544a4b227!8m2!3d24.7588406!4d92.7912675" target="_blank"  rel="noreferrer">
+        <img src="img/map.png" class="co1" style="margin-top: 20px; display:block; width:50%; height:50%; margin-left: auto; margin-right: auto;" alt="Map"></img>
+      </a>
+    <form name="myForm" action="/contact" class="forms" method="">
         
-        <div class="con_in" style=" width:50%; height:50%; margin-left: auto; margin-right: auto;">
-            <a href="https://www.google.com/maps/place/C-DAC+Silchar/@24.7588071,92.7885525,625m/data=!3m2!1e3!4b1!4m5!3m4!1s0x374e49c2683c9f95:0x9698a07544a4b227!8m2!3d24.7588406!4d92.7912675" target="_blank"  rel="noreferrer">
-              <img src="img/map.png" class="co1" style="display:block; width:100%; height:100%; margin-left: auto; margin-right: auto; border-radius:18px;" alt="Map"></img>
-            </a>
+        <h2 style="text-align: center;">CONTACT US</h2> <br>
+        <label class="sr-only">First Name</label>
+        <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name" required="true" autofocus="">
+        <label for="inputEmail" class="sr-only">Last Name</label>
+        <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name" required="true" autofocus="">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
+        <label class="sr-only">Message</label>
+        <textarea name="username" type="username" id="username" class="inputs" placeholder="Your Message" required="true" autofocus="" cols="30" rows="10"></textarea>
+        
+        <br>
+         
+        <div>
+            
+            <div>
+                <input type="submit" value="Send Message" class="submitbtn">
+            </div>
+            
+            
         </div>
-
-        <div style=" width:50%; height:110%; margin-top:42px ; margin-left: auto; margin-right: auto;">
-            <button style="background-color:rgb(210, 240, 241); border-radius:18px; margin-left: 12%; width: 16%; height: 70%;" >
-                <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
-            </button>
-
-            <button style="background-color:rgb(210, 240, 241); border-radius: 18px; margin-left: 38%; width: 16%; height: 70%;">
-                <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
-            </button> 
-        </div>  
-    </div>
-
-
-    <!-- SECTION-2 -->
-    <section id="section-2">
-        <h3 class="font2">Have Some Questions ? </h3>
-        <div id="contact-box">
-            <form action="#">
-                <div class="form-group">
-                    <input type="text" name="firstname" id="firstname" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="lastname" id="lastname" placeholder="Last Name">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="email" id="email" placeholder="What's your email ?">
-                </div>
-                <div class="form-group">
-                    <textarea name="mytext" rows="2" cols="10" id="des" placeholder="Your question"></textarea>
-                </div>
-                <div class="form-group">
-                    <button class="font1">Send Message</button>
-                </div>
-            </form>
-        </div>
-    </section>
+   </form>
+<div style="text-align:center ;">
+    <button style="text-align: center; margin: 2px; width: 155px;" >
+        <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
+    </button>
+   
+    <button style="text-align: center; margin: 2px; width: 155px;">
+        <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
+    </button> 
+    
+</div>
+   <br>
      
     <!-- FOOTER -->
     <%- include('footer'); -%>
