@@ -20,7 +20,8 @@ footer{
 
 /* HEADER */
 #header{
-    background-image: linear-gradient(90deg, rgb(40, 78, 54), rgb(0, 124, 65));
+    background-color: 
+    #05445E;
     display: flex;
     flex-direction: row;
     padding: 25px 30px;
@@ -37,10 +38,10 @@ footer{
 #navbar{
     display: flex;
     justify-content: space-between;
-    background-color: powderblue;
-    margin-top: 1px;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    background-color: #189AB4;
+    /* margin-top: 1px; */
+    /* border-top: 1px solid grey;
+    border-bottom: 1px solid grey; */
 }
 #navbar-items{
     margin-left: 1rem;
@@ -66,7 +67,7 @@ footer{
     border-radius: 3px;
 }
 #navbar-items ul li a.active{
-    background-color: darkslategrey;
+    background-color: rgb(4, 114, 114);
     border-radius: 2px;
     color: whitesmoke;
 }
@@ -171,7 +172,7 @@ footer{
     display: flex;
     justify-content: space-around;
     height: 450px;
-    margin-top: 0.2rem;
+    margin-top: 0.05rem;
 }
 
 
@@ -182,7 +183,7 @@ footer{
     text-align: center;
     display: flex;
     flex-direction: column;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     overflow: scroll;
     border-top: none;
 }
@@ -191,7 +192,8 @@ footer{
 }
 .list-head{
     padding: 6px 0px;
-    background-color:lightseagreen;
+    background-color:
+    #06638b;
     text-align: left;
 }
 .list-head span{
@@ -285,12 +287,13 @@ footer{
     height: 100%;
     width: 20%;
     text-align: center;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     border-top: none;
 }
 .section-right-head{
     padding: 6px 0px;
-    background-color:lightseagreen;
+    background-color:
+    #06638b;
     color: whitesmoke;
     font-size: 15px;
     font-weight: 600;
@@ -341,7 +344,7 @@ footer{
     justify-content: space-evenly;
 }
 .more-about-box{
-    background-color: lightseagreen;
+    background-color: #06638b;
     display: flex;
     justify-content: center;
     width: 24.5%;
