@@ -32,10 +32,7 @@ app.use(require('express-session')({
     saveUninitialize: false
 }));
 
- mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
-
-
-
+mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
@@ -49,9 +46,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
-// passport.use(new LocalStrategy(Faculty.authenticate()));
-// passport.serializeUser(Faculty.serializeUser());
-// passport.deserializeUser(Faculty.deserializeUser());
+
 
 // IMAGE FILE STORAGE
 const storage = multer.diskStorage({
@@ -76,33 +71,7 @@ var upload = multer({
   fileFilter: fileFilter
 });
 
-// var storage=multer.memoryStorage({
-//     destination: function(req, file, callback) {
-//         callback(null, '');
-//     },
-//     filename: function(req, file, cb){
-//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     }
-// })
-//
-// var upload=multer({
-//     storage:storage,
-//     limits:{
-//         fileSize:1024*1024*5,
-//     },
-//     fileFilter: (req, file, cb) => {
-//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-//           cb(null, true);
-//         } else {
-//           cb(null, false);
-//           return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-//         }
-//       }
-// }).single('image');
-
-// app.use(multer({ storage: fileStorage, fileFilter: filefilter }).single("image"));
 app.use("/images", express.static(path.join(__dirname, "images")));
-
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -121,38 +90,6 @@ app.get("/",(req, res) => {
     // res.sendFile(__dirname + '/views/index.html')
     res.render('index.ejs')
 })
-
-//ADMIN
-// app.get("/adminRegister", function(req, res) {
-//   // res.sendFile(__dirname + '/admin/html/index.html');
-//   res.render('admin_cdac_register.ejs');
-// });
-//
-// app.post("/adminRegister", function(req, res) {
-//   // console.log(req.body);
-//     var newUser = new Student({ username: req.body.username, usertype: "admin" });
-//
-//     Student.register(newUser, req.body.password, function(err, user) {
-//         if(err) {
-//             // console.log(err);
-//             if(newUser.username.length == 0) {
-//                 req.flash("error", "Invalid Inputs");
-//             } else if(req.body.password.length == 0) {
-//                 req.flash("error", "Invalid password");
-//             } else {
-//                 req.flash("error", "A user with the given username is already registered");
-//             }
-//             res.redirect("/add");
-//         } else {
-//           passport.authenticate('local')(req, res, function() {
-//             req.flash("success", "Registered successfully!!");
-//             // res.render("dash_index.ejs",{id: user._id.toString()});
-//             res.redirect('/add');
-//           });
-//         }
-//     });
-// });
-
 
 
 app.get("/admin", function(req, res) {
@@ -207,26 +144,6 @@ app.post("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
            res.redirect('/add');
          }
      });
-
-    // Student.register(newUser, req.body.password, function(err, user) {
-    //     if(err) {
-    //         // console.log(err);
-    //         if(newUser.username.length == 0) {
-    //             req.flash("error", "Invalid Inputs");
-    //         } else if(req.body.password.length == 0) {
-    //             req.flash("error", "Invalid password");
-    //         } else {
-    //             req.flash("error", "A user with the given username is already registered");
-    //         }
-    //         res.redirect("/add");
-    //     } else {
-    //       passport.authenticate('local')(req, res, function() {
-    //         req.flash("success", "Registered successfully!!");
-    //         // res.render("dash_index.ejs",{id: user._id.toString()});
-    //         res.redirect('/');
-    //       });
-    //     }
-    // });
 });
 
 //FACULTY LOGIN
@@ -352,8 +269,6 @@ app.get('/enroll', function (req,res) {
   res.render('enroll-now.ejs');
 })
 
-
-
 //ABOUT US
 app.get('/about', function (req,res) {
   res.render('about.ejs');
@@ -426,16 +341,6 @@ app.get('/course-upload', middlewareObj.isFacultyLoggedIn, function (req,res) {
 })
 
 app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) {
-    // var username;
-    // var query = Course.find();
-    // query.count(function (err, count) {
-    //   if (err) {
-    //       console.log(err);
-    //       req.flash("error", "Something went wrong");
-    //       res.redirect('/course-upload');
-    //   }
-    //   else {
-        // var c = count+1;
         var username = uuidv4();
         var name = req.body.name;
         var syllabus = req.body.syllabus;
@@ -475,9 +380,6 @@ app.post('/:id/course/:courseid', function (req, res) {
                     req.flash("error", "Something went wrong");
                     res.redirect('/courses');
                 } else {
-                    // console.log("%%%%%%%%%%%%%%");
-                    // console.log(course);
-                    // console.log("%%%%%%%%%%%%%%");
                     student.courses.push(course);
                     student.save();
                     res.redirect("/enrolled_course");
@@ -558,9 +460,6 @@ app.post('/reset-password', function (req, res) {
           usertype: student.usertype,
           courses: student.courses
         };
-        // console.log("//////////");
-        // console.log(newUser);
-        // console.log("//////////");
         Student.remove({ username: student.username }, function (err, student) {
           if(err) {
             console.log(err);
@@ -622,9 +521,7 @@ app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
         courses: student.courses,
         password: req.body.password
       };
-      // console.log("//////////");
-      // console.log(newUser);
-      // console.log("//////////");
+      
       Student.remove({ username: student.username }, function (err, student) {
         if(err) {
           console.log(err);
