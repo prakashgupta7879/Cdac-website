@@ -2,6 +2,7 @@
 const port = 3000;
 const express = require("express");
 const app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
@@ -14,6 +15,8 @@ var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
 var nodemailer = require('nodemailer');
+var MongoStore = require("connect-mongodb-session")(session);
+var auth = require('passport-local-authenticate');
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -179,7 +182,7 @@ app.get("/signup", function(req, res) {
 app.post("/signup", function(req, res) {
   console.log(req.body);
     var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
-    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student" });
+    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
 
     Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
@@ -194,6 +197,9 @@ app.post("/signup", function(req, res) {
             res.redirect("/signup");
         } else {
           passport.authenticate('local')(req, res, function() {
+            console.log(req);
+            console.log("/////////////");
+            console.log(user);
             req.flash("success", "Registered successfully!!");
             // res.render("dash_index.ejs",{id: user._id.toString()});
             res.redirect('/dash_index');
@@ -428,7 +434,7 @@ app.get('/reset-password', function (req, res) {
 
 app.post('/reset-password', function (req, res) {
     Student.find({username: req.body.username}, function (err, stud) {
-      if(err) {
+      if(err || req.body.password != req.body.password1) {
         req.flash("error","Please enter valid password.");
         res.redirect('/reset-password');
       } else {
@@ -482,6 +488,69 @@ app.post('/reset-password', function (req, res) {
     });
 })
 
+//CHANGE PASSWORD
+app.get('/change-password', function (req, res) {
+  res.render('change-password');
+})
+
+app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
+  Student.find({username: req.body.username}, function (err, stud) {
+    if(err) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else if(req.body.password != req.body.password1 || stud[0].password != req.body.oldPassword || req.body.captcha != req.body.inputCaptcha) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else {
+      var student = stud[0];
+      var newUser = {
+        username: student.username,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        dob: student.dob,
+        qualification: student.qualification,
+        Designation: student.Designation,
+        Department: student.Department,
+        AreaOfSpecialization: student.AreaOfSpecialization,
+        Institute: student.Institute,
+        address: student.address,
+        state: student.state,
+        district: student.district,
+        pincode: student.pincode,
+        email: student.email,
+        MobileNo: student.MobileNo,
+        usertype: student.usertype,
+        courses: student.courses,
+        password: req.body.password
+      };
+      // console.log("//////////");
+      // console.log(newUser);
+      // console.log("//////////");
+      Student.remove({ username: student.username }, function (err, student) {
+        if(err) {
+          console.log(err);
+          req.flash("error","Something went wrong.");
+          res.redirect('/change-password');
+        } else {
+          console.log(student);
+          Student.register(newUser, req.body.password, function(err, user) {
+              if(err) {
+                // console.log("//////////**********");
+                // console.log(err);
+                req.flash("error","Something went wrong.");
+                res.redirect('/change-password');
+              } else {
+                passport.authenticate('local')(req, res, function() {
+                  req.flash("success", "Password changed successfully!!");
+                  res.redirect('/logout');
+                });
+              }
+          });
+        }
+      })
+    }
+  });
+})
 
 //listen on port 3000
 app.listen(3000);
