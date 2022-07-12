@@ -98,9 +98,6 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('adminDash.ejs');
 });
 
-
-
-
 app.get("/admin", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('admin_cdac.ejs');
@@ -116,7 +113,7 @@ app.post("/admin", passport.authenticate("local", {
         res.redirect("/admin");
       } else {
         // console.log(admin);
-        res.redirect('/add');
+        res.redirect('/adminDash');
       }
     })
 });
@@ -129,6 +126,18 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
       res.redirect("/");
     } else {
       res.render('table',{faculty: faculty});
+    }
+  })
+});
+
+app.get("/students", middlewareObj.isAdminLoggedIn, function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  Student.find({usertype: "student"}, function (err, student) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('studentTable',{student: student});
     }
   })
 });

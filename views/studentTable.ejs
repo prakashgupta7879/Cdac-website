@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Faculties</title>
+    <title>Students</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -37,7 +37,7 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div style="margin-left:290px; margin-top: 20px; width: 75%;" class="tables">
-					<h2 class="title1">Faculties</h2>
+					<h2 class="title1">Students</h2>
 					<div class="panel-body widget-shadow">
 						<!-- <h5>Registered Faculties:</h5> -->
 						<table class="table">
@@ -50,12 +50,12 @@
 								</tr>
 							</thead>
 							<tbody>
-                <% faculty.forEach(function(faculty) { %>
+                <% student.forEach(function(faculty) { %>
 								<tr>
-								  <td><%= faculty.firstname %></td>
-								  <td><%= faculty.lastname %></td>
-								  <td><%= faculty.username %></td>
-                  <td style="text-align-last: center; width: 10%;"><form action="/faculty-remove/<%= faculty._id %>" method="POST"><button>❌</button></form></td>
+								  <td><%= student.firstname %></td>
+								  <td><%= student.lastname %></td>
+								  <td><%= student.username %></td>
+                  <td style="text-align-last: center; width: 10%;"><form action="/student-remove/<%= student._id %>" method="POST"><button>❌</button></form></td>
 								</tr>
                 <% }) %>
 							</tbody>
