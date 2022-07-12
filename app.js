@@ -244,6 +244,16 @@ app.get("/faculty-login", function(req, res) {
   res.render('faculty-login.ejs');
 });
 
+app.get("/faculty-login", function(req, res) {
+  // res.sendFile(__dirname + '/views/login.html');
+  res.render('facultyDash.ejs');
+});
+
+//FACULTY LOGIN
+app.get('/facultyDash', middlewareObj.isStudentLoggedIn, function (req,res) {
+  res.render('facultyDash.ejs');
+})
+
 app.post("/faculty-login", passport.authenticate("local", {
         failureRedirect: "/faculty-login"
     }), function(req, res) {
@@ -254,7 +264,7 @@ app.post("/faculty-login", passport.authenticate("local", {
           res.redirect("/faculty-login");
         } else {
           // res.render("dash_index.ejs");
-          res.redirect('/');
+          res.redirect('/facultyDash');
         }
       })
 // function(req, res) {
@@ -547,6 +557,7 @@ app.post('/edit-course/:id', middlewareObj.isFacultyLoggedIn, function (req, res
 app.get('/offered_courses', middlewareObj.isFacultyLoggedIn, function (req,res) {
   res.render('offered_courses');
 })
+
 
 //STUDENT DASHBOARD
 app.get('/dash_index', middlewareObj.isStudentLoggedIn, function (req,res) {
