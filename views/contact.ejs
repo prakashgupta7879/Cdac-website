@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html> 
+<html>
     <head>
         <title> Contact us</title>
         <meta charset="utf-8" />
@@ -15,24 +15,24 @@
          <!-- Font styles -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
-         
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     </head>
 <body>
-      
+
     <%- include('header'); -%>
     <%- include('navbar'); -%>
 
-  
+
 
     <iframe style="margin-top: 20px; display:block; margin-left: auto; margin-right: auto;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.0696146099604!2d92.78855791500077!3d24.758802184102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374e49c2683c9f95%3A0x9698a07544a4b227!2sC-DAC%20Silchar!5e0!3m2!1sen!2sin!4v1657572233213!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    
+
 
     <!-- <a href="https://www.google.com/maps/place/C-DAC+Silchar/@24.7588071,92.7885525,625m/data=!3m2!1e3!4b1!4m5!3m4!1s0x374e49c2683c9f95:0x9698a07544a4b227!8m2!3d24.7588406!4d92.7912675" target="_blank"  rel="noreferrer">
         <img src="img/map.png" class="co1" style="margin-top: 20px; display:block; width:50%; height:50%; margin-left: auto; margin-right: auto;" alt="Map"></img>
       </a> -->
-    <form name="myForm" action="/contact" class="forms" method="">
-        
+    <form name="myForm" action="/contact" class="forms" method="POST">
+
         <h2 style="text-align: center;">CONTACT US</h2> <br>
         <label class="sr-only">First Name</label>
         <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name" required="true" autofocus="">
@@ -42,31 +42,31 @@
         <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
         <label class="sr-only">Message</label>
         <textarea name="username" type="username" id="username" class="inputs" placeholder="Your Message" required="true" autofocus="" cols="30" rows="10"></textarea>
-        
+
         <br>
-         
+
         <div>
-            
+
             <div>
                 <input type="submit" value="Send Message" class="submitbtn">
             </div>
-            
-            
+
+
         </div>
    </form>
 <div style="text-align:center ;">
     <button style="text-align: center; margin: 2px; width: 155px;" >
         <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
     </button>
-   
+
     <button style="text-align: center; margin: 2px; width: 155px;">
         <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
-    </button> 
-    
+    </button>
+
 </div>
    <br>
-     
+
     <!-- FOOTER -->
     <%- include('footer'); -%>
     </body>
-</html>   
+</html>
