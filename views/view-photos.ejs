@@ -82,9 +82,9 @@
                 <% } else if(currentUser.usertype == "student") { %>
                   <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
-                <li class="aside-item active"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
                 <% if(currentUser.usertype == "student") { %>
-                  <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
+                  <li class="aside-item active"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
                 <% } %>
                 <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
@@ -100,58 +100,19 @@
             </div>
             <div>
                 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-                <div class="file-upload">
-                  <!-- <form method="POST" action="/upload-id"  enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label for="photo" class="form-control-label">Change Photo</label>
-                      <input type="file" name="image" class="form-control" />
-                    </div>
-                    <input type="submit" class="btn btn-sm btn-primary m-2" value="Submit" />
-                  </form> -->
-                  <form method="POST" action="/upload-id"  enctype="multipart/form-data">
-                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image of Your Institute ID</button>
-
-                    <div class="image-upload-wrap">
-                        <input class="file-upload-input" type='file' name="image" onchange="readURL(this);" accept="image/*" />
-                        <div class="drag-text">
-                            <h3>Drag and drop a file or select add Image</h3>
-                        </div>
-                    </div>
-                    <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" />
-                        <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                        </div>
-                    </div>
-                    <div class="buttonWrapper">
-                      <button type="submit" class="submitButton pure-button pure-button-primary">
-                        <span>Submit</span>
-                        <span id="loader"></span>
-                      </button>
-                    </div>
-                  </form>
-                  <form method="POST" action="/upload-address"  enctype="multipart/form-data">
-                    <button class="ffile-upload-btn" type="button" onclick="$('.ffile-upload-input').trigger( 'click' )">Add Image of Address Proof</button>
-
-                    <div class="iimage-upload-wrap">
-                        <input class="ffile-upload-input" type='file' name="image1" onchange="rreadURL(this);" accept="image/*" />
-                        <div class="ddrag-text">
-                            <h3>Drag and drop a file or select add Image</h3>
-                        </div>
-                    </div>
-                    <div class="ffile-upload-content">
-                        <img class="ffile-upload-image" src="#" alt="your image" />
-                        <div class="iimage-title-wrap">
-                            <button type="button" onclick="rremoveUpload()" class="rremove-image">Remove <span class="iimage-title">Uploaded Image</span></button>
-                        </div>
-                    </div>
-                    <div class="buttonWrapper">
-                      <button type="submit" class="submitButton pure-button pure-button-primary">
-                        <span>Submit</span>
-                        <span id="loader"></span>
-                      </button>
-                    </div>
-                  </form>
+                <div style="    margin: 0 auto; padding: 20px;">
+                    <h3>Institute ID</h3>
+                    <% if(currentUser.Institute.id_card) { %>
+                      <img style="border-radius: 2%;" src="images/<%= currentUser.Institute.id_card %>" alt="">
+                    <% } else { %>
+                      <p>Not yet uploaded.</p><br><br>
+                    <% } %>
+                    <h3>Address Proof</h3>
+                    <% if(currentUser.Institute.address_proof) { %>
+                      <img style="border-radius: 2%;" src="images/<%= currentUser.Institute.address_proof %>" alt="">
+                    <% } else { %>
+                      <p>Not yet uploaded.</p>
+                    <% } %>
                 </div>
 
               <script>
