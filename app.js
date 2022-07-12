@@ -325,6 +325,7 @@ app.get('/internships', function (req,res) {
   res.render('internship.ejs');
 })
 
+//ENROLL NOW
 app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('enroll-now.ejs');
 })
