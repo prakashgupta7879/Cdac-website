@@ -91,6 +91,15 @@ app.get("/",(req, res) => {
     res.render('index.ejs')
 })
 
+//ADMIN
+
+app.get("/adminDash", function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('adminDash.ejs');
+});
+
+
+
 
 app.get("/admin", function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');

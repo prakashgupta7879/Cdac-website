@@ -1,39 +1,57 @@
-<aside class="sidebar-left">
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          </button>
-          <img style="width:230px ;" src="img/CDAC.jpg" alt="">
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-              <a href="index.html">
-              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="#">
-              <i class="fa fa-laptop"></i>
-              <span>Components</span>
-              <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="/add"><i class="fa fa-angle-right"></i> Add Faculty</a></li>
-                <li><a href="/view"><i class="fa fa-angle-right"></i> View Faculties</a></li>
-              </ul>
-            </li>
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-angle-right text-red"></i> <span>Change Password</span></a></li>
-            <li><a href="#"><i class="fa fa-angle-right text-yellow"></i> <span>Reports</span></a></li>
-            <li><a href="/logout"><i class="fa fa-angle-right text-aqua"></i> <span>Logout</span></a></li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </nav>
-  </aside>
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>CDAC Silchar</h3>
+    
+  </div>
+
+  <ul class="list-unstyled components">
+    <!-- <p>Dashboard</p> -->
+    <li class="active">
+      <h5 style="margin:10px ;">Dashboard</h5>
+      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Navigation</a>
+      
+      <ul class="collapse list-unstyled" id="homeSubmenu">
+        <li>
+          <a href="/add">Add a New Faculty</a>
+        </li>
+        <li>
+          <a href="/view">View Faculties</a>
+        </li>
+        <li>
+          <a href="#">Add latest updates</a>
+        </li>
+        <li>
+          <a href="#">Add an achievement</a>
+        </li>
+        <li>
+          <a href="#">Add an achievement</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">About</a>
+    </li>
+    <li>
+      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Widgets</a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li>
+          <a href="#">To Do List</a>
+        </li>
+        <li>
+          <a href="#">Calender</a>
+        </li>
+        
+      </ul>
+    </li>
+    <li>
+      <a href="#">Learn More</a>
+    </li>
+    <li>
+      <a href="#">Change Password</a>
+    </li>
+    <li>
+      <a href="#">Logout</a>
+    </li>
+  </ul>
+
+</nav>
