@@ -9,7 +9,7 @@ var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var Student = require('./modules/student.js');
-var Faculty = require('./modules/faculty.js');
+var Application = require('./modules/applications.js');
 var Course = require('./modules/courses.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
@@ -93,7 +93,7 @@ app.get("/",(req, res) => {
 
 //ADMIN
 
-app.get("/adminDash", function(req, res) {
+app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('adminDash.ejs');
 });
@@ -325,8 +325,21 @@ app.get('/internships', function (req,res) {
   res.render('internship.ejs');
 })
 
-app.get('/enroll', function (req,res) {
+app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('enroll-now.ejs');
+})
+
+app.post('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
+  console.log(req.body);
+  Application.create(req.body, function (err, app) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/enroll");
+    } else {
+      req.flash("success", "Application submitted!");
+      res.redirect('/enroll');
+    }
+  })
 })
 
 //ABOUT US

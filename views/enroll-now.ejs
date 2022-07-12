@@ -36,40 +36,44 @@
         <div class="enroll-form">
             <h1>Certified Online Training</h1>
             <div class="form">
-                <form>
+                <form action="/enroll" method="POST">
+                    <div class="form-div" style="display: none;">
+                        <label for="name">Username</label>
+                        <input type="text" name="username" id="name" value="<%= currentUser.username %>">
+                    </div>
                     <div class="form-div">
                         <label for="name">Name</label>
-                        <input type="text" name="my name" id="name">
+                        <input type="text" name="name" id="name" required>
                     </div>
 
                     <div class="form-div">
                         <label for="email">Email</label>
-                        <input type="email" name="my email" id="email">
+                        <input type="email" name="email" id="email" required>
                     </div>
                     <div class="form-div">
                         <label for="phone">Mobile Number</label>
-                        <input type="text" name="phone number" id="phone">
+                        <input type="text" name="MobileNo" id="phone" required>
                     </div>
                     <div class="form-div">
                         <label for="course">Select Course </label>
-                        <select name="my course" id="course">
-                            <option value="deep">Deep Learning</option>
-                            <option value="web" selected>Web Development</option>
-                            <option value="Mach">Machine Learning</option>
-                            <option value="pyt">Python Programming</option>
+                        <select name="course" id="course">
+                            <option value="Deep Learning">Deep Learning</option>
+                            <option value="Web Development" selected>Web Development</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Python Programming">Python Programming</option>
                         </select>
                     </div>
                     <div class="form-div outline">
                         <label for="skill">Your Skills</label>
-                        <textarea name="mytext" cols="10" rows="1" id="skill"></textarea>
+                        <textarea name="skills" cols="10" rows="1" id="skill" required></textarea>
                     </div>
                     <div class="form-div">
                         <label for="des">Your Hobbies</label>
-                        <textarea name="mytext" cols="10" rows="1" id="des"></textarea>
+                        <textarea name="hobbies" cols="10" rows="1" id="des" required></textarea>
                     </div>
                     <div class="form-div outline">
                         <label for="link">Resume Link</label>
-                        <textarea name="mylink" cols="10" rows="1" id="link"></textarea>
+                        <textarea name="link" cols="10" rows="1" id="link" required></textarea>
                     </div>
                     <div class="form-btn">
                         <input type="reset" class="btn-secondary" value="Reset">
