@@ -94,6 +94,11 @@ app.get("/",(req, res) => {
 
 //ADMIN
 
+app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('latestUpdate.ejs');
+});
+
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   Student.count({ usertype: "student" }, function (err, student) {
     if(err) {

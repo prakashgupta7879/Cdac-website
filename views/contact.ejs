@@ -34,8 +34,10 @@
     <form name="myForm" action="/contact" class="forms" method="POST">
 
         <h2 style="text-align: center;">CONTACT US</h2> <br>
-        <label class="sr-only" style="display: none;">First Name</label>
-        <input name="username"  style="display: none;" type="username" id="username" class="inputs" value="<%= currentUser.username %>" autofocus="">
+        <% if(currentUser) { %>
+          <label class="sr-only" style="display: none;">First Name</label>
+          <input name="username"  style="display: none;" type="username" id="username" class="inputs" value="<%= currentUser.username %>" autofocus="">
+        <% } %>
         <label class="sr-only">First Name</label>
         <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name" required="true" autofocus="">
         <label for="inputEmail" class="sr-only">Last Name</label>
