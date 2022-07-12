@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
+    <title>Courses Offered</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/courses.css">
 
@@ -19,7 +19,6 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
 
     <!-- NAVIGATION BAR -->
     <nav id="navbar">
@@ -61,12 +60,12 @@
         <aside id="aside">
             <ul class="aside-list">
                 <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
-                <li class="aside-item"><a href="/courses" class="font6"><div>Courses</div></a></li>
+                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
                 <% if(currentUser.usertype == "faculty") { %>
-                  <li class="aside-item active"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
+                  <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "faculty") { %>
-                    <li class="aside-item"><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
+                    <li class="aside-item active"><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
                 <% } else if(currentUser.usertype == "student") { %>
                   <li class="aside-item"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
@@ -80,77 +79,33 @@
         </aside>
       <% } %>
 
-      <section id="course-section" class="coursesection">
-        <div class="section-bar">
-            <strong class="font3">Welcome <%= currentUser.firstname %>!</strong>
-            <div class="logout"><a href="/logout"><button class="btn-secondary logout-btn">Logout</button></a></div>
-        </div>
-        <div class="courses-list" style="height: fit-content;">
-        <form action="/course-upload" method="POST">
+        <!-- <%= currentUser.courses %> -->
 
-          <label for="cname">Course Name</label>
-          <input type="text" id="fname" name="name" placeholder="Course Name">
+        <section id="course-section">
+            <div class="section-bar">
+                <form id="search-course" class="search-bar" action="/action_page.php">
+                    <input type="text" placeholder="Search Courses.." name="search2">
+                    <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="enrolled-courses-list">
+              <% currentUser.courses.forEach(function(course) { %>
+                <div class="download-card">
+                    <div class="download-card-content">
+                        <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
+                        <div id="download-card-branch" class="clr font5 card-info"> Electronics and Communication Engineering</div>
+                    </div>
+                    <span style="display: flex;"><a href="/edit-course/<%= course.username %>" class="btn5 font5" style="padding: 0.25em; text-decoration: none; color: white;"><div>Edit</div></a><a style="padding: 0.25em; text-decoration: none; color: white;" class="btn5 font5" href="/about_course/<%= course.username %>"><div>View</div></a></span>
+                </div>
+              <% }) %>
 
-          <label for="description">About Course</label>
-          <textarea type="text" id="lname" name="description" placeholder="About Course"></textarea>
+            </div>
+        </section>
+    </div>
 
-          <label for="syllabus">Syllabus - What you will learn from this Course</label>
-          <textarea type="text" id="lname" name="syllabus" placeholder="What you will learn from this Course"></textarea>
 
-          <label for="duration">Course duration</label>
-          <input type="text" id="lname" name="duration" placeholder="Course duration">
-
-          <label for="instructor_name">Instructor's Name</label>
-          <input type="text" id="lname" name="instructor_name" placeholder="Instructor's Name">
-
-          <label for="syllabus">Instructor's Designation</label>
-          <input type="text" id="lname" name="instructor_designation" placeholder="Instructor's Designation">
-
-          <label for="syllabus">Instructor's College</label>
-          <input type="text" id="lname" name="instructor_college" placeholder="Instructor's College">
-
-          <!-- <label for="subject">Subject</label>
-          <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea> -->
-          <input type="submit" value="Submit" style="width: 80px; padding: 0.5em; background-color: #3e7fe1;" class="btn btn-primary">
-
-        </div>
-        </form>
-      </section>
-
-      </div>
-<style media="screen">
-  input[type=text], select, textarea {
-  width: 100%; /* Full width */
-  padding: 12px; /* Some padding */
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Make sure that padding and width stays in place */
-  margin-top: 6px; /* Add a top margin */
-  margin-bottom: 16px; /* Bottom margin */
-  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
-}
-
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-/* Add a background color and some padding around the form */
-.container {
-  border-radius: 5px;
-  background-color: white;
-  padding: 20px;
-}
-</style>
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
 
 </body>
 
