@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var Student = require('./modules/student.js');
 var Application = require('./modules/applications.js');
 var Course = require('./modules/courses.js');
+var Query = require('./modules/queries.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -94,8 +95,42 @@ app.get("/",(req, res) => {
 //ADMIN
 
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('adminDash.ejs');
+  Student.count({ usertype: "student" }, function (err, student) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/adminDash");
+    } else {
+      Student.count({ usertype: "faculty" }, function (err, faculty) {
+        if(err) {
+          req.flash("error","Something went wrong.");
+          res.redirect("/adminDash");
+        } else {
+          Course.count(function (err, course) {
+            if(err) {
+              req.flash("error","Something went wrong.");
+              res.redirect("/adminDash");
+            } else {
+              Query.count(function (err, query) {
+                if(err) {
+                  req.flash("error","Something went wrong.");
+                  res.redirect("/adminDash");
+                } else {
+                  Application.count(function (err, application) {
+                    if(err) {
+                      req.flash("error","Something went wrong.");
+                      res.redirect("/adminDash");
+                    } else {
+                      res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application });
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
 });
 
 app.get("/admin", function(req, res) {
@@ -148,13 +183,12 @@ app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
 });
 
 //DELETE FACULTY
-app.post("/faculty-remove/:id", function (req, res) {
-  Student.remove({ _id: req.params.id, usertype: "faculty" }, function (err, user) {
+app.post("/faculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Student.remove({ _id: req.params.id }, function (err, user) {
     if(err) {
       req.flash("error","Something went wrong.");
       res.redirect("/view");
     } else {
-      req.flash("success","Faculty removed successfully.");
       res.redirect("/view");
     }
   })
@@ -354,45 +388,53 @@ app.post('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
 
 //ABOUT US
 app.get('/about', function (req,res) {
-  res.render('about.ejs');
+  res.render('about');
 })
 
 //CONTACT US
 app.get('/contact', function (req,res) {
-  res.render('contact.ejs');
+  res.render('contact');
 })
 
 app.post('/contact', function (req,res) {
-  var query = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    text: req.body.username
-  };
-  var transporter = nodemailer.createTransport({
-    service: 'hotmail',
-    auth: {
-      user: 'queries_cdac@outlook.com',
-      pass: 'Cdac@2022'
-    }
-  });
-
-  var mailOptions = {
-    from: 'queries_cdac@outlook.com',
-    to: 'c_dac@outlook.com',
-    subject: 'Queries regarding CDAC',
-    html: "Name: " + query.firstname + " " + query.lastname + '<br>Email: ' + query.email + '<br>' + query.text
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-      res.redirect('/contact');
+  Query.create(req.body, function (err, query) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/contact");
     } else {
-      console.log('Email sent: ' + info.response);
-      res.redirect('/contact');
+      var query = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        text: req.body.username
+      };
+      var transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+          user: 'queries_cdac@outlook.com',
+          pass: 'Cdac@2022'
+        }
+      });
+
+      var mailOptions = {
+        from: 'queries_cdac@outlook.com',
+        to: 'c_dac@outlook.com',
+        subject: 'Queries regarding CDAC',
+        html: "Name: " + query.firstname + " " + query.lastname + '<br>Email: ' + query.email + '<br>' + query.text
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+          res.redirect('/contact');
+        } else {
+          console.log('Email sent: ' + info.response);
+          req.flash("success","Query sent successfully.");
+          res.redirect('/contact');
+        }
+      });
     }
-  });
+  })
 })
 
 //COURSES
