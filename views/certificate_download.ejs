@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
+    <title>Certificates</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="/css/courses.css">
 
     <!-- Font styles -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
@@ -19,8 +19,39 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
+
     <!-- NAVIGATION BAR -->
-    <%- include('navbar'); -%>
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="/">Home</a></li>
+                <li class="item"><a href="/internships">Internships</a></li>
+                <li class="item dropdown"><a href="#">Adminstration</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item dropdown"><a href="#">Important Links</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="/about">About us</a></li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div id="navbar-right">
+
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
 
 
     <div class="container">
@@ -33,14 +64,14 @@
               <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
               <% } %>
-                <li class="aside-item active"><a href="/courses" class="font6"><div>Courses</div></a></li>
+                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
                 <% if(currentUser.usertype == "faculty") { %>
                   <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "faculty") { %>
                     <li class="aside-item "><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
                 <% } else if(currentUser.usertype == "student") { %>
-                  <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                  <li class="aside-item"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
@@ -48,46 +79,36 @@
                   <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "faculty") { %>
-                    <li class="aside-item"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
+                    <li class="aside-item active"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
                 <% } else if(currentUser.usertype == "student") { %>
-                  <li class="aside-item"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                  <li class="aside-item active"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
                 <% } %>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
             </ul>
         </aside>
       <% } %>
 
-        <section id="course-section" class="coursesection">
+        <section id="course-section">
             <div class="section-bar">
                 <form id="search-course" class="search-bar" action="/action_page.php">
                     <input type="text" placeholder="Search Courses.." name="search2">
                     <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <div class="courses-list" style="height: fit-content;">
-              <% courses.forEach(function(course) { %>
-                <div class="course-card" style="height: fit-content;">
-                    <div class="card-content">
-                        <div id="card-name" class="clr font5 card-info"><%= course.name %></div>
-                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering</div>
-                        <div id="meta-data" class="card-info">
-                            <span class="font5 clr"><%= course.instructor.name %></span>
-                            <span class="font5 clr"><%= course.instructor.college %></span>
-                        </div>
-                        <!-- <span class="btn3 font5"><a href="/about_course">Course Details</a></span> -->
+            <div class="enrolled-courses-list">
+              <% currentUser.certificates.forEach(function(course) { %>
+                <div class="download-card">
+                    <div class="download-card-content">
+                        <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
                     </div>
-                    <span class="btn3 font5"><a href="/about_course/<%= course.username %>">Course Details</a></span>
+                    <span class="btn5 font5"><a href="/view_certificate/<%= course.username %>"><div>View Certificate</div></a></span>
                 </div>
-                <% }) %>
+              <% }) %>
+
             </div>
         </section>
     </div>
 
-    <!-- <script type="text/javascript">
-      if(!currentUser) {
-        document.getElementById('course-section').style.width = "100%";
-      }
-    </script> -->
 
     <!-- FOOTER -->
     <%- include('footer'); -%>

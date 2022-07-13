@@ -13,6 +13,7 @@ var Application = require('./modules/applications.js');
 var Course = require('./modules/courses.js');
 var Query = require('./modules/queries.js');
 var Update = require('./modules/latestUpdates.js');
+var Program = require('./modules/program.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -120,8 +121,15 @@ app.get("/",(req, res) => {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       } else {
-        console.log(update);
-        res.render('index', { update: update });
+        Program.find({}, function (err, program) {
+          if(err) {
+            req.flash("error", "Something went wrong.");
+            res.redirect("/");
+          } else {
+            console.log(program);
+            res.render('index', { update: update, program: program });
+          }
+        })
       }
     })
 })
@@ -135,6 +143,18 @@ app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
 app.get("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addProgram');
+});
+
+app.post("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
+    Program.create(req.body, function (err, program) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/addprogram");
+      } else {
+        req.flash("success", "Added a program successfully.");
+        res.redirect("/addprogram");
+      }
+    });
 });
 
 app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
@@ -900,6 +920,61 @@ app.post("/upload-profile", upload.single('image'),  middlewareObj.isLoggedIn, f
 //VIEW IDS
 app.get('/view-ids',  middlewareObj.isStudentLoggedIn,  function (req, res) {
   res.render('view-photos');
+})
+
+//DOWNLOAD CERTIFICATE
+app.get('/certificate_download', middlewareObj.isStudentLoggedIn,  function (req, res) {
+  res.render('certificate_download');
+})
+
+//VIEW CERTIFICATE
+app.get('/view_certificate/:id', middlewareObj.isStudentLoggedIn,  function (req, res) {
+  var course;
+  var currentUser = req.user;
+  console.log(currentUser);
+  for(var i=0; i<currentUser.certificates.length; i++) {
+    if(req.user.certificates[i].username == req.params.id) {
+      course = req.user.certificates[i];
+      break;
+    }
+  }
+  res.render('view_certificate', { course: course });
+})
+
+//GIVE CERTIFICATE
+app.get('/give_certificate', middlewareObj.isFacultyLoggedIn,  function (req, res) {
+  res.render('give_certificate');
+})
+
+app.post('/give_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (req, res) {
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect('/give_certificate');
+    } else {
+      Student.find({ usertype: "student" }, function (err, student) {
+        if(err) {
+          req.flash("error","Something went wrong.");
+          res.redirect('/give_certificate');
+        } else {
+          for(var i=0; i<student.length; i++) {
+            for(var j=0; j<student[i].courses.length; j++) {
+              if(student[i].courses[j].username == course[0].username) {
+                student[i].certificates.push({
+                  username: course[0].username,
+                  name: course[0].name
+                });
+                student[i].save();
+                console.log(student[i]);
+                break;
+              }
+            }
+          }
+          res.redirect('/give_certificate');
+        }
+      })
+    }
+  })
 })
 
 //listen on port 3000

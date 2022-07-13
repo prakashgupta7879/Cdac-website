@@ -113,6 +113,12 @@ var UserSchema = new mongoose.Schema({
             college: String,
           }
       }
+    ],
+    certificates : [
+      {
+          username: String,
+          name: String
+      }
     ]
 }
 // faculty: {

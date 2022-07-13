@@ -47,10 +47,13 @@
             <div class="list-head"><span>Programs</span></div>
             <div class="list">
                 <ul>
-                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_pgpd_pgd_programmes">Post Graduate Diploma Programmes</a></li>
+                  <% program.forEach(function(program) { %>
+                    <li class="list-item"><a href="<%= program.link %>"><%= program.username %></a></li>
+                  <% }) %>
+                    <!-- <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_pgpd_pgd_programmes">Post Graduate Diploma Programmes</a></li>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_ftp_formal_training_programmes">Formal Training Programmes</a></li>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_ctp_corp_training_programmes">Corporate Training Programmes</a></li>
-                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_its_int_training_programmes">International Training Programmes</a></li>
+                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_its_int_training_programmes">International Training Programmes</a></li> -->
                 </ul>
             </div>
             <div class="list-head"><span> Important Links</span></div>
