@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Offered</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/courses.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <%- include('header'); -%>
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
+        <div id="navbar-items">
+            <ul>
+                <li class="item"><a href="/">Home</a></li>
+                <li class="item"><a href="#" class="active">STC Registration</a></li>
+                <li class="item"><a href="#">Internships</a></li>
+                <li class="item dropdown"><a href="#">Adminstration</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item dropdown"><a href="#">Important Links</a>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li class="item"><a href="/about">About us</a></li>
+                <li class="item"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div id="navbar-right">
+
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container">
+      <% if(currentUser) { %>
+        <aside id="aside">
+            <ul class="aside-list">
+              <% if(currentUser.usertype == "faculty") { %>
+                <li class="aside-item"><a href="/facultyDash" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+              <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                  <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item active"><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+                
+                  <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
+                <% } %>
+                <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
+                <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
+            </ul>
+        </aside>
+      <% } %>
+
+        <!-- <%= currentUser.courses %> -->
+
+        <section id="course-section">
+            <div class="section-bar">
+                <form id="search-course" class="search-bar" action="/action_page.php">
+                    <input type="text" placeholder="Search Courses.." name="search2">
+                    <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="enrolled-courses-list">
+              <% currentUser.courses.forEach(function(course) { %>
+                <div class="download-card">
+                    <div class="download-card-content">
+                        <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
+                        <div id="download-card-branch" class="clr font5 card-info"> Electronics and Communication Engineering</div>
+                    </div>
+                    <span style="display: flex;"><a href="/edit-course/<%= course.username %>" class="btn5 font5" style="padding: 0.25em; text-decoration: none; color: white;"><div>Edit</div></a><a style="padding: 0.25em; text-decoration: none; color: white;" class="btn5 font5" href="/about_course/<%= course.username %>"><div>View</div></a></span>
+                </div>
+              <% }) %>
+
+            </div>
+        </section>
+    </div>
+
+
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
+
+</body>
+
+</html>

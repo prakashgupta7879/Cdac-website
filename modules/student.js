@@ -14,6 +14,10 @@ var UserSchema = new mongoose.Schema({
     type: String,
     default: ''
 },
+    profileImage: {
+    type: String,
+    default: ''
+},
     qualification: {
     type: String,
     default: ''
@@ -35,6 +39,14 @@ var UserSchema = new mongoose.Schema({
     type: String,
     default: ''
 },
+    id_card: {
+      type: String,
+      default: ''
+    },
+    address_proof: {
+      type: String,
+      default: ''
+    },
       place: {
     type: String,
     default: ''

@@ -20,7 +20,8 @@ footer{
 
 /* HEADER */
 #header{
-    background-image: linear-gradient(90deg, rgb(40, 78, 54), rgb(0, 124, 65));
+    background-color: 
+    #05445E;
     display: flex;
     flex-direction: row;
     padding: 25px 30px;
@@ -37,10 +38,10 @@ footer{
 #navbar{
     display: flex;
     justify-content: space-between;
-    background-color: powderblue;
-    margin-top: 1px;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    background-color: #189AB4;
+    /* margin-top: 1px; */
+    /* border-top: 1px solid grey;
+    border-bottom: 1px solid grey; */
 }
 #navbar-items{
     margin-left: 1rem;
@@ -55,6 +56,7 @@ footer{
 #navbar-items ul li a{
     text-decoration: none;
     font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
     color: black;
     padding: 5px 7px;
     font-size: 15px;
@@ -65,9 +67,8 @@ footer{
     border-radius: 3px;
 }
 #navbar-items ul li a.active{
-    background-color: darkslategrey;
+    background-color: rgb(4, 114, 114);
     border-radius: 2px;
-    transform: scale(1.06);
     color: whitesmoke;
 }
 
@@ -81,7 +82,7 @@ footer{
     position: absolute;
     background-color: #f5f7fa;
     border: 1px solid #e3e4e5;
-    min-width: 160px;
+    min-width: 170px;
     border-radius: 2px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     animation-name: anime1;
@@ -110,31 +111,27 @@ footer{
     margin: auto 20px;
 }
 .navbar-login button{
-    padding: 4px 4px;
-    margin: 4px 5px;
+    padding: 5px 6px;
+    margin: 4px 4px;
 }
 
 
 /* dropdown buttons */
 .dropbtn {
-    background-color: #3498DB;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
-
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-
-  .dropdown {
+}
+.dropbtn:hover, .dropbtn:focus {
+    background-color: darkslategray;
+}
+.dropdown {
     position: relative;
     display: inline-block;
-  }
-
-  .dropdown-cnt {
+}
+.dropdown-cnt {
     display: none;
     position: absolute;
     background-color: whitesmoke;
@@ -143,25 +140,21 @@ footer{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 5px;
-  }
-
-  .dropdown-cnt a {
+}
+.dropdown-cnt a {
     color: black;
     padding: 4px 8px;
     text-decoration: none;
     display: block;
-  }
-
-  .dropdown-cnt a:hover {
+}
+.dropdown-cnt a:hover {
     background-color: rgb(37, 157, 139);
     color: white;
 }
-
-  .show {display: block;}
-
+.show {display: block;}
 
 
-  .search-bar{
+.search-bar{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -179,7 +172,8 @@ footer{
     display: flex;
     justify-content: space-around;
     height: 450px;
-    margin-top: 0.2rem;
+    margin-top: 0.05rem;
+    border-bottom: 1px solid gray;
 }
 
 
@@ -190,7 +184,7 @@ footer{
     text-align: center;
     display: flex;
     flex-direction: column;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     overflow: scroll;
     border-top: none;
 }
@@ -199,13 +193,14 @@ footer{
 }
 .list-head{
     padding: 6px 0px;
-    background-color:cadetblue;
+    background-color:
+    #06638b;
     text-align: left;
 }
 .list-head span{
     color: whitesmoke;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     font-family: 'Source Sans Pro', sans-serif;
     margin-left: 1rem;
 }
@@ -225,11 +220,13 @@ footer{
 .list-item a{
     float: left;
     text-decoration: none;
-    text-align: left;
+    text-align: justify;
     padding: 0px 20px;
     color: black;
     font-size: 12px;
+    font-weight: 600;
     font-family: 'Open Sans', sans-serif;
+
 }
 .list-item a:hover{
     text-decoration: underline;
@@ -248,10 +245,9 @@ footer{
     vertical-align: middle;
     height: 450px;
     z-index: 4;
-    opacity: 0.7;
+    opacity: 0.9;
     padding: 0px 2px;
     box-sizing: border-box;
-    border-bottom: 1px solid gray;
 }
 .bg{
     display: none;
@@ -291,21 +287,21 @@ footer{
     height: 100%;
     width: 20%;
     text-align: center;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     border-top: none;
 }
 .section-right-head{
     padding: 6px 0px;
-    background-color:cadetblue;
+    background-color:
+    #06638b;
     color: whitesmoke;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 600;
     font-family: 'Source Sans Pro', sans-serif;
 }
 .section-right-content{
     overflow: scroll;
     background-color: aliceblue;
-    text-align:justify;
     padding: 5px 5px;
     height: 416px;
 }
@@ -326,9 +322,11 @@ footer{
 }
 .content a{
     text-decoration: none;
-    color: black;
+    color: rgb(31,31,31);
+    font-weight: 600;
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
+    text-align:justify;
 }
 .content a:hover{
     text-decoration: underline;
@@ -337,24 +335,30 @@ footer{
 
 /* SECTION-2 */
 #section-2{
-    margin-bottom: 0.3rem;
     margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    width: 100%;
 }
 .more-about{
     display: flex;
     justify-content: space-evenly;
 }
 .more-about-box{
-    background-color: lightseagreen;
-    padding: 8px 78px;
-
+    background-color: #06638b;
+    display: flex;
+    justify-content: center;
+    width: 24.5%;
 }
 .more-about-box a{
     text-decoration: none;
+    text-align: center;
     color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    padding: 8px 0px;
 }
 .more-about-box a:hover{
-    color: darkslategrey;
+    color:darkblue;
     transition: all 0.5s;
 }
 
@@ -523,9 +527,10 @@ footer{
     border-radius: 2px;
     outline: none;
     font-size: 12px;
+    font-weight: bold;
     color:whitesmoke;
     border: 0px solid white;
-    background-color:cadetblue;
+    background-color:darkslategray;
 }
 .btn-secondary:hover{
     cursor: pointer;
