@@ -25,7 +25,7 @@
     <!-- NAVIGATION BAR -->
     <%- include('navbar'); -%>
 
-    <% if(error && error.length>0) { %>
+    <!-- <% if(error && error.length>0) { %>
       <div class="alert" style="background-color: red;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <div style="font-size: larger;" class="alert alert-danger" role="alert">
@@ -40,13 +40,18 @@
             <p style="text-align: center;"><%= success %></p>
         </div>
       </div>
-    <% } %>
+    <% } %> -->
 
 
     <div class="container">
         <aside id="aside">
             <ul class="aside-list">
-                <li class="aside-item active"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                  <li class="aside-item active"><a href="/facultyDash" class="font6"><div>View/ Update Profile</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "student") { %>
+                  <li class="aside-item active"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+                <% } %>
                 <li class="aside-item"><a href="/courses" class="font6"><div>Courses</div></a></li>
                 <% if(currentUser.usertype == "faculty") { %>
                   <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
@@ -56,8 +61,9 @@
                 <% } else if(currentUser.usertype == "student") { %>
                   <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
-                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
                 <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+
                   <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
                 <% } %>
                 <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
@@ -66,7 +72,7 @@
         </aside>
 
         <section id="section">
-          
+
             <div class="section-bar">
                 <strong class="font3">Welcome <%= currentUser.firstname %>!</strong>
                 <div class="logout"><a href="/logout"><button class="btn-secondary logout-btn">Logout</button></a></div>
@@ -167,7 +173,11 @@
                     <a href="/dash_index/edit"><button class="btn-secondary">Edit Profile</button></a>
                 </div>
                 <div class="photo">
+                  <% if(currentUser.profileImage) { %>
                     <img src="images/<%= currentUser.profileImage %>" alt="No Photo Available">
+                  <% } else { %>
+                    <img src="images/photo2.png" alt="No Photo Available">
+                  <% } %>
                     <div class="change" style="display: block;">
                       <form method="POST" action="/upload-profile"  enctype="multipart/form-data">
                         <input type="file" name="image" />

@@ -244,21 +244,11 @@ app.get("/faculty-login", function(req, res) {
   res.render('faculty-login.ejs');
 });
 
-app.get("/faculty-login", function(req, res) {
-  // res.sendFile(__dirname + '/views/login.html');
-  res.render('facultyDash.ejs');
-});
-
-//FACULTY LOGIN
-app.get('/facultyDash', middlewareObj.isStudentLoggedIn, function (req,res) {
-  res.render('facultyDash.ejs');
-})
-
 app.post("/faculty-login", passport.authenticate("local", {
         failureRedirect: "/faculty-login"
     }), function(req, res) {
       console.log(req.body);
-      Student.find({username: req.body.username, usertype: "student" }, function(err,student){
+      Student.find({username: req.body.username, usertype: "faculty" }, function(err,faculty){
         if(err){
           req.flash("error","Incorrect Username or Password.");
           res.redirect("/faculty-login");
@@ -281,6 +271,38 @@ app.post("/faculty-login", passport.authenticate("local", {
 //       }
 //     })
 });
+
+//FACULTY DASHBOARD
+app.get('/facultyDash', middlewareObj.isFacultyLoggedIn, function (req,res) {
+  res.render('facultyDash');
+})
+
+// //FACULTY DASHBOARD EDIT
+// app.get("/facultyDash/edit", middlewareObj.isFacultyLoggedIn, function(req, res) {
+//     Student.findById(req.user._id, function(err, faculty) {
+//         if(err) {
+//             req.flash("error", "Something went wrong");
+//             res.redirect("/facultyDash");
+//         } else {
+//             res.render("profile-edit", {faculty: faculty});
+//         }
+//     });
+// });
+//
+// //FACULTY DASHBOARD UPDATE
+// app.put("/facultyDash/edit", middlewareObj.isFacultyLoggedIn, function(req, res) {
+//   console.log(req.body);
+//     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
+//         if(err) {
+//           // console.log(err);
+//             req.flash("error","Something went wrong.");
+//             res.redirect("/facultyDash");
+//         } else {
+//             console.log(student);
+//             res.redirect("/facultyDash");
+//         }
+//     });
+// });
 
 //STUDENT SIGNUP
 app.get("/signup", function(req, res) {
@@ -349,31 +371,31 @@ app.get('/logout', middlewareObj.isLoggedIn, function(req, res, next) {
 });
 
 //EDIT
-app.get("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) {
+app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
     Student.findById(req.user._id, function(err, student) {
         if(err) {
             req.flash("error", "Something went wrong");
-            res.redirect("/dash_index");
+            res.redirect("/");
         } else {
-          console.log("/////");
-          console.log(student.password);
-          console.log("///");
             res.render("profile-edit", {student: student});
         }
     });
 });
 
 //UPDATE
-app.put("/dash_index/edit", middlewareObj.isStudentLoggedIn, function(req, res) {
+app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
   console.log(req.body);
     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
         if(err) {
           // console.log(err);
             req.flash("error","Something went wrong.");
-            res.redirect("/dash_index");
+            res.redirect("/");
         } else {
-            console.log(student);
-            res.redirect("/dash_index");
+            if(student.usertype == "faculty") {
+              res.redirect('/facultyDash');
+            } else {
+              res.redirect("/dash_index");
+            }
         }
     });
 });
@@ -824,7 +846,7 @@ app.post("/upload-address", upload.single('image1'),  middlewareObj.isStudentLog
 });
 
 //UPLOAD PROFILE
-app.post("/upload-profile", upload.single('image'),  middlewareObj.isStudentLoggedIn, function(req, res) {
+app.post("/upload-profile", upload.single('image'),  middlewareObj.isLoggedIn, function(req, res) {
   Student.findById(req.user._id, function (err, user) {
     let imageUrl;
     console.log(req.file);
@@ -837,7 +859,11 @@ app.post("/upload-profile", upload.single('image'),  middlewareObj.isStudentLogg
     user.save();
     // console.log(user);
     req.flash("success", "Profile photo uploaded successfully.");
-    res.redirect("/dash_index");
+    if(user.usertype == "faculty") {
+      res.redirect('/facultyDash');
+    } else {
+      res.redirect("/dash_index");
+    }
   });
 });
 
