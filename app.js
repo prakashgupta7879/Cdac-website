@@ -127,6 +127,11 @@ app.get("/",(req, res) => {
 })
 
 //ADMIN
+app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('adminChangePassword');
+});
+
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addAchievement');
