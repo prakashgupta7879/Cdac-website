@@ -126,6 +126,17 @@ app.get("/",(req, res) => {
     })
 })
 
+//ADMINISTRATION
+app.get("/directorgeneral", function(req, res) {
+  
+  res.render('directorGeneral');
+});
+
+app.get("/centerhead", function(req, res) {
+  
+  res.render('centerHead');
+});
+
 //ADMIN
 app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
