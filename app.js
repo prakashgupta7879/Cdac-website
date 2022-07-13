@@ -12,6 +12,7 @@ var Student = require('./modules/student.js');
 var Application = require('./modules/applications.js');
 var Course = require('./modules/courses.js');
 var Query = require('./modules/queries.js');
+var Update = require('./modules/latestUpdates.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -74,6 +75,32 @@ var upload = multer({
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
+
+// PDF FILE STORAGE
+const storagef = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./pdfs");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilterf = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var pdfUpload = multer({
+  storage: storagef,
+  fileFilter: fileFilterf
+});
+
+app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
+
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -88,15 +115,46 @@ app.use('/img', express.static(__dirname + 'public/img'))
 
 //HOME PAGE
 app.get("/",(req, res) => {
-    // res.sendFile(__dirname + '/views/index.html')
-    res.render('index.ejs')
+    Update.find({}, function (err, update) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/");
+      } else {
+        console.log(update);
+        res.render('index', { update: update });
+      }
+    })
 })
 
 //ADMIN
 
 app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('latestUpdate.ejs');
+  res.render('latestUpdate');
+});
+
+app.post("/latestUpdates", pdfUpload.single('image'), middlewareObj.isAdminLoggedIn,  function(req, res) {
+  console.log(req.file);
+  console.log(req.body);
+  if(!req.file) {
+    req.flash("error", "Something went wrong.");
+    res.redirect("/latestUpdates");
+  } else {
+    var update = {
+      username: uuidv4(),
+      name: req.body.name,
+      link: `${req.file.filename}`
+    }
+    Update.create(update, function (err, user) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/latestUpdates");
+      } else {
+        req.flash("success", "Latest Update uploaded successfully.");
+        res.redirect("/latestUpdates");
+      }
+    });
+  }
 });
 
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
@@ -204,16 +262,6 @@ app.post("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
   console.log(req.body);
     var newUser = new Student({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email, usertype: "faculty", password: req.body.password });
 
-    // Student.create(newUser, function (err, faculty) {
-    //      if(err) {
-    //          // console.log(err);
-    //          req.flash("success", "Successfully added a Faculty.");
-    //          res.redirect('/add');
-    //      } else {
-    //        req.flash("success", "Successfully added a Faculty.");
-    //        res.redirect('/add');
-    //      }
-    //  });
     Student.register(newUser, req.body.password, function(err, user) {
         if(err) {
             // console.log(err);
@@ -276,33 +324,6 @@ app.post("/faculty-login", passport.authenticate("local", {
 app.get('/facultyDash', middlewareObj.isFacultyLoggedIn, function (req,res) {
   res.render('facultyDash');
 })
-
-// //FACULTY DASHBOARD EDIT
-// app.get("/facultyDash/edit", middlewareObj.isFacultyLoggedIn, function(req, res) {
-//     Student.findById(req.user._id, function(err, faculty) {
-//         if(err) {
-//             req.flash("error", "Something went wrong");
-//             res.redirect("/facultyDash");
-//         } else {
-//             res.render("profile-edit", {faculty: faculty});
-//         }
-//     });
-// });
-//
-// //FACULTY DASHBOARD UPDATE
-// app.put("/facultyDash/edit", middlewareObj.isFacultyLoggedIn, function(req, res) {
-//   console.log(req.body);
-//     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
-//         if(err) {
-//           // console.log(err);
-//             req.flash("error","Something went wrong.");
-//             res.redirect("/facultyDash");
-//         } else {
-//             console.log(student);
-//             res.redirect("/facultyDash");
-//         }
-//     });
-// });
 
 //STUDENT SIGNUP
 app.get("/signup", function(req, res) {

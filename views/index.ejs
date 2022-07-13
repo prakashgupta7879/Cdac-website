@@ -93,19 +93,11 @@
             <div class="section-right-head">Latest Updates</div>
             <hr>
             <div class="section-right-content">
-                <marquee width="100%" direction="up" height="100%" scrolldelay=20>
+                <marquee width="100%" direction="up" height="100%" scrolldelay="100">
                     <ul>
-                        <li class="content"><a href="#" class="font1"> EOI for reselling of Product Suite for Efficient Screening of
-                                Cervical Cancer</a></li>
-                        <li class="content"><a href="#" class="font1"> Corrigendum on EOI for manufacture of MRI from Indian
-                                Industries</a></li>
-                        <li class="content"><a href="#" class="font1"> RFP for Transfer of Technology and Licensing of C-DAC TETRA      NETWORK Product Portfolio</a></li>
-                        <li class="content"><a href="#" class="font1"> Expression of Interest (EoI) for Transfer of Technology and
-                                Licensing of C-DAC's RISC-V ISA Compliant PARAMETRIZED POSIT ARITHMETIC UNIT IP CORE</a>
-                        </li>
-                        <li class="content"><a href="#" class="font1"> Expression of Interest (EoI) for Transfer of Technology and
-                                Licensing of C-DAC's RISC-V ISA Compliant FLOATING-POINT ARITHMETIC UNIT (LITE) IP CORE</a>
-                        </li>
+                      <% update.forEach(function(update) { %>
+                        <li class="content"><a href="pdfs/<%= update.link %>" target="_blank" class="font1"><%= update.name %></a></li>
+                      <% }) %>
                     </ul>
                 </marquee>
             </div>
