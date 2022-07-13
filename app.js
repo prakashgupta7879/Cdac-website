@@ -127,6 +127,15 @@ app.get("/",(req, res) => {
 })
 
 //ADMIN
+app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('addAchievement');
+});
+
+app.get("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('addProgram');
+});
 
 app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
