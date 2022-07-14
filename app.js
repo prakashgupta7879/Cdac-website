@@ -136,12 +136,12 @@ app.get("/",(req, res) => {
 
 //ADMINISTRATION
 app.get("/directorgeneral", function(req, res) {
-  
+
   res.render('directorGeneral');
 });
 
 app.get("/centerhead", function(req, res) {
-  
+
   res.render('centerHead');
 });
 
@@ -150,6 +150,67 @@ app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, re
   // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('adminChangePassword');
 });
+
+app.post('/change-password-admin', middlewareObj.isAdminLoggedIn, function (req, res) {
+  Student.find({username: req.body.username, usertype: "admin" }, function (err, stud) {
+    console.log(stud);
+    console.log(req.body);
+    if(err) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else if(req.body.password != req.body.password1 || stud[0].password != req.body.oldPassword) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/changeadminpassword');
+    } else {
+      var student = stud[0];
+      var newUser = {
+        username: student.username,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        dob: student.dob,
+        qualification: student.qualification,
+        Designation: student.Designation,
+        Department: student.Department,
+        AreaOfSpecialization: student.AreaOfSpecialization,
+        Institute: student.Institute,
+        address: student.address,
+        state: student.state,
+        district: student.district,
+        pincode: student.pincode,
+        email: student.email,
+        MobileNo: student.MobileNo,
+        usertype: student.usertype,
+        courses: student.courses,
+        profileImage: student.profileImage,
+        certificates: student.certificates,
+        password: req.body.password
+      };
+
+      Student.remove({ username: student.username }, function (err, student) {
+        if(err) {
+          console.log(err);
+          req.flash("error","Something went wrong.");
+          res.redirect('/changeadminpassword');
+        } else {
+          console.log(student);
+          Student.register(newUser, req.body.password, function(err, user) {
+              if(err) {
+                // console.log("//////////**********");
+                // console.log(err);
+                req.flash("error","Something went wrong.");
+                res.redirect('/changeadminpassword');
+              } else {
+                passport.authenticate('local')(req, res, function() {
+                  req.flash("success", "Password changed successfully!!");
+                  res.redirect('/logout');
+                });
+              }
+          });
+        }
+      })
+    }
+  });
+})
 
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
@@ -783,7 +844,10 @@ app.post('/reset-password', function (req, res) {
           email: student.email,
           MobileNo: student.MobileNo,
           usertype: student.usertype,
-          courses: student.courses
+          courses: student.courses,
+          profileImage: student.profileImage,
+          certificates: student.certificates,
+          password: req.body.password
         };
         Student.remove({ username: student.username }, function (err, student) {
           if(err) {
@@ -844,6 +908,8 @@ app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
         MobileNo: student.MobileNo,
         usertype: student.usertype,
         courses: student.courses,
+        profileImage: student.profileImage,
+        certificates: student.certificates,
         password: req.body.password
       };
 

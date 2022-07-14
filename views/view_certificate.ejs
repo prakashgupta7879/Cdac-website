@@ -4,19 +4,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
 
-<header>
-  <div class="toolbar no-print">
-    <button class="btn btn-info" onclick="window.print()">
-      Print Certificate
-    </button>
-    <button class="btn btn-info" id="downloadPDF">Download PDF</button>
-  </div>
-</header>
-  
-    <body>
-    <div>
+    <body style="margin: 0px;">
+    <div style="text-align: -webkit-center;">
+      <div class="toolbar no-print" style="position: relative;">
+        <!-- <button class="btn btn-info" onclick="window.print()">
+          Print Certificate
+        </button> -->
+        <button class="btn btn-info" id="downloadPDF" onclick="saveDiv('content2')">Download PDF</button>
+      </div>
       <div class="certificate-container">
-        <div class="certificate">
+        <div class="certificate" id="content2">
             <div class="water-mark-overlay"></div>
             <div class="certificate-header">
                 <img src="\img\cdac123.jpg" class="logo" alt="">
@@ -27,16 +24,21 @@
                 <p class="certificate-title"><strong>इलेक्ट्रॉनिकी और सूचना प्रौद्योगिकी मंत्रालय की वैज्ञानिक संस्था, भारत सरकार</strong></p>
                 <p class="certificate-title"><strong>A Scientific Society of the Ministry of Electronics and Information Technology, Government of India</strong></p>
                 <h1>Certificate of Completion</h1>
+                <div class="about-certificate">
+                    <p>
+                This is to certify that
+                </p>
+                </div>
                 <p class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></p>
                 <div class="certificate-content">
                     <div class="about-certificate">
                         <p>
-                    has completed [hours] hours on topic title here online on Date [Date of Completion]
+                    has completed successfully completed the course of
                     </p>
                     </div>
-                    <p class="topic-title">
+                    <!-- <p class="topic-title">
                         The Topic consists of [hours] Continuity hours and includes the following:
-                    </p>
+                    </p> -->
                     <div class="text-center">
                         <p class="topic-description text-muted"><b><%= course.name %> </b></p>
                     </div>
@@ -48,7 +50,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                
+
                                 <div class="col-md-6">
                                     <p style="margin-left: 340px;">
                                         Issued By:
@@ -64,7 +66,7 @@
     </div>
 
     </div>
-    
+
 
 <style media="screen">
 * {
@@ -134,8 +136,8 @@ body {
 }
 
 .certificate-title {
-    text-align: center; 
-    color: #0C5280;   
+    text-align: center;
+    color: #0C5280;
 }
 
 .certificate-body {
@@ -177,12 +179,12 @@ getScreenshotOfElement(
   $("div#content2").get(0),
   0,
   0,
-  $("#content2").width() + 45,  // added 45 because the container's (content2) width is smaller than the image, if it's not added then the content from right side will get cut off
-  $("#content2").height() + 30, // same issue as above. if the container width / height is changed (currently they are fixed) then these values might need to be changed as well.
+  $("#content2").width() +10,  // added 45 because the container's (content2) width is smaller than the image, if it's not added then the content from right side will get cut off
+  $("#content2").height() +30, // same issue as above. if the container width / height is changed (currently they are fixed) then these values might need to be changed as well.
   function (data) {
     var pdf = new jsPDF("l", "pt", [
-      $("#content2").width(),
-      $("#content2").height(),
+      $("#content2").width()+10,
+      $("#content2").height()+30,
     ]);
 
     pdf.addImage(
@@ -223,5 +225,31 @@ html2canvas(element, {
   allowTaint: false,
 });
 }
+
+// var doc = new jsPDF();
+//
+//  function saveDiv(divId) {
+//    console.log(document.getElementById(divId).innerHTML);
+//  doc.fromHTML("<html><head><title>hello</title></head><body>" + document.getElementById(divId).innerHTML + "</body></html>");
+//  doc.save('div.pdf');
+// }
+//
+// function printDiv(divId) {
+//
+//   let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+//
+//   mywindow.document.write(`<html><head><title>hello</title>`);
+//   mywindow.document.write('</head><body >');
+//   mywindow.document.write(document.getElementById(divId).innerHTML);
+//   mywindow.document.write('</body></html>');
+//
+//   mywindow.document.close(); // necessary for IE >= 10
+//   mywindow.focus(); // necessary for IE >= 10*/
+//
+//   mywindow.print();
+//   mywindow.close();
+//
+//   return true;
+// }
 
 </script>
