@@ -8,19 +8,17 @@
     <title>Enroll Now</title>
 
     <!-- CSS Link -->
-<<<<<<<< HEAD:Adminisration tab/Pe2.html
-    <link rel="stylesheet" href="common.css">
-========
     <link rel="stylesheet" href="css/enroll-now.css">
->>>>>>>> 65e6f055e2d79d7e0627c08f05abd2d093fdef8b:views/enroll-now.ejs
-
+    <link rel="stylesheet" href="css/style.css">
     <!-- Font styles -->
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap"
         rel="stylesheet">
 
     <!-- Icon libraray -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
 </head>
 
@@ -30,96 +28,41 @@
 <%- include('header'); -%>
 
 
-<<<<<<<< HEAD:Adminisration tab/Pe2.html
-        <div id="navbar-right">
-            <div class="navbar-login">
-                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()" type="button">Login</button>
-                <div id="myDropdown" class="dropdown-cnt">
-                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
-                    <a href="/faculty-login">As Co-ordinator</a>
-                </div>
-                <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';"
-                    type="button">Sign Up</button>
-            </div>
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
-
-    <div class="mainsection">
-        <div class="color">
-            <h1>PROJECT ENGINEER OF CDAC</h1>
-            <b>
-                Education & Training Department,
-                <br>
-                Centre for Development of Advanced Computing (CDAC),
-                <br>
-                Centre in North East (CINE), Silchar, Assam, India.
-            </b>
-            <br>
-            <b>
-                <hr>
-            </b>
-        </div>
-        <div>
-            <img src="alok.jpg" height="180px" width="200px" margin-top="10px" alt="image not found">
-        </div>
-        <div>
-            </p>
-
-            <h3> MR.ALOK SINGH</h3><br>
-            <p>
-                I am a student at CDAC Mumbai, currently pursuing postgraduate Diploma in Advanced Computing. Here I am
-                gaining knowledge about various domains in software engineering and technologies, I am also developing
-                my skills which can lead me to achieve a job in software field.
-                a fresher I am looking for an opportunity to work with a company where I can develop my skillset and add
-                value to organization.
-            </p>
-            <br><strong>Contact Us:</strong><br>
-
-            Centre for Development of Advanced Computing (CDAC),
-            Centre in North East (CINE), Silchar, Assam, India.
-            <strong>Pin:</strong> 788 010.<br />
-            <strong>Phone:</strong> +91-20-2570-4100 /+91-80-25093400<br />
-            <strong>Mob. No.:</strong> +91-<br />
-            <strong>Fax:</strong> 20-2569 4004<br />
-            <strong>linkdien ID: </strong><a
-                href="mailto:director@nits.ac.in">linkedin.com/in/alok-singh-953401228dev</a><br>
-
-========
 <!-- NAVIGATION BAR -->
 <%- include('navbar'); -%>
-    <!-- Form Section -->
-    <div class="container">
-        <div class="form-img">
-            <img src="img/code.jpg" alt="Online Internships">
-        </div>
-        <div class="enroll-form">
-            <h1>Certified Online Training</h1>
+
+    <div class="container" style="display: flex;    padding: 0px; margin: 0px; max-width: 100%;">
+        <aside class="form-img" style="display: flex; width: 70%;">
+            <img src="img/code.jpg" alt="Online Internships" style="width: 100%;">
+        </aside>
+        <section class="enroll-form" style="width: 30%;  padding: 2em;">
+            <h1 style="text-align: center; font-family: system-ui;">Certified Online Training</h1>
             <div class="form">
-                <form action="/enroll" method="POST">
+                <form action="/enroll" method="POST" style="padding: 0.5em; font-family: system-ui;" enctype="multipart/form-data">
                     <div class="form-div" style="display: none;">
-                        <label for="name">Username</label>
+                        <label for="name" class="required">Username</label><br>
                         <input type="text" name="username" id="name" value="<%= currentUser.username %>">
                     </div>
                     <div class="form-div">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required>
+                        <label for="name" class="required">Name</label><br>
+                        <input type="text" name="name" id="name" minlength="3" required>
                     </div>
 
                     <div class="form-div">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required>
+                        <label for="email" class="required">Email</label><br>
+                        <input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                     </div>
                     <div class="form-div">
-                        <label for="phone">Mobile Number</label>
-                        <input type="text" name="MobileNo" id="phone" required>
+                        <label for="phone" class="required">Mobile Number</label><br>
+                        <input type="text" name="MobileNo" id="phone" pattern="[1-9]{1}[0-9]{9}" required>
                     </div>
                     <div class="form-div">
-                        <label for="course">Select Course </label>
-                        <select name="course" id="course">
+                        <label for="college" class="required">College</label><br>
+                        <input type="text" name="college" id="phone" required>
+                    </div>
+                    <div class="form-div">
+                        <label for="course" class="required">Select Course </label><br>
+                        <select name="course" id="course" style="width: 100%; height: 30px;">
                             <option value="Deep Learning">Deep Learning</option>
                             <option value="Web Development" selected>Web Development</option>
                             <option value="Machine Learning">Machine Learning</option>
@@ -127,25 +70,21 @@
                         </select>
                     </div>
                     <div class="form-div outline">
-                        <label for="skill">Your Skills</label>
+                        <label for="skill" class="required">Your Skills</label><br>
                         <textarea name="skills" cols="10" rows="1" id="skill" required></textarea>
                     </div>
-                    <div class="form-div">
-                        <label for="des">Your Hobbies</label>
-                        <textarea name="hobbies" cols="10" rows="1" id="des" required></textarea>
-                    </div>
                     <div class="form-div outline">
-                        <label for="link">Resume Link</label>
-                        <textarea name="link" cols="10" rows="1" id="link" required></textarea>
+                        <label for="link" class="required">Upload Resume</label><br>
+                        <input name="link" type="file" required>
                     </div>
-                    <div class="form-btn">
-                        <input type="reset" class="btn-secondary" value="Reset">
-                        <input type="submit" class="btn-secondary" value="Enroll Now">
+                    <div class="form-btn" style="text-align: -webkit-center;">
+                        <input type="reset" class="btn-secondary" value="Reset" style="width: 49%">
+                        <input type="submit" class="btn-secondary" value="Enroll Now" style="width: 49%">
                     </div>
                 </form>
             </div>
->>>>>>>> 65e6f055e2d79d7e0627c08f05abd2d093fdef8b:views/enroll-now.ejs
-        </div>
+        </section>
+
     </div>
     <!-- FOOTER -->
     <footer id="footer">
@@ -175,6 +114,29 @@
         </div>
     </footer>
 
+    <style media="screen">
+    input, textarea {
+      width: 100%;
+      height: 25px;
+    }
+    textarea {
+          height: 50px;
+    }
+    .required:after {
+      content:" *";
+      color: red;
+    }
+    .font2 {
+      height: 27px;
+background-color: azure;
+    }
+    .form-div {
+      padding-bottom: 0.7em;
+    }
+    .btn-secondary:hover {
+          background-color: #004545;
+    }
+    </style>
 
     <!-- SCRIPT LINK -->
     <script src="intern.js"></script>

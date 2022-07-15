@@ -36,6 +36,8 @@ app.use(require('express-session')({
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+// mongoose.connect("mongodb://localhost/cdac", {useNewUrlParser: true});
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded('extended: true'));
@@ -101,6 +103,32 @@ var pdfUpload = multer({
 });
 
 app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
+
+
+// RESUME FILE STORAGE
+const storager = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./resume");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilterr = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var resumeUpload = multer({
+  storage: storager,
+  fileFilter: fileFilterr
+});
+
+app.use("/resume", express.static(path.join(__dirname, "resume")));
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -537,17 +565,33 @@ app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('enroll-now.ejs');
 })
 
-app.post('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
+app.post('/enroll', resumeUpload.single('link'), middlewareObj.isStudentLoggedIn, function (req,res) {
+  console.log(req.file);
   console.log(req.body);
-  Application.create(req.body, function (err, app) {
-    if(err) {
-      req.flash("error","Something went wrong.");
-      res.redirect("/enroll");
-    } else {
-      req.flash("success", "Application submitted!");
-      res.redirect('/enroll');
+  if(!req.file) {
+    req.flash("error", "Something went wrong.");
+    res.redirect("/enroll");
+  } else {
+    var app = {
+      username: uuidv4()+":"+req.body.username,
+      name: req.body.name,
+      email: req.body.email,
+      MobileNo: req.body.MobileNo,
+      college: req.body.college,
+      course: req.body.course,
+      skills: req.body.skills,
+      link: `${req.file.filename}`
     }
-  })
+    Application.create(app, function (err, app) {
+      if(err) {
+        req.flash("error","Something went wrong.");
+        res.redirect("/enroll");
+      } else {
+        req.flash("success", "Application submitted successfully!");
+        res.redirect('/enroll');
+      }
+    })
+  }
 })
 
 //ABOUT US
