@@ -25,6 +25,7 @@ var crypto = require("crypto");
 var path = require("path");
 const sharp = require('sharp');
 const fs = require('fs');
+var todos = [];
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -49,6 +50,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
+
 
 
 // IMAGE FILE STORAGE
@@ -136,18 +138,21 @@ app.get("/",(req, res) => {
 
 //ADMINISTRATION
 app.get("/directorgeneral", function(req, res) {
-
   res.render('directorGeneral');
 });
 
 app.get("/centerhead", function(req, res) {
-
   res.render('centerHead');
 });
 
 //ADMIN
+app.post("/adminDash", function(req, res){
+  var todo = req.body.newToDo;
+  todos.push(todo);
+  res.redirect("/adminDash")
+})
+
 app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('adminChangePassword');
 });
 
@@ -235,7 +240,6 @@ app.post("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
 });
 
 app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('latestUpdate');
 });
 
@@ -289,7 +293,7 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                       req.flash("error","Something went wrong.");
                       res.redirect("/adminDash");
                     } else {
-                      res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application });
+                      res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: todos });
                     }
                   })
                 }
@@ -300,6 +304,7 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
       })
     }
   })
+
 });
 
 app.get("/admin", function(req, res) {
