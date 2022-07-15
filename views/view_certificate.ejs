@@ -16,7 +16,7 @@
         <div class="certificate" id="content2">
             <div class="water-mark-overlay"></div>
             <div class="certificate-header">
-                <img src="\img\cdac123.jpg" class="logo" alt="">
+                <img src="https://upload.wikimedia.org/wikipedia/en/d/db/C-DAC_LogoTransp.png" class="logo" alt="">
             </div>
             <div class="certificate-body">
                 <p class="certificate-title"><strong>प्रगत संगणन विकास केन्द्र</strong></p>
@@ -29,7 +29,7 @@
                 This is to certify that
                 </p>
                 </div>
-                <p class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></p>
+                <b class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></b>
                 <div class="certificate-content">
                     <div class="about-certificate">
                         <p>
@@ -50,12 +50,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-
-                                <div class="col-md-6">
-                                    <p style="margin-left: 340px;">
-                                        Issued By:
-                                        C-DAC, Silchar
-                                    </p>
+                                <div class="col-md-6" style=" margin-top: 20px;">
+                                    <b style="margin-left: 390; display: inline;" >Issued On:</b>
+                                    <b id="current_date" style="margin: 0; display: inline;" align="right">
+                                         <script>
+                                            date = new Date();
+                                            year = date.getFullYear();
+                                            month = date.getMonth() + 1;
+                                            day = date.getDate();
+                                            document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+                                            </script>
+                                        
+                                    </b>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -66,7 +73,7 @@
     </div>
 
     </div>
-
+    
 
 <style media="screen">
 * {
@@ -198,7 +205,11 @@ getScreenshotOfElement(
     pdf.save("<%= course.name %> Certificate.pdf");
   }
 );
-});
+}
+
+);
+
+
 
 // this function is the configuration of the html2cavas library (https://html2canvas.hertzen.com/)
 // $("#content2").removeClass('ml-215'); is the only custom line here, the rest comes from the library.
@@ -252,4 +263,4 @@ html2canvas(element, {
 //   return true;
 // }
 
-</script>
+</ScriptProcessorNode>
