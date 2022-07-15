@@ -8,7 +8,11 @@
     <title>Enroll Now</title>
 
     <!-- CSS Link -->
+<<<<<<<< HEAD:Adminisration tab/Pe2.html
+    <link rel="stylesheet" href="common.css">
+========
     <link rel="stylesheet" href="css/enroll-now.css">
+>>>>>>>> 65e6f055e2d79d7e0627c08f05abd2d093fdef8b:views/enroll-now.ejs
 
     <!-- Font styles -->
     <link
@@ -26,6 +30,65 @@
 <%- include('header'); -%>
 
 
+<<<<<<<< HEAD:Adminisration tab/Pe2.html
+        <div id="navbar-right">
+            <div class="navbar-login">
+                <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()" type="button">Login</button>
+                <div id="myDropdown" class="dropdown-cnt">
+                    <a href="/login" onclick="document.location.href='/login';">As Student</a>
+                    <a href="/faculty-login">As Co-ordinator</a>
+                </div>
+                <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';"
+                    type="button">Sign Up</button>
+            </div>
+            <form class="search-bar" role="search">
+                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
+                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="mainsection">
+        <div class="color">
+            <h1>PROJECT ENGINEER OF CDAC</h1>
+            <b>
+                Education & Training Department,
+                <br>
+                Centre for Development of Advanced Computing (CDAC),
+                <br>
+                Centre in North East (CINE), Silchar, Assam, India.
+            </b>
+            <br>
+            <b>
+                <hr>
+            </b>
+        </div>
+        <div>
+            <img src="alok.jpg" height="180px" width="200px" margin-top="10px" alt="image not found">
+        </div>
+        <div>
+            </p>
+
+            <h3> MR.ALOK SINGH</h3><br>
+            <p>
+                I am a student at CDAC Mumbai, currently pursuing postgraduate Diploma in Advanced Computing. Here I am
+                gaining knowledge about various domains in software engineering and technologies, I am also developing
+                my skills which can lead me to achieve a job in software field.
+                a fresher I am looking for an opportunity to work with a company where I can develop my skillset and add
+                value to organization.
+            </p>
+            <br><strong>Contact Us:</strong><br>
+
+            Centre for Development of Advanced Computing (CDAC),
+            Centre in North East (CINE), Silchar, Assam, India.
+            <strong>Pin:</strong> 788 010.<br />
+            <strong>Phone:</strong> +91-20-2570-4100 /+91-80-25093400<br />
+            <strong>Mob. No.:</strong> +91-<br />
+            <strong>Fax:</strong> 20-2569 4004<br />
+            <strong>linkdien ID: </strong><a
+                href="mailto:director@nits.ac.in">linkedin.com/in/alok-singh-953401228dev</a><br>
+
+========
 <!-- NAVIGATION BAR -->
 <%- include('navbar'); -%>
     <!-- Form Section -->
@@ -36,40 +99,44 @@
         <div class="enroll-form">
             <h1>Certified Online Training</h1>
             <div class="form">
-                <form>
+                <form action="/enroll" method="POST">
+                    <div class="form-div" style="display: none;">
+                        <label for="name">Username</label>
+                        <input type="text" name="username" id="name" value="<%= currentUser.username %>">
+                    </div>
                     <div class="form-div">
                         <label for="name">Name</label>
-                        <input type="text" name="my name" id="name">
+                        <input type="text" name="name" id="name" required>
                     </div>
 
                     <div class="form-div">
                         <label for="email">Email</label>
-                        <input type="email" name="my email" id="email">
+                        <input type="email" name="email" id="email" required>
                     </div>
                     <div class="form-div">
                         <label for="phone">Mobile Number</label>
-                        <input type="text" name="phone number" id="phone">
+                        <input type="text" name="MobileNo" id="phone" required>
                     </div>
                     <div class="form-div">
                         <label for="course">Select Course </label>
-                        <select name="my course" id="course">
-                            <option value="deep">Deep Learning</option>
-                            <option value="web" selected>Web Development</option>
-                            <option value="Mach">Machine Learning</option>
-                            <option value="pyt">Python Programming</option>
+                        <select name="course" id="course">
+                            <option value="Deep Learning">Deep Learning</option>
+                            <option value="Web Development" selected>Web Development</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Python Programming">Python Programming</option>
                         </select>
                     </div>
                     <div class="form-div outline">
                         <label for="skill">Your Skills</label>
-                        <textarea name="mytext" cols="10" rows="1" id="skill"></textarea>
+                        <textarea name="skills" cols="10" rows="1" id="skill" required></textarea>
                     </div>
                     <div class="form-div">
                         <label for="des">Your Hobbies</label>
-                        <textarea name="mytext" cols="10" rows="1" id="des"></textarea>
+                        <textarea name="hobbies" cols="10" rows="1" id="des" required></textarea>
                     </div>
                     <div class="form-div outline">
                         <label for="link">Resume Link</label>
-                        <textarea name="mylink" cols="10" rows="1" id="link"></textarea>
+                        <textarea name="link" cols="10" rows="1" id="link" required></textarea>
                     </div>
                     <div class="form-btn">
                         <input type="reset" class="btn-secondary" value="Reset">
@@ -77,10 +144,9 @@
                     </div>
                 </form>
             </div>
+>>>>>>>> 65e6f055e2d79d7e0627c08f05abd2d093fdef8b:views/enroll-now.ejs
         </div>
     </div>
-
-
     <!-- FOOTER -->
     <footer id="footer">
         <div class="contact-logo">

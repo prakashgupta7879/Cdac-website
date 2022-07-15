@@ -72,7 +72,12 @@
       <% if(currentUser) { %>
         <aside id="aside">
             <ul class="aside-list">
+              <% if(currentUser.usertype == "faculty") { %>
+                <li class="aside-item"><a href="/facultyDash" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+              <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
                 <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
                 <% if(currentUser.usertype == "faculty") { %>
                   <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
@@ -82,11 +87,16 @@
                 <% } else if(currentUser.usertype == "student") { %>
                   <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
-                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
                 <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+
                   <li class="aside-item active"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
                 <% } %>
-                <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                <% } %>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
             </ul>
         </aside>

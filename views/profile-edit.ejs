@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="/css/courses.css">
 
     <!-- Font styles -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
 
     <!-- Icon libraray -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="/css/courses.css">
 </head>
 
 <body>
@@ -25,10 +25,29 @@
     <!-- NAVIGATION BAR -->
     <%- include('navbar'); -%>
 
+    <!-- <% if(error && error.length>0) { %>
+      <div class="alert" style="background-color: red;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= error %></p>
+        </div>
+      </div>
+    <% } %>
+    <% if(success && success.length>0) { %>
+      <div class="alert" style="background-color: #0bff00;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= success %></p>
+        </div>
+      </div>
+    <% } %> -->
 
-    <div class="container">
-        <section id="section">
-            <h1 class="font1">Edit Profile</h1>
+
+    <div class="container" style="padding-left: 15%; width: -webkit-fill-available;">
+        <div id="section">
+          <div class="section-bar" style="text-align-last: center; display: block; font-size: 23px;">
+              <strong class="font3">Edit Profile</strong>
+          </div>
             <form action="/dash_index/edit?_method=PUT" method="POST">
             <div class="profile">
                 <div class="info">
@@ -132,7 +151,7 @@
                         <input type="text" id="inputText" class="inputs" name="email" value="<%= student.email %>">
                     </div>
                     <hr>
-                    <button class="btn-secondary">Submit</button>
+                    <button class="btn-secondary" style="background-color: cornflowerblue; padding: 0.5em;">Submit</button>
                 </div>
                 <!-- <div class="photo">
                     <img src="img/photo.png" alt="No Photo Available">
@@ -142,7 +161,7 @@
                 </div> -->
             </div>
             </form>
-        </section>
+        </div>
     </div>
 
 
@@ -151,7 +170,11 @@
 
     <style>
     input {
-          inline-size: -webkit-fill-available;
+          width: 75%;
+      border-right: hidden;
+      border-block: none;
+      padding-left: 8em;
+      /* inline-size: -webkit-fill-available; */
     }
     .alert {
       padding: 5px;
@@ -185,97 +208,7 @@
           display: none;                 ***** TO REMOVE THE SCROLL BAR FROM SCREEN *****
       } */
 
-      /* HEADER */
-      #header{
-          background-image: linear-gradient(90deg, rgb(40, 78, 54), rgb(0, 124, 65));
-          display: flex;
-          flex-direction: row;
-          padding: 30px 30px;
-          justify-content: space-between;
-          align-items: center;
-      }
-      .right{
-          color: whitesmoke;
-      }
-      /* NAVIGATION BAR */
-      #navbar{
-          display: flex;
-          justify-content: space-between;
-          background-color: white;
-          margin-top: 1px;
-          border-bottom: 1px solid grey;
-          }
-      #navbar-items{
-          margin-left: 1rem;
-      }
-      #navbar-items ul{
-          display: flex;
-      }
-      #navbar-items ul li{
-          list-style: none;
-          padding: 1.8rem 1rem;
-      }
-      #navbar-items ul li a{
-          text-decoration: none;
-          font-family: 'Ubuntu', sans-serif;
-          color: rgb(31, 31, 31);
-          padding: 7px 9px;
-          font-size: medium;
-      }
-      #navbar-items ul li a:hover{
-          color: #0062e4;
-          text-decoration: underline;
-      }
-      #navbar-items ul li a.active{
-          color: #0062e4;
-          font-weight: bold;
-      }
 
-      .dropdown:hover .dropdown-content{
-          display: block;
-      }
-
-      .dropdown-content{
-          display: none;
-          z-index: 1;
-          position: absolute;
-          background-color: #f5f7fa;
-          border: 1px solid #e3e4e5;
-          min-width: 150px;
-          border-radius: 2px;
-          animation-name: anime1;
-          animation-duration: 0.2s;
-          animation-timing-function:ease-in;
-          animation-fill-mode: forwards;
-          animation-direction: normal;
-      }
-      @keyframes anime1{
-          0%{
-              height: 0%;
-          }
-          100%{
-              height: 100px;
-          }
-      }
-      .dropdown-content a{
-          display: block;
-      }
-
-      #navbar-right{
-          display: flex;
-          margin-right: 2rem;
-      }
-
-      .search-bar{
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-      }
-      .search-bar input{
-          padding: 7px 10px;
-          border: 1px solid grey;
-          border-radius: 2px;
-      }
 
       /* CONTAINER */
       .container{
