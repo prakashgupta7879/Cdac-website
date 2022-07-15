@@ -539,7 +539,7 @@ app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //UPDATE
 app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
         if(err) {
           // console.log(err);
