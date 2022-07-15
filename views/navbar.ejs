@@ -31,7 +31,15 @@
         </div>
       <% } else { %>
         <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
+          <% if(currentUser.usertype == "student") { %>
             <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
+          <% } %>
+          <% if(currentUser.usertype == "faculty") { %>
+            <a style="text-decoration: none; color: darkgreen;" href="/facultyDash">Logged in as <%= currentUser.username %></a>
+          <% } %>
+          <% if(currentUser.usertype == "admin") { %>
+            <a style="text-decoration: none; color: darkgreen;" href="/adminDash">Logged in as <%= currentUser.username %></a>
+          <% } %>
         </div>
       <% } %>
         <form class="search-bar" role="search">

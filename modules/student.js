@@ -107,6 +107,10 @@ var UserSchema = new mongoose.Schema({
           description: String,
           syllabus: String,
           duration: String,
+          grades: {
+            type: String,
+            default: ''
+          },
           instructor: {
             name: String,
             designation: String,

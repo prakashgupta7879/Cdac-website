@@ -6,9 +6,9 @@ var ApplicationSchema = new mongoose.Schema({
     name: String,
     email: String,
     MobileNo: String,
+    college: String,
     course: String,
     skills: String,
-    hobbies: String,
     link: String
 });
 

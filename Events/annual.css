@@ -1,45 +1,43 @@
-/* *{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-} */
-/* *::-webkit-scrollbar {
-    display: none;                 ***** TO REMOVE THE SCROLL BAR FROM SCREEN *****
-} */
-
-/* body{
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-} */
-
-footer{
-  margin-top: auto;
-}
-
-/* HEADER */
-/* #header{
-    background-image: linear-gradient(90deg, rgb(40, 78, 54), rgb(0, 124, 65));
+#header{
+    
+    background-color: darkslategrey;
     display: flex;
     flex-direction: row;
-    padding: 25px 30px;
+    padding: 30px 30px;
     justify-content: space-between;
-    align-items: center;
-} */
-/* .right{
-    color: whitesmoke;
-} */
+}
+.right{
+    color: whitesmoke; 
+}
 
-
+/* FOOTER */
+#footer{
+    height: 110px;
+    background-color: cadetblue;
+    color: black;
+    text-align: center;
+}
+.other-links{
+    margin-top: 5px;
+}
+.presskit-links{
+    color: white;
+    font-size: 0.9rem;
+}
+.copyrights{
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+}
 
 /* NAVIGATION BAR */
-/* #navbar{
+#navbar{
     display: flex;
     justify-content: space-between;
-    background-color: powderblue;
-    margin-top: 1px;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    background-color: #189AB4;
+    /* margin-top: 1px; */
+    /* border-top: 1px solid grey;
+    border-bottom: 1px solid grey; */
 }
 #navbar-items{
     margin-left: 1rem;
@@ -54,6 +52,7 @@ footer{
 #navbar-items ul li a{
     text-decoration: none;
     font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
     color: black;
     padding: 5px 7px;
     font-size: 15px;
@@ -63,7 +62,11 @@ footer{
     background-color: cadetblue;
     border-radius: 3px;
 }
-
+#navbar-items ul li a.active{
+    background-color: rgb(4, 114, 114);
+    border-radius: 2px;
+    color: whitesmoke;
+}
 
 
 .dropdown:hover .dropdown-content{
@@ -75,7 +78,7 @@ footer{
     position: absolute;
     background-color: #f5f7fa;
     border: 1px solid #e3e4e5;
-    min-width: 160px;
+    min-width: 170px;
     border-radius: 2px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     animation-name: anime1;
@@ -104,30 +107,26 @@ footer{
     margin: auto 20px;
 }
 .navbar-login button{
-    padding: 4px 4px;
-    margin: 4px 5px;
-} */
+    padding: 5px 6px;
+    margin: 4px 4px;
+}
 
 
 /* dropdown buttons */
-/* .dropbtn {
-    background-color: #3498DB;
+.dropbtn {
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
 }
-
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+    background-color: darkslategray;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
 .dropdown-cnt {
     display: none;
     position: absolute;
@@ -138,21 +137,17 @@ footer{
     z-index: 1;
     border-radius: 5px;
 }
-
 .dropdown-cnt a {
     color: black;
     padding: 4px 8px;
     text-decoration: none;
     display: block;
-  }
-
+}
 .dropdown-cnt a:hover {
     background-color: rgb(37, 157, 139);
     color: white;
 }
-
 .show {display: block;}
-
 
 
 .search-bar{
@@ -165,50 +160,7 @@ footer{
     border: 1px solid gray;
     border-radius: 2px;
     outline: none;
-} */
-
-/* CONTAINER */
-.mainsection{
- border: 2px solid rgb(31, 27, 27);
- margin: 20px 20px;
- padding: 10px 10px;
- font-size: 18px;
- justify-content: center;
-
-
 }
-.color{
-    background-color: #c1c7d3;
-}
-
-/* FOOTER */
-#footer{
-    height: 105px;
-    text-align: center;
-    background-color:#f5f7fa;
-    border-top: 1px solid gray;
-}
-.other-links{
-    margin-top: 5px;
-    color: rgb(31,31,31);
-}
-.presskit-links{
-    font-size: 12px;
-}
-.presskit-links a{
-    color: rgb(31,31,31);
-    font-size: 12px;
-}
-.presskit-links a:hover{
-    text-decoration: underline;
-    color: #0062e4;
-}
-.copyrights{
-    text-decoration: none;
-    font-size: 12px;
-}
-
-
 
 /* *******************  Utility Classes  ******************** */
 
@@ -219,32 +171,20 @@ footer{
 .font2{
     font-family: 'Ubuntu', sans-serif;
 }
-.font3{
-    font-family: 'Roboto Mono', monospace;
-}
-.font4{
-    font-family: 'Overpass', sans-serif;
-}
-.font5{
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 600;
-}
-.font6{
-    font-family: 'Open Sans', sans-serif;
-}
 
 
 /* external social icons */
 .fa {
-    padding: 3px;
-    width: 23px;
+    padding: 6px;
+    font-size: 30px;
+    width: 30px;
     text-align: center;
     text-decoration: none;
-    margin: 10px 15px;
-    border-radius: 2px;
+    margin: 12px 10px;
+    border-radius: 3px;
 }
 .fa:hover{
-    transform: scale(1.2);
+    transform: scale(1.14);
     transition: all 0.3s;
 }
 
@@ -268,34 +208,22 @@ footer{
     background-color: transparent;
     color: #007bb5;
     transform: scale(1.06);
-    padding: 4px;
-    margin: 2px 2px;
+    padding: 8px 2px;
+    margin: 2px 3px;
 }
 
 
-  /* Buttons */
-.btn-primary{
-    border: 1px solid gray;
-    border-radius: 2px;
-    cursor: pointer;
+/*annual*/
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
 }
-.btn-primary:hover{
-    transform: scale(1.08);
-    transition: all 0.2s;
-}
-.btn-secondary{
-    border-radius: 2px;
-    outline: none;
-    font-size: 12px;
-    color:whitesmoke;
-    border: 1px solid #e3e4e5;
-    background-color: #008bcd;
-    padding: 5px 8px;
-}
-.btn-secondary:hover{
-    cursor: pointer;
-    transform: scale(0.99);
-    transition: all 0.1s;
-    color: white;
-    background-color: #0062e4;
+h3{
+    text-align: center;
+    margin: 25px auto;
+    font-size: 20px;
+    color: rgb(44, 44, 44);
 }
