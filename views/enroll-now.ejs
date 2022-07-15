@@ -8,18 +8,17 @@
     <title>Enroll Now</title>
 
     <!-- CSS Link -->
-
-
     <link rel="stylesheet" href="css/enroll-now.css">
-
-
+    <link rel="stylesheet" href="css/style.css">
     <!-- Font styles -->
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap"
         rel="stylesheet">
 
     <!-- Icon libraray -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
 </head>
 
@@ -30,35 +29,39 @@
 
 <!-- NAVIGATION BAR -->
 <%- include('navbar'); -%>
-    <!-- Form Section -->
-    <div class="container">
-        <div class="form-img">
-            <img src="img/code.jpg" alt="Online Internships">
-        </div>
-        <div class="enroll-form">
-            <h1>Certified Online Training</h1>
+
+    <div class="container" style="display: flex;    padding: 0px; margin: 0px; max-width: 100%;">
+        <aside class="form-img" style="display: flex; width: 70%;">
+            <img src="img/code.jpg" alt="Online Internships" style="width: 100%;">
+        </aside>
+        <section class="enroll-form" style="width: 30%;  padding: 2em;">
+            <h1 style="text-align: center; font-family: system-ui;">Certified Online Training</h1>
             <div class="form">
-                <form action="/enroll" method="POST">
+                <form action="/enroll" method="POST" style="padding: 0.5em; font-family: system-ui;" enctype="multipart/form-data">
                     <div class="form-div" style="display: none;">
-                        <label for="name">Username</label>
+                        <label for="name" class="required">Username</label><br>
                         <input type="text" name="username" id="name" value="<%= currentUser.username %>">
                     </div>
                     <div class="form-div">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required>
+                        <label for="name" class="required">Name</label><br>
+                        <input type="text" name="name" id="name" minlength="3" required>
                     </div>
 
                     <div class="form-div">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required>
+                        <label for="email" class="required">Email</label><br>
+                        <input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                     </div>
                     <div class="form-div">
-                        <label for="phone">Mobile Number</label>
-                        <input type="text" name="MobileNo" id="phone" required>
+                        <label for="phone" class="required">Mobile Number</label><br>
+                        <input type="text" name="MobileNo" id="phone" pattern="[1-9]{1}[0-9]{9}" required>
                     </div>
                     <div class="form-div">
-                        <label for="course">Select Course </label>
-                        <select name="course" id="course">
+                        <label for="college" class="required">College</label><br>
+                        <input type="text" name="college" id="phone" required>
+                    </div>
+                    <div class="form-div">
+                        <label for="course" class="required">Select Course </label><br>
+                        <select name="course" id="course" style="width: 100%; height: 30px;">
                             <option value="Deep Learning">Deep Learning</option>
                             <option value="Web Development" selected>Web Development</option>
                             <option value="Machine Learning">Machine Learning</option>
@@ -66,28 +69,73 @@
                         </select>
                     </div>
                     <div class="form-div outline">
-                        <label for="skill">Your Skills</label>
+                        <label for="skill" class="required">Your Skills</label><br>
                         <textarea name="skills" cols="10" rows="1" id="skill" required></textarea>
                     </div>
-                    <div class="form-div">
-                        <label for="des">Your Hobbies</label>
-                        <textarea name="hobbies" cols="10" rows="1" id="des" required></textarea>
-                    </div>
                     <div class="form-div outline">
-                        <label for="link">Resume Link</label>
-                        <textarea name="link" cols="10" rows="1" id="link" required></textarea>
+                        <label for="link" class="required">Upload Resume</label><br>
+                        <input name="link" type="file" required>
                     </div>
-                    <div class="form-btn">
-                        <input type="reset" class="btn-secondary" value="Reset">
-                        <input type="submit" class="btn-secondary" value="Enroll Now">
+                    <div class="form-btn" style="text-align: -webkit-center;">
+                        <input type="reset" class="btn-secondary" value="Reset" style="width: 49%">
+                        <input type="submit" class="btn-secondary" value="Enroll Now" style="width: 49%">
                     </div>
                 </form>
             </div>
+        </section>
 
-        </div>
     </div>
     <!-- FOOTER -->
-    <%- include('footer'); -%>
+    <footer id="footer">
+        <div class="contact-logo">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="other-links">
+            <p class="presskit-links font1">
+                <a href="#" class="copyrights">Website Policies</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Copyright Policy</a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Terms &amp; Conditions </a>
+                <span class="copyrights">|</span>
+                <a href="#" class="copyrights">Help</a>
+                <span class="copyrights">|</span>
+                <span class="copyrights">© 2022</span>
+                <span class="copyrights"> C-DAC. All rights reserved</span>
+                <span class="copyrights">|</span>
+                <span id="LastUpdated" class="copyrights">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
+                <br>
+                Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
+            </p>
+        </div>
+    </footer>
+
+    <style media="screen">
+    input, textarea {
+      width: 100%;
+      height: 25px;
+    }
+    textarea {
+          height: 50px;
+    }
+    .required:after {
+      content:" *";
+      color: red;
+    }
+    .font2 {
+      height: 27px;
+background-color: azure;
+    }
+    .form-div {
+      padding-bottom: 0.7em;
+    }
+    .btn-secondary:hover {
+          background-color: #004545;
+    }
+    </style>
 
     <!-- SCRIPT LINK -->
     <script src="intern.js"></script>
