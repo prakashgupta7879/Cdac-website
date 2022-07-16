@@ -100,10 +100,13 @@
                 <div class="download-card">
                     <div class="download-card-content">
                         <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
-                        <div id="download-card-branch" class="clr font5 card-info"> Electronics and Communication Engineering</div>
+                        <!-- <div id="download-card-branch" class="clr font5 card-info"> Electronics and Communication Engineering</div> -->
                     </div>
-                    <form action="/give_certificate/<%= course.username %>" method="POST" style="align-self: center; padding-right: 1em;">
-                      <button class="btn btn-primary" type="submit" style="    color: white; width: fit-content; background-color: cornflowerblue; padding: 0.27em;">Send Certificates</button>
+                    <!-- <a href="/student_table/<%= course.username %>"><button class="btn btn-primary" type="button" style="align-self: center;color: white; width: fit-content; background-color: cornflowerblue; padding: 0.27em;">Grade Students</button> -->
+<!-- </a> -->
+                    <form action="" method="POST" style="align-self: center; padding-right: 1em;">
+                      <a href="/student_table/<%= course.username %>"><button class="btn btn-primary" type="button" style="align-self: center;color: white; width: fit-content; background-color: cornflowerblue; padding: 0.27em;">Grade Students</button></a>
+                      <a href="/send_certificate/<%= course.username %>"><button class="btn btn-primary" type="button" style="color: white; width: fit-content; background-color: cornflowerblue; padding: 0.27em;">Send Certificates</button></a>
                     </form>
                 </div>
               <% }) %>
