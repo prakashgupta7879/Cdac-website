@@ -10,52 +10,60 @@
         <!-- <button class="btn btn-info" onclick="window.print()">
           Print Certificate
         </button> -->
-        <button class="btn btn-info" id="downloadPDF" onclick="saveDiv('content2')">Download PDF</button>
+        <button class="btn btn-info" id="downloadPDF">Download PDF</button>
       </div>
-      <div class="certificate-container">
-        <div class="certificate" id="content2">
+      <div class="certificate-container" id="content2">
+        <div class="certificate" style="padding-bottom: 35em;">
             <div class="water-mark-overlay"></div>
             <div class="certificate-header">
-                <img src="https://upload.wikimedia.org/wikipedia/en/d/db/C-DAC_LogoTransp.png" class="logo" alt="">
+                <img src="\img\CDAC_LOGO.png" class="logo" alt="" style="    width: 90px; height: 60px;">
             </div>
             <div class="certificate-body">
                 <p class="certificate-title"><strong>प्रगत संगणन विकास केन्द्र</strong></p>
                 <p class="certificate-title"><strong>CENTRE FOR DEVELOPMENT FOR ADVANCE COMPUTING</strong></p>
                 <p class="certificate-title"><strong>इलेक्ट्रॉनिकी और सूचना प्रौद्योगिकी मंत्रालय की वैज्ञानिक संस्था, भारत सरकार</strong></p>
                 <p class="certificate-title"><strong>A Scientific Society of the Ministry of Electronics and Information Technology, Government of India</strong></p>
-                <h1>Certificate of Completion</h1>
-                <div class="about-certificate">
+                <h1 style="font-size: 32px;">Certificate of Completion</h1>
+                <!-- <div class="about-certificate">
                     <p>
                 This is to certify that
                 </p>
-                </div>
-                <b class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></b>
+                </div> -->
+                <!-- <p style="margin: 0;" class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></p> -->
                 <div class="certificate-content">
                     <div class="about-certificate">
-                        <p>
-                    has completed successfully completed the course of
-                    </p>
+                  <div>This is to certify that</div><br>
+
+                  <div class="student-name"><%= currentUser.firstname %> <%= currentUser.lastname %></div><br>
+                    <div>has completed successfully completed the course of</div><br>
+                    <div><b><%= course.name %> </b></div><br>
+
+                      <div>scoring a percentage of <%= course.grades %>.</div><br>
+
                     </div>
                     <!-- <p class="topic-title">
                         The Topic consists of [hours] Continuity hours and includes the following:
                     </p> -->
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <p class="topic-description text-muted"><b><%= course.name %> </b></p>
-                    </div>
+                        <p>
+                          scoring a percentage of <%= course.grades %>.
+                        </p>
+                    </div> -->
                 </div>
                 <div class="certificate-footer text-muted">
-                    <div class="row" style="display:flex ;">
-                        <div class="col-md-6">
-                            <p>Course Instructor: ______________________</p>
+                    <div class="row" style="display:flex;">
+                        <div class="col-md-6" style="padding-left: 3em;">
+                            <p>______________________ <br><b><%= course.faculty %></b><br><span style="font-style: italic;">Course Instructor</span></p>
+                            <!-- <p></p> -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="padding-top: 1.5em;">
                             <div class="row">
-                                <div class="col-md-6" style=" margin-top: 20px;">
-                                    <b style="margin-left: 390; display: inline;" >Issued On:</b>
-                                    <b  style="margin: 0; display: inline;" align="right">
-                                        
-                                    </b>
-                                    
+
+                                <div class="col-md-6">
+                                    <p style="margin-left: 340px;">
+                                        Date of issue: <%= course.date.toISOString().substring(8,10) %>-<%= course.date.toISOString().substring(5,7) %>-<%= course.date.toISOString().substring(0,4) %>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +74,7 @@
     </div>
 
     </div>
-    
+
 
 <style media="screen">
 * {
@@ -179,12 +187,12 @@ getScreenshotOfElement(
   $("div#content2").get(0),
   0,
   0,
-  $("#content2").width() +10,  // added 45 because the container's (content2) width is smaller than the image, if it's not added then the content from right side will get cut off
-  $("#content2").height() +30, // same issue as above. if the container width / height is changed (currently they are fixed) then these values might need to be changed as well.
+  $("#content2").width()+45,  // added 45 because the container's (content2) width is smaller than the image, if it's not added then the content from right side will get cut off
+  $("#content2").height()+45, // same issue as above. if the container width / height is changed (currently they are fixed) then these values might need to be changed as well.
   function (data) {
     var pdf = new jsPDF("l", "pt", [
-      $("#content2").width()+10,
-      $("#content2").height()+30,
+      $("#content2").width(),
+      $("#content2").height(),
     ]);
 
     pdf.addImage(

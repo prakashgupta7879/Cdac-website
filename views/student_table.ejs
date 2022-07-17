@@ -2,17 +2,10 @@
 <html lang="en">
 
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
-<link rel="manifest" href="/images/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates</title>
+    <title>Courses</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="/css/courses.css">
 
@@ -26,39 +19,8 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
     <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/">Home</a></li>
-                <li class="item"><a href="/internships">Internships</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item dropdown"><a href="#">Important Links</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div id="navbar-right">
-
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
+    <%- include('navbar'); -%>
 
 
     <div class="container">
@@ -71,14 +33,14 @@
               <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
               <% } %>
-                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
+                <li class="aside-item"><a href="/courses" class="font6"><div>Courses</div></a></li>
                 <% if(currentUser.usertype == "faculty") { %>
                   <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "faculty") { %>
                     <li class="aside-item "><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
                 <% } else if(currentUser.usertype == "student") { %>
-                  <li class="aside-item"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                  <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
                 <% } %>
                 <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
@@ -88,34 +50,67 @@
                 <% if(currentUser.usertype == "faculty") { %>
                     <li class="aside-item active"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
                 <% } else if(currentUser.usertype == "student") { %>
-                  <li class="aside-item active"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                  <li class="aside-item"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
                 <% } %>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
             </ul>
         </aside>
       <% } %>
 
-        <section id="course-section">
+        <section id="course-section" class="coursesection">
             <div class="section-bar">
                 <form id="search-course" class="search-bar" action="/action_page.php">
                     <input type="text" placeholder="Search Courses.." name="search2">
                     <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <div class="enrolled-courses-list">
-              <% currentUser.certificates.forEach(function(course) { %>
-                <div class="download-card">
-                    <div class="download-card-content">
-                        <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
-                    </div>
-                    <span class="btn5 font5"><a href="/view_certificate/<%= course.username %>"><div style="color: white;">View Certificate</div></a></span>
-                </div>
-              <% }) %>
-
-            </div>
+            <form action="/student_table/<%= courseid %>" method="POST" class="courses-list" style="height: fit-content; padding-bottom: 2em; padding-left: 7em;">
+              <h1 style="text-align: center;">Assign Grades to Students</h1><br>
+              <table>
+                <tr>
+                  <th>Sl No</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Grades</th>
+                </tr>
+                <% for(var i=0;i<student.length;i++) { %>
+                  <tr>
+                   <td><%= i+1 %></td>
+                   <td><%= student[i].firstname %></td>
+                   <td><%= student[i].lastname %></td>
+                   <input type="text" name="students[<%= i %>]" value="<%= student[i].username %>" placeholder="Grades" style="width: 100%; height: 35px; padding-left: 10px; display: none;">
+                   <td style="padding: 0px;"><input type="text" name="students[<%= i %>]" value="" placeholder="Grades" style="width: 100%; height: 35px; padding-left: 10px;"></td>
+                  </tr>
+                <% } %>
+              </table><br>
+              <button type="submit" name="button" style="height: 30px; background-color: cornflowerblue; border-radius: 5px;">Submit</button>
+            </form>
         </section>
     </div>
 
+    <!-- <script type="text/javascript">
+      if(!currentUser) {
+        document.getElementById('course-section').style.width = "100%";
+      }
+    </script> -->
+
+      <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
 
     <!-- FOOTER -->
     <%- include('footer'); -%>
