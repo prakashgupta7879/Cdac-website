@@ -26,40 +26,7 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
-
-    <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/">Home</a></li>
-                <li class="item"><a href="/internships">Internships</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item dropdown"><a href="#">Important Links</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div id="navbar-right">
-
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
+    <%- include('navbar'); -%>
 
 
     <div class="container">
@@ -102,7 +69,7 @@
             <div class="logout"><a href="/logout"><button class="btn-secondary logout-btn">Logout</button></a></div>
         </div>
         <div class="courses-list" style="height: fit-content;">
-        <form action="/edit-course/<%= course.username %>" method="POST">
+        <form action="/edit-course/<%= course.username %>" method="POST" enctype="multipart/form-data">
           <label style="display: none;" for="cname">Username</label>
           <input style="display: none;" type="text" id="fname" name="username" value="<%= course.username %>">
 
@@ -112,8 +79,8 @@
           <label for="description">About Course</label>
           <input type="text" id="lname" name="description" value="<%= course.description %>">
 
-          <label for="syllabus">Syllabus - What you will learn from this Course</label>
-          <input type="text" id="lname" name="syllabus" value="<%= course.syllabus %>">
+          <label for="syllabus">Upload Syllabus</label>
+          <input type="file" id="lname" name="syllabus">
 
           <label for="duration">Course duration</label>
           <input type="text" id="lname" name="duration" value="<%= course.duration %>">
@@ -146,6 +113,13 @@
   margin-top: 6px; /* Add a top margin */
   margin-bottom: 16px; /* Bottom margin */
   resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+input[type=file] {
+  padding: 15px;
+  margin-top: 2px;
+  margin-bottom: 1px;
+  width: 100%;
 }
 
 input[type=submit] {

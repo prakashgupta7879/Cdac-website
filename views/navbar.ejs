@@ -1,7 +1,7 @@
 <nav id="navbar">
     <div id="navbar-items">
         <ul>
-            <li class="item"><a href="/" class="active">Home</a></li>
+            <li class="item"><a href="/" class="">Home</a></li>
             <li class="item"><a href="/about">About us</a></li>
             <li class="item dropdown"><a href="#">Adminstration</a>
               <div class="dropdown-content">
@@ -32,13 +32,13 @@
       <% } else { %>
         <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
           <% if(currentUser.usertype == "student") { %>
-            <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
+            <a class="log" style="text-decoration: none;" href="/dash_index">Logged in as <%= currentUser.username %></a>
           <% } %>
           <% if(currentUser.usertype == "faculty") { %>
-            <a style="text-decoration: none; color: darkgreen;" href="/facultyDash">Logged in as <%= currentUser.username %></a>
+            <a class="log" style="text-decoration: none;" href="/facultyDash">Logged in as <%= currentUser.username %></a>
           <% } %>
           <% if(currentUser.usertype == "admin") { %>
-            <a style="text-decoration: none; color: darkgreen;" href="/adminDash">Logged in as <%= currentUser.username %></a>
+            <a class="log" style="text-decoration: none;" href="/adminDash">Logged in as <%= currentUser.username %></a>
           <% } %>
         </div>
       <% } %>

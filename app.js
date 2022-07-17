@@ -135,6 +135,33 @@ var resumeUpload = multer({
 
 app.use("/resume", express.static(path.join(__dirname, "resume")));
 
+
+// SYLLABUS FILE STORAGE
+const storages = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./syllabus");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilters = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var syllabusUpload = multer({
+  storage: storages,
+  fileFilter: fileFilters
+});
+
+app.use("/syllabus", express.static(path.join(__dirname, "syllabus")));
+
+
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -199,7 +226,11 @@ const defaultItems = [item1, item2, item3];
 
 //ADMIN
 app.post("/adminDash", function(req, res){
+<<<<<<< HEAD
+
+=======
   
+>>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
   const itemName = req.body.newToDo;
 
   const item = new Item ({
@@ -371,11 +402,19 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                           res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
 
                         }
+<<<<<<< HEAD
+
+                      })
+
+
+
+=======
                         
                       })
 
 
                       
+>>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
                     }
                   })
                 }
@@ -659,11 +698,11 @@ app.get('/about', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', function (req,res) {
+app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
   res.render('contact');
 })
 
-app.post('/contact', function (req,res) {
+app.post('/contact', middlewareObj.isLoggedIn, function (req,res) {
   Query.create(req.body, function (err, query) {
     if(err) {
       req.flash("error","Something went wrong.");
@@ -673,7 +712,7 @@ app.post('/contact', function (req,res) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        text: req.body.username
+        text: req.body.message
       };
       var transporter = nodemailer.createTransport({
         service: 'hotmail',
@@ -787,8 +826,6 @@ app.post('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, r
   })
 })
 
-
-
 app.get('/faculty-dash', function (req, res) {
   res.render('trial');
 })
@@ -840,40 +877,52 @@ app.get('/edit-course/:id', middlewareObj.isFacultyLoggedIn, function (req, res)
   });
 })
 
-app.post('/edit-course/:id', middlewareObj.isFacultyLoggedIn, function (req, res) {
-  var username = req.body.username;
-  var name = req.body.name;
-  var syllabus = req.body.syllabus;
-  var description = req.body.description;
-  var duration = req.body.duration;
-  var instructor = {
-    name: req.body.instructor_name,
-    designation: req.body.instructor_designation,
-    college : req.body.instructor_college
-  };
-  var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
-
-  Course.findOneAndUpdate({ username: req.params.id }, newCourse, function(err, course) {
-      if(err) {
-        // console.log(err);
-          req.flash("error","Something went wrong.");
-          res.redirect("/offered_courses");
+app.post('/edit-course/:id', syllabusUpload.single('syllabus'), middlewareObj.isFacultyLoggedIn, function (req, res) {
+  Course.find({ username: req.body.username }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/offered_courses");
+    } else {
+      var username = req.body.username;
+      var name = req.body.name;
+      var syllabus;
+      var description = req.body.description;
+      var duration = req.body.duration;
+      var instructor = {
+        name: req.body.instructor_name,
+        designation: req.body.instructor_designation,
+        college : req.body.instructor_college
+      };
+      if(req.file) {
+        syllabus = req.file.filename;
       } else {
-          Student.find({}, function (err, student) {
-            console.log(student);
-            for(var i=0; i<student.length; i++) {
-              for(var j=0; j<student[i].courses.length; j++) {
-                if(student[i].courses[j].username == course.username) {
-                  student[i].courses[j] = newCourse;
-                }
-                console.log(student[i]);
-                student[i].save();
-              }
-            }
-            res.redirect("/offered_courses");
-          })
+        syllabus = course[0].syllabus;
       }
-  });
+      var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
+
+      Course.findOneAndUpdate({ username: req.params.id }, newCourse, function(err, course) {
+          if(err) {
+            // console.log(err);
+              req.flash("error","Something went wrong.");
+              res.redirect("/offered_courses");
+          } else {
+              Student.find({}, function (err, student) {
+                console.log(student);
+                for(var i=0; i<student.length; i++) {
+                  for(var j=0; j<student[i].courses.length; j++) {
+                    if(student[i].courses[j].username == course.username) {
+                      student[i].courses[j] = newCourse;
+                    }
+                    console.log(student[i]);
+                    student[i].save();
+                  }
+                }
+                res.redirect("/offered_courses");
+              })
+          }
+      });
+    }
+  })
 })
 
 //COURSES OFFERED
@@ -892,40 +941,44 @@ app.get('/course-upload', middlewareObj.isFacultyLoggedIn, function (req,res) {
   res.render('course-upload');
 })
 
-app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) {
-        var username = uuidv4();
-        var name = req.body.name;
-        var syllabus = req.body.syllabus;
-        var description = req.body.description;
-        var duration = req.body.duration;
-        var instructor = {
-          name: req.body.instructor_name,
-          designation: req.body.instructor_designation,
-          college : req.body.instructor_college
-        };
-        var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
-        console.log(newCourse);
-        Course.create(newCourse, function(err, allCourse) {
-            if(err) {
-                console.log(err);
+app.post("/course-upload", syllabusUpload.single('syllabus'), middlewareObj.isFacultyLoggedIn, function (req, res) {
+  console.log(req.file);
+  if(!req.file) {
+    req.flash("error", "Something went wrong");
+    res.redirect('/course-upload');
+  } else {
+    var username = uuidv4();
+    var name = req.body.name;
+    var syllabus = req.file.filename;
+    var description = req.body.description;
+    var duration = req.body.duration;
+    var instructor = {
+      name: req.body.instructor_name,
+      designation: req.body.instructor_designation,
+      college : req.body.instructor_college
+    };
+    var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
+    console.log(newCourse);
+    Course.create(newCourse, function(err, allCourse) {
+        if(err) {
+            console.log(err);
+            req.flash("error", "Something went wrong");
+            res.redirect('/course-upload');
+        } else {
+            Student.findById(req.user._id, function (err, user) {
+              if(err) {
                 req.flash("error", "Something went wrong");
                 res.redirect('/course-upload');
-            } else {
-                Student.findById(req.user._id, function (err, user) {
-                  if(err) {
-                    req.flash("error", "Something went wrong");
-                    res.redirect('/course-upload');
-                  } else {
-                    user.courses.push(newCourse);
-                    user.save();
-                    req.flash("success", "Course uploaded successfully.");
-                    res.redirect("/courses");
-                  }
-                })
-            }
-        });
-    //   }
-    // });
+              } else {
+                user.courses.push(newCourse);
+                user.save();
+                req.flash("success", "Course uploaded successfully.");
+                res.redirect("/courses");
+              }
+            })
+        }
+    });
+  }
 });
 
 //ENROLL COURSE

@@ -26,19 +26,7 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
-    <nav id="course-navbar">
-        <div class="course-navbar-item">
-            <ul>
-                <li class="course-item active"><a href="#course-section1" class="font5">About</a></li>
-                <li class="course-item"><a href="#course-section2" class="font5">Instructor</a></li>
-                <li class="course-item"><a href="#course-section3" class="font5">Syllabus</a></li>
-                <li class="course-item"><a href="#course-section4" class="font5">Enrollment option</a></li>
-                <li class="course-item"><a href="#course-section5" class="font5">FAQ</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <%- include('navbar'); -%>
 
     <section id="course-section1">
         <div class="course-section1-content">
@@ -146,7 +134,7 @@
     <section id="course-section3">
         <span class="font5">Syllabus - What you will learn from this Course</span>
         <div class="syllabus font5">
-          <%= course.syllabus %>
+          <a href="../syllabus/<%= course.syllabus %>"><button type="button" style="width: 100px; height: 30px; background-color: cornflowerblue; color: white;" class="btn btn-secondary" name="button">View Syllabus</button></a>
         </div>
     </section>
 

@@ -26,40 +26,7 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
-    <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/">Home</a></li>
-                <li class="item"><a href="/internships">Internships</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item dropdown"><a href="#">Important Links</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div id="navbar-right">
-
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
-
+    <%- include('navbar'); -%>
 
     <div class="container">
       <% if(currentUser) { %>
