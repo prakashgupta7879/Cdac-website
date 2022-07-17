@@ -25,15 +25,16 @@ var crypto = require("crypto");
 var path = require("path");
 const sharp = require('sharp');
 const fs = require('fs');
-var todos = [];
+const { insertMany } = require("./modules/student.js");
+// var todos = ["Add second page", "Add fourth page", "Add third page"];
 
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true }));
 
 app.use(require('express-session')({
     secret: 'Heyy',
-    resave: false,
-    saveUninitialize: false
+    resave: true,
+saveUninitialized: true
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
@@ -41,7 +42,9 @@ mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mong
 
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded('extended: true'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(methodOverride('_method'));
 
 app.use(express.static('public'));
@@ -173,12 +176,41 @@ app.get("/centerhead", function(req, res) {
   res.render('centerHead');
 });
 
+const itemsSchema = {
+  name: String
+};
+
+const Item = mongoose.model("Todo", itemsSchema);
+
+const item1 = new Item({
+  name: "Welcome"
+});
+
+const item2 = new Item({
+  name: "Namaste"
+});
+
+const item3 = new Item({
+  name: "Kaustubh"
+});
+
+const defaultItems = [item1, item2, item3];
+
+
 //ADMIN
 app.post("/adminDash", function(req, res){
-  var todo = req.body.newToDo;
-  todos.push(todo);
-  res.redirect("/adminDash")
-})
+  
+  const itemName = req.body.newToDo;
+
+  const item = new Item ({
+    name: itemName
+  });
+
+  item.save();
+
+  res.redirect("/adminDash");
+
+});
 
 app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('adminChangePassword');
@@ -321,7 +353,29 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                       req.flash("error","Something went wrong.");
                       res.redirect("/adminDash");
                     } else {
-                      res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: todos });
+
+                      Item.find({}, function(err, foundItems){
+
+                        if(foundItems.length === 0){
+                          Item.insertMany(defaultItems, function(err){
+                            if(err){
+                              console.log(err);
+                            }
+                            else{
+                              console.log("Success!!");
+                            }
+                          });
+                          res.redirect("/adminDash");
+                        }
+                        else{
+                          res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
+
+                        }
+                        
+                      })
+
+
+                      
                     }
                   })
                 }
