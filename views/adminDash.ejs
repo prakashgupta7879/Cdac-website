@@ -107,18 +107,18 @@
 					<!-- /.card-header -->
 					<div class="card-body">
 					  <ul class="todo-list ui-sortable" data-widget="todo-list">
-						<li>
+						<!-- <li> -->
 						  <!-- drag handle -->
 						  <!-- <span class="handle ui-sortable-handle">
 							<i class="fas fa-ellipsis-v"></i>
 							<i class="fas fa-ellipsis-v"></i>
 						  </span> -->
 						  <!-- checkbox -->
-						  <div class="icheck-primary d-inline ml-2">
+						  <!-- <div class="icheck-primary d-inline ml-2">
 							<input class="strikethrough" type="checkbox" value="" name="todo1" id="todoCheck1">
-							<span class="text">Add second page</span>
+							<span class="text">Add second page</span> -->
 							<!-- <label for="todoCheck1"></label> -->
-						  </div>
+						  <!-- </div> -->
 						  <!-- todo text -->
 						  <!-- <span class="text">Design a nice theme</span> -->
 						  <!-- Emphasis label -->
@@ -127,55 +127,54 @@
 						  <!-- <div class="tools">
 							<i class="fas fa-edit"></i>
 							<i class="fas fa-trash-o"></i>
-						  </div> -->
-						</li>
-						<li>
-						  <!-- <span class="handle ui-sortable-handle">
+						  </div>
+						</li> -->
+						<!-- <li>
+						  <span class="handle ui-sortable-handle">
 							<i class="fas fa-ellipsis-v"></i>
 							<i class="fas fa-ellipsis-v"></i>
-						  </span> -->
+						  </span>
 						  <div class="icheck-primary d-inline ml-2">
 							<input class="strikethrough" type="checkbox" value="" name="todo2" id="todoCheck2">
 							<span class="text">Add fourth page</span>
-							<!-- <label for="todoCheck2"></label> -->
+							<label for="todoCheck2"></label>
 						  </div>
-						  <!-- <span class="text">Make the theme responsive</span> -->
-						  <!-- <small class="badge badge-info"><i class="far fa-clock"></i>New</small> -->
-						  <!-- <div class="tools">
+						  <span class="text">Make the theme responsive</span>
+						  <small class="badge badge-info"><i class="far fa-clock"></i>New</small>
+						  <div class="tools">
 							<i class="fas fa-edit"></i>
 							<i class="fas fa-trash-o"></i>
-						  </div> -->
-						</li>
-						<li>
-						  <!-- <span class="handle ui-sortable-handle">
+						  </div>
+						</li> -->
+						<!-- <li>
+						  <span class="handle ui-sortable-handle">
 							<i class="fas fa-ellipsis-v"></i>
 							<i class="fas fa-ellipsis-v"></i>
-						  </span> -->
+						  </span>
 						  <div class="icheck-primary d-inline ml-2">
 							<input class="strikethrough" type="checkbox" value="" name="todo3" id="todoCheck3">
 							<span class="text">Add third page</span>
-							<!-- <label for="todoCheck3"></label> -->
+							<label for="todoCheck3"></label>
 						  </div>
-						  <!-- <span class="text">Let theme shine like a star</span> -->
-						  <!-- <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small> -->
-						  <!-- <div class="tools">
+						  <span class="text">Let theme shine like a star</span>
+						  <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+						  <div class="tools">
 							<i class="fas fa-edit"></i>
 							<i class="fas fa-trash-o"></i>
-						  </div> -->
-						</li>
-						
-						<% for(var i=0; i<newListItems.length; i++){ %>
+						  </div>
+						</li> -->
+
+						<% newListItems.forEach(function(item){ %>
 							<li>
 								<div class="icheck-primary d-inline ml-2">
 								  <input class="strikethrough" type="checkbox" value="" name="todo3" id="todoCheck3">
-								  <span class="text"><%= newListItems[i] %></span>
+								  <span style="margin-left: 10px;" class="text"><%= item.name %></span>
 								</div>
 								<small class="badge badge-warning"><i class="far fa-clock"></i>New</small>
 							</li>
-							<% } %>
+						<% }) %>
 						
-						
-						
+
 					  </ul>
 					</div>
 					<!-- /.card-body -->
