@@ -1,6 +1,16 @@
 <nav id="sidebar">
   <div class="sidebar-header">
     <h3>CDAC Silchar</h3>
+    <b style="margin-left: 10px; margin-right: 5px;">Today is:</b>
+    <b>
+      <script id="current_date" style="margin-left: 5x; display: inline; color: antiquewhite;" align="right" >
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        document.getElementById("current_date").innerHTML = day + "/" + month + "/" + year;
+        </script>
+    </b>
 
   </div>
 
