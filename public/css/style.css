@@ -18,9 +18,17 @@ footer{
   margin-top: auto;
 }
 
+.log {
+  color: black;
+}
+
+.log:hover {
+  font-weight: bolder;
+}
+
 /* HEADER */
 #header{
-    background-color: 
+    background-color:
     #05445E;
     display: flex;
     flex-direction: row;
