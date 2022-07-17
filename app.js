@@ -226,7 +226,7 @@ const defaultItems = [item1, item2, item3];
 
 //ADMIN
 app.post("/adminDash", function(req, res){
-  
+
   const itemName = req.body.newToDo;
 
   const item = new Item ({
@@ -398,11 +398,11 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                           res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
 
                         }
-                        
+
                       })
 
 
-                      
+
                     }
                   })
                 }
@@ -813,8 +813,6 @@ app.post('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, r
       }
   })
 })
-
-
 
 app.get('/faculty-dash', function (req, res) {
   res.render('trial');
