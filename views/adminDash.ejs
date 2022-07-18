@@ -87,14 +87,14 @@
 		</div>
 		<div class="card-deck">
 			<div style="margin-left: 40px ; width:45%; ">
-				<div class="card" style="position: relative; left: 0px; top: 0px;">
+				<div class="card border-info mb-3" style="position: relative; left: 0px; top: 0px;">
 					<div class="card-header ui-sortable-handle" style="cursor: move;">
 					  <h3 class="card-title">
 						<i class="ion ion-clipboard mr-1"></i>
 						To Do List
 					  </h3>
 		
-					  <div class="card-tools">
+					  <!-- <div class="card-tools">
 						<ul class="pagination pagination-sm">
 						  <li class="page-item"><a href="#" class="page-link">«</a></li>
 						  <li class="page-item"><a href="#" class="page-link">1</a></li>
@@ -102,7 +102,7 @@
 						  <li class="page-item"><a href="#" class="page-link">3</a></li>
 						  <li class="page-item"><a href="#" class="page-link">»</a></li>
 						</ul>
-					  </div>
+					  </div> -->
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
@@ -165,13 +165,19 @@
 						</li> -->
 
 						<% newListItems.forEach(function(item){ %>
-							<li>
-								<div class="icheck-primary d-inline ml-2">
-								  <input class="strikethrough" type="checkbox" value="" name="todo3" id="todoCheck3">
-								  <span style="margin-left: 10px;" class="text"><%= item.name %></span>
-								</div>
-								<small class="badge badge-warning"><i class="far fa-clock"></i>New</small>
-							</li>
+
+							<form action="/delete" method="post">
+								<li>
+									<div class="icheck-primary d-inline ml-2">
+									  <input class="strikethrough" type="checkbox" value="<%=item._id%>" name="checkbox" id="todoCheck3" onchange="this.form.submit()">
+									  <span style="margin-left: 10px;" class="text"><%= item.name %></span>
+									</div>
+									<small class="badge badge-warning"><i class="far fa-clock"></i>New</small>
+								</li>
+							</form>
+
+
+							
 						<% }) %>
 						
 
@@ -181,8 +187,8 @@
 					<form action="/adminDash" method="post">
 						
 						<div class="card-footer clearfix">
-							<input type="text" name="newToDo" placeholder="Add Something...">
-							<button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+							<input class="form-control" type="text" name="newToDo" placeholder="Add Something..."> <br>
+							<button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add item</button>
 						  </div>
 					</form>
 					
