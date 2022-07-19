@@ -25,7 +25,9 @@ var crypto = require("crypto");
 var path = require("path");
 const sharp = require('sharp');
 const fs = require('fs');
+const request = require('request');
 const { insertMany } = require("./modules/student.js");
+const fetch = require("isomorphic-fetch");
 // var todos = ["Add second page", "Add fourth page", "Add third page"];
 
 app.use(express.json({limit: '50mb'}));
@@ -226,11 +228,11 @@ const defaultItems = [item1, item2, item3];
 
 //ADMIN
 app.post("/adminDash", function(req, res){
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
+// <<<<<<< HEAD
+//
+// =======
+//
+// >>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
   const itemName = req.body.newToDo;
 
   const item = new Item ({
@@ -402,19 +404,8 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                           res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
 
                         }
-<<<<<<< HEAD
-
                       })
-
-
-
-=======
-                        
-                      })
-
-
-                      
->>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
+                      // })
                     }
                   })
                 }
@@ -436,16 +427,39 @@ app.get("/admin", function(req, res) {
 app.post("/admin", passport.authenticate("local", {
       failureRedirect: "/admin"
   }), function(req, res) {
-    // console.log(req.body);
-    Student.find({username: req.body.username, usertype: "admin"}, function(err,admin){
-      if(err){
-        req.flash("error","Incorrect Username or Password.");
-        res.redirect("/admin");
-      } else {
-        // console.log(admin);
-        res.redirect('/adminDash');
-      }
-    })
+  const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+  const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+  fetch(verifyUrl, {
+    method: "POST",
+  })
+  .then((response) => response.json())
+  .then((google_response) => {
+    // google_response is the object return by
+    // google as a response
+    console.log(google_response);
+    if (google_response.success == true) {
+      //   if captcha is verified
+      Student.find({username: req.body.username, usertype: "admin"}, function(err,admin){
+        if(err){
+          req.flash("error","Incorrect Username or Password.");
+          res.redirect("/admin");
+        } else {
+          // console.log(admin);
+          res.redirect('/adminDash');
+        }
+      })
+    } else {
+      // if captcha is not verified
+      req.flash("error","Please enter the captcha.");
+      res.redirect("/admin");
+    }
+  })
+  .catch((error) => {
+      // Some error while verify captcha
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/admin");
+  });
+
 });
 
 app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
@@ -527,29 +541,38 @@ app.get("/faculty-login", function(req, res) {
 app.post("/faculty-login", passport.authenticate("local", {
         failureRedirect: "/faculty-login"
     }), function(req, res) {
-      console.log(req.body);
-      Student.find({username: req.body.username, usertype: "faculty" }, function(err,faculty){
-        if(err){
-          req.flash("error","Incorrect Username or Password.");
-          res.redirect("/faculty-login");
-        } else {
-          // res.render("dash_index.ejs");
-          res.redirect('/facultyDash');
-        }
-      })
-// function(req, res) {
-//     console.log(req.body);
-//     Student.find({username: req.body.username, password: req.body.password, usertype: "faculty"}, function(err,student){
-//       if(err){
-//         req.flash("error","Incorrect Username or Password.");
-//         res.redirect("/faculty-login");
-//       } else {
-//         passport.authenticate('local')(req, res, function() {
-//           res.redirect('/');
-//         });
-//         // res.redirect('/');
-//       }
-//     })
+    const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+    fetch(verifyUrl, {
+      method: "POST",
+    })
+    .then((response) => response.json())
+    .then((google_response) => {
+      // google_response is the object return by
+      // google as a response
+      console.log(google_response);
+      if (google_response.success == true) {
+        //   if captcha is verified
+        Student.find({ username: req.body.username, usertype: "faculty" }, function(err,faculty){
+          if(err){
+            req.flash("error","Incorrect Username or Password.");
+            res.redirect("/faculty-login");
+          } else {
+            // res.render("dash_index.ejs");
+            res.redirect('/facultyDash');
+          }
+        })
+      } else {
+        // if captcha is not verified
+        req.flash("error","Please enter the captcha.");
+        res.redirect("/faculty-login");
+      }
+    })
+    .catch((error) => {
+        // Some error while verify captcha
+        req.flash("error","Captcha verification failed.");
+        res.redirect("/faculty-login");
+    });
 });
 
 //FACULTY DASHBOARD
@@ -564,32 +587,53 @@ app.get("/signup", function(req, res) {
 });
 
 app.post("/signup", function(req, res) {
-  console.log(req.body);
-    var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
-    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
+  const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+  const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
 
-    Student.register(newUser, req.body.password, function(err, user) {
-        if(err) {
-            // console.log(err);
-            if(newUser.username.length == 0) {
-                req.flash("error", "Invalid username");
-            } else if(req.body.password.length == 0) {
-                req.flash("error", "Invalid password");
-            } else {
-                req.flash("error", "A user with the given username is already registered");
-            }
-            res.redirect("/signup");
-        } else {
-          passport.authenticate('local')(req, res, function() {
-            console.log(req);
-            console.log("/////////////");
-            console.log(user);
-            req.flash("success", "Registered successfully!!");
-            // res.render("dash_index.ejs",{id: user._id.toString()});
-            res.redirect('/dash_index');
-          });
-        }
-    });
+  fetch(verifyUrl, {
+    method: "POST",
+  })
+  .then((response) => response.json())
+  .then((google_response) => {
+    // google_response is the object return by
+    // google as a response
+    console.log(google_response);
+    if (google_response.success == true) {
+      //   if captcha is verified
+      var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
+      lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
+
+      Student.register(newUser, req.body.password, function(err, user) {
+          if(err) {
+              // console.log(err);
+              if(newUser.username.length == 0) {
+                  req.flash("error", "Invalid username");
+              } else if(req.body.password.length == 0) {
+                  req.flash("error", "Invalid password");
+              } else {
+                  req.flash("error", "A user with the given username is already registered");
+              }
+              res.redirect("/signup");
+          } else {
+            passport.authenticate('local')(req, res, function() {
+              console.log(user);
+              req.flash("success", "Registered successfully!!");
+              res.redirect('/dash_index');
+            });
+          }
+      });
+    } else {
+      // if captcha is not verified
+      req.flash("error","Please enter the captcha.");
+      res.redirect("/signup");
+    }
+  })
+  .catch((error) => {
+      // Some error while verify captcha
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/signup");
+  });
+
 });
 
 //STUDENT LOGIN
@@ -601,16 +645,36 @@ app.get("/login", function(req, res) {
 app.post("/login", passport.authenticate("local", {
         failureRedirect: "/login"
     }), function(req, res) {
-      console.log(req.body);
-      Student.find({username: req.body.username, usertype: "student" }, function(err,student){
-        if(err){
-          req.flash("error","Incorrect Username or Password.");
-          res.redirect("/login");
-        } else {
-          // res.render("dash_index.ejs");
-          res.redirect('/dash_index');
-        }
-      })
+    const secretkey = '6LeitwEhAAAAAC9zBhycFKckM1cQgebO2hM6fDMN';
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+    fetch(verifyUrl, {
+      method: "POST",
+    })
+    .then((response) => response.json())
+    .then((google_response) => {
+      // google_response is the object return by
+      // google as a response
+      console.log(google_response);
+      if (google_response.success == true) {
+        //   if captcha is verified
+        Student.find({username: req.body.username, usertype: "student" }, function(err,student){
+          if(err){
+            req.flash("error","Incorrect Username or Password.");
+            res.redirect("/login");
+          } else {
+            res.redirect('/dash_index');
+          }
+        })
+      } else {
+        // if captcha is not verified
+        req.flash("error","Please enter the captcha.");
+        res.redirect("/login");
+      }
+    })
+    .catch((error) => {
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/login");
+    });
 });
 
 //LOGOUT

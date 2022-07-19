@@ -80,7 +80,7 @@
 
     </nav> -->
 
-    <form name="myForm" action="/admin" class="forms" method="POST">
+    <form name="myForm" id="admin" action="/admin" class="forms" method="POST">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
         <h2 style="text-align: center;">Please Login</h2> <br>
         <label for="inputEmail" class="sr-only">Username</label>
@@ -101,13 +101,31 @@
         </div> <br>
    </form>
 
-
+    <!-- SCRIPT LINK -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#admin').submit(function() {
+          $(this).ajaxSubmit({
+            error: function(xhr) {
+              console.log(xhr);
+              status('Error: ' + xhr.status);
+            },
+           success: function(response) {
+            console.log(response);
+           }
+          });
+          return true;
+        });
+      });
+    </script> -->
+    <script src="script.js"></script>
 
     <!-- FOOTER -->
     <%- include('footer'); -%>
 
-    <!-- SCRIPT LINK -->
-    <script src="script.js"></script>
+
 </body>
 
 </html>
