@@ -228,11 +228,6 @@ const defaultItems = [item1, item2, item3];
 
 //ADMIN
 app.post("/adminDash", function(req, res){
-// <<<<<<< HEAD
-//
-// =======
-//
-// >>>>>>> 90f2f806ee9dfc53a2fa5215746ae231e0a19f53
   const itemName = req.body.newToDo;
 
   const item = new Item ({
@@ -243,6 +238,17 @@ app.post("/adminDash", function(req, res){
 
   res.redirect("/adminDash");
 
+});
+
+app.post("/delete", function(req, res){
+  const checkedItemId = req.body.checkbox;
+
+  Item.findByIdAndRemove(checkedItemId, function(err){
+    if(!err){
+      console.log("Deleted ToDo Item");
+      res.redirect("/adminDash");
+    }
+  });
 });
 
 app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
@@ -404,8 +410,11 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                           res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
 
                         }
+
                       })
-                      // })
+
+
+
                     }
                   })
                 }
