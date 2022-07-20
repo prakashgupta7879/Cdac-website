@@ -323,14 +323,21 @@ app.post('/change-password-admin', middlewareObj.isAdminLoggedIn, function (req,
     }
   });
 })
+app.get("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('addJob');
+});
+
+
+
+app.get("/addEvent", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('addEvent');
+});
 
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addAchievement');
 });
 
 app.get("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addProgram');
 });
 
