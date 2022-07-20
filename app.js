@@ -823,6 +823,13 @@ app.post('/contact', middlewareObj.isLoggedIn, function (req,res) {
   })
 })
 
+//Events
+
+app.get("/annualevents", function(req, res) {
+  res.render('annualevents');
+});
+
+
 //COURSES
 app.get('/courses', function (req,res) {
   Course.find({}, function (err, courses) {
