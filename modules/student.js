@@ -111,6 +111,10 @@ var UserSchema = new mongoose.Schema({
             type: String,
             default: ''
           },
+          deadline: String,
+          cert: String,
+          language: String,
+          mode: String,
           instructor: {
             name: String,
             designation: String,

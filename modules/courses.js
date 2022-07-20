@@ -7,6 +7,13 @@ var CourseSchema = new mongoose.Schema({
     description: String,
     syllabus: String,
     duration: String,
+    deadline: String,
+    cert: String,
+    language: String,
+    mode: String,
+    students: [
+      
+    ],
     instructor: {
       name: String,
       designation: String,
