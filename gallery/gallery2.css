@@ -1,13 +1,13 @@
-#header{
-    
+/* #header{
+
     background-color: darkslategrey;
     display: flex;
     flex-direction: row;
     padding: 30px 30px;
     justify-content: space-between;
-}
+} */
 .right{
-    color: whitesmoke; 
+    color: whitesmoke;
 }
 
 /* FOOTER */
@@ -31,14 +31,14 @@
 }
 
 /* NAVIGATION BAR */
-#navbar{
+/* #navbar{
     display: flex;
     justify-content: space-between;
-    background-color: #189AB4;
+    background-color: #189AB4; */
     /* margin-top: 1px; */
     /* border-top: 1px solid grey;
     border-bottom: 1px solid grey; */
-}
+/* }
 #navbar-items{
     margin-left: 1rem;
 }
@@ -64,12 +64,12 @@
 }
 #navbar-items ul li a.active{
     background-color: rgb(4, 114, 114);
-    border-radius: 2px;
-    color: whitesmoke;
-}
+    border-radius: 2px; */
+    /* color: whitesmoke;
+} */
 
 
-.dropdown:hover .dropdown-content{
+/* .dropdown:hover .dropdown-content{
     display: block;
 }
 .dropdown-content{
@@ -109,11 +109,11 @@
 .navbar-login button{
     padding: 5px 6px;
     margin: 4px 4px;
-}
+} */
 
 
 /* dropdown buttons */
-.dropbtn {
+/* .dropbtn {
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -160,7 +160,7 @@
     border: 1px solid gray;
     border-radius: 2px;
     outline: none;
-}
+} */
 
 
 /* *******************  Utility Classes  ******************** */
@@ -215,6 +215,22 @@
 
 /*gallery*/
 
+<<<<<<< HEAD:public/css/annual.css
+/*annual*/
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+}
+h3{
+    text-align: center;
+    margin: 25px auto;
+    font-size: 20px;
+    color: rgb(44, 44, 44);
+}
+=======
 .section-header {
     display: flex;
     justify-content: center;
@@ -333,3 +349,4 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+>>>>>>> abf6c8e6a8c8f3fca2a950fcebd19f434b026d4b:gallery/gallery2.css

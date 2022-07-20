@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ADMIN DASHBOARD</title>
+    <title>Add a Job</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -43,7 +43,7 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div style="margin-left:280px;" class="forms">
-					<h2 style="margin:10px ;">Add a New Program:</h2>
+					<h2 style="margin:10px ;">Add a New Job:</h2>
 					<div  class="form-grids row widget-shadow" data-example-id="basic-forms">
 
 							<!-- <h4>A NEW FACULTY</h4><br> -->
@@ -52,17 +52,17 @@
 							<form action="/addJob" method="POST">
                   <div class="form-group">
                       <label for="Name">Job Title:</label>
-                      <textarea required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Program Title">
-                          </textarea>
+                      <textarea required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Job Title">
+                      </textarea>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                       <label for="Name">Job Description Link:</label>
                       <input required name="link" type="text" class="form-control" id="exampleInputEmail1" placeholder="JD Link">
-                  </div>
+                  </div> -->
                   <div class="form-group">
                     <label for="Name">Job Application Link:</label>
-                    <input required name="link" type="text" class="form-control" id="exampleInputEmail1" placeholder="JA Link">
-                </div>
+                    <input required name="link" type="text" class="form-control" id="exampleInputEmail1" placeholder="Application Link">
+                  </div>
 
                   <button type="submit" class="btn btn-primary">Submit</button>
               </form>

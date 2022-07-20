@@ -33,6 +33,23 @@
     <!-- HEADER -->
     <%- include('header'); -%>
 
+    <% if(error && error.length>0) { %>
+      <div class="alert" style="background-color: red;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= error %></p>
+        </div>
+      </div>
+    <% } %>
+    <% if(success && success.length>0) { %>
+      <div class="alert" style="background-color: #0bff00;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div style="font-size: larger;" class="alert alert-danger" role="alert">
+            <p style="text-align: center;"><%= success %></p>
+        </div>
+      </div>
+    <% } %>
+
 
     <!-- NAVIGATION BAR -->
     <!-- <nav id="navbar">
