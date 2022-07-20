@@ -42,7 +42,7 @@
 }
 #navbar-items ul li{
     list-style: none;
-    padding: 0.8rem 0.8rem;
+    padding: 0.8rem 5px;
 }
 #navbar-items ul li a{
     text-decoration: none;
@@ -99,7 +99,7 @@
     margin-right: 2rem;
 }
 .navbar-login{
-    margin: auto 20px;
+    margin: auto 10px;
 }
 .navbar-login button{
     padding: 5px 6px;
@@ -157,31 +157,6 @@
     outline: none;
 }
 
-/* Buttons */
-.btn-primary{
-    border: 1px solid gray;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.btn-primary:hover{
-    transform: scale(1.08);
-    transition: all 0.2s;
-}
-.btn-secondary{
-    border-radius: 2px;
-    outline: none;
-    font-size: 12px;
-    font-weight: bold;
-    color:whitesmoke;
-    border: 0px solid white;
-    background-color:darkslategray;
-}
-.btn-secondary:hover{
-    cursor: pointer;
-    transform: scale(1.07);
-    transition: all 0.2s;
-    color: white;
-}
 
 /* CONTAINER */
 .container{
@@ -322,22 +297,29 @@
 
 /* FOOTER */
 #footer{
-    height: 120px;
-    background-color: cadetblue;
-    color: rgb(31, 31, 31);
+    height: 105px;
     text-align: center;
+    background-color:#f5f7fa;
+    border-top: 1px solid gray;
 }
 .other-links{
     margin-top: 5px;
+    color: rgb(31,31,31);
 }
 .presskit-links{
-    color: white;
-    font-size: 0.9rem;
+    font-size: 12px;
+}
+.presskit-links a{
+    color: rgb(31,31,31);
+    font-size: 12px;
+}
+.presskit-links a:hover{
+    text-decoration: underline;
+    color: #0062e4;
 }
 .copyrights{
     text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
+    font-size: 12px;
 }
 
 
@@ -370,13 +352,12 @@
 
 /* external social icons */
 .fa {
-    padding: 6px;
-    font-size: 30px;
-    width: 30px;
+    padding: 3px;
+    width: 23px;
     text-align: center;
     text-decoration: none;
-    margin: 12px 10px;
-    border-radius: 3px;
+    margin: 10px 15px;
+    border-radius: 2px;
 }
 .fa:hover{
     transform: scale(1.14);
@@ -403,33 +384,34 @@
     background-color: transparent;
     color: #007bb5;
     transform: scale(1.06);
-    padding: 8px 2px;
-    margin: 2px 3px;
+    padding: 4px;
+    margin: 2px 2px;
 }
 
 
   /* Buttons */
-.btn-primary{
-    border: 1px solid lightgrey;
+  .btn-primary{
+    border: 1px solid gray;
     border-radius: 2px;
     cursor: pointer;
-    height: 32px;
-    width: 36px;
 }
-
+.btn-primary:hover{
+    transform: scale(1.08);
+    transition: all 0.2s;
+}
 .btn-secondary{
     border-radius: 2px;
     outline: none;
-    font-size: 13px;
-    color: black;
-    border: 1px solid grey;
-    background-color: white;
-    font-family: 'Ubuntu', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color:whitesmoke;
+    border: 0px solid white;
+    background-color:darkslategray;
 }
 .btn-secondary:hover{
     cursor: pointer;
     transform: scale(1.07);
-    background-color:#0062e4 ;
+    transition: all 0.2s;
     color: white;
 }
 

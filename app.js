@@ -13,6 +13,7 @@ var Application = require('./modules/applications.js');
 var Course = require('./modules/courses.js');
 var Query = require('./modules/queries.js');
 var Update = require('./modules/latestUpdates.js');
+var Program = require('./modules/program.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -24,20 +25,28 @@ var crypto = require("crypto");
 var path = require("path");
 const sharp = require('sharp');
 const fs = require('fs');
+const request = require('request');
+const { insertMany } = require("./modules/student.js");
+const fetch = require("isomorphic-fetch");
+// var todos = ["Add second page", "Add fourth page", "Add third page"];
 
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true }));
 
 app.use(require('express-session')({
     secret: 'Heyy',
-    resave: false,
-    saveUninitialize: false
+    resave: true,
+saveUninitialized: true
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
+// mongoose.connect("mongodb://localhost/cdac", {useNewUrlParser: true});
+
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded('extended: true'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(methodOverride('_method'));
 
 app.use(express.static('public'));
@@ -48,6 +57,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
+
 
 
 // IMAGE FILE STORAGE
@@ -101,6 +111,59 @@ var pdfUpload = multer({
 
 app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
 
+
+// RESUME FILE STORAGE
+const storager = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./resume");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilterr = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var resumeUpload = multer({
+  storage: storager,
+  fileFilter: fileFilterr
+});
+
+app.use("/resume", express.static(path.join(__dirname, "resume")));
+
+
+// SYLLABUS FILE STORAGE
+const storages = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./syllabus");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilters = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var syllabusUpload = multer({
+  storage: storages,
+  fileFilter: fileFilters
+});
+
+app.use("/syllabus", express.static(path.join(__dirname, "syllabus")));
+
+
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -120,25 +183,169 @@ app.get("/",(req, res) => {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       } else {
-        console.log(update);
-        res.render('index', { update: update });
+        Program.find({}, function (err, program) {
+          if(err) {
+            req.flash("error", "Something went wrong.");
+            res.redirect("/");
+          } else {
+            console.log(program);
+            res.render('index', { update: update, program: program });
+          }
+        })
       }
     })
 })
 
+//ADMINISTRATION
+app.get("/directorgeneral", function(req, res) {
+  res.render('directorGeneral');
+});
+
+app.get("/centerhead", function(req, res) {
+  res.render('centerHead');
+});
+
+const itemsSchema = {
+  name: String
+};
+
+const Item = mongoose.model("Todo", itemsSchema);
+
+const item1 = new Item({
+  name: "Welcome"
+});
+
+const item2 = new Item({
+  name: "Namaste"
+});
+
+const item3 = new Item({
+  name: "Kaustubh"
+});
+
+const defaultItems = [item1, item2, item3];
+
+
 //ADMIN
+app.post("/adminDash", function(req, res){
+  const itemName = req.body.newToDo;
+
+  const item = new Item ({
+    name: itemName
+  });
+
+  item.save();
+
+  res.redirect("/adminDash");
+
+});
+
+app.post("/delete", function(req, res){
+  const checkedItemId = req.body.checkbox;
+
+  Item.findByIdAndRemove(checkedItemId, function(err){
+    if(!err){
+      console.log("Deleted ToDo Item");
+      res.redirect("/adminDash");
+    }
+  });
+});
+
+app.get("/changeadminpassword", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('adminChangePassword');
+});
+
+app.post('/change-password-admin', middlewareObj.isAdminLoggedIn, function (req, res) {
+  Student.find({username: req.body.username, usertype: "admin" }, function (err, stud) {
+    console.log(stud);
+    console.log(req.body);
+    if(err) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/change-password');
+    } else if(req.body.password != req.body.password1 || stud[0].password != req.body.oldPassword) {
+      req.flash("error","Please enter valid password.");
+      res.redirect('/changeadminpassword');
+    } else {
+      var student = stud[0];
+      var newUser = {
+        username: student.username,
+        firstname: student.firstname,
+        lastname: student.lastname,
+        dob: student.dob,
+        qualification: student.qualification,
+        Designation: student.Designation,
+        Department: student.Department,
+        AreaOfSpecialization: student.AreaOfSpecialization,
+        Institute: student.Institute,
+        address: student.address,
+        state: student.state,
+        district: student.district,
+        pincode: student.pincode,
+        email: student.email,
+        MobileNo: student.MobileNo,
+        usertype: student.usertype,
+        courses: student.courses,
+        profileImage: student.profileImage,
+        certificates: student.certificates,
+        password: req.body.password
+      };
+
+      Student.remove({ username: student.username }, function (err, student) {
+        if(err) {
+          console.log(err);
+          req.flash("error","Something went wrong.");
+          res.redirect('/changeadminpassword');
+        } else {
+          console.log(student);
+          Student.register(newUser, req.body.password, function(err, user) {
+              if(err) {
+                // console.log("//////////**********");
+                // console.log(err);
+                req.flash("error","Something went wrong.");
+                res.redirect('/changeadminpassword');
+              } else {
+                passport.authenticate('local')(req, res, function() {
+                  req.flash("success", "Password changed successfully!!");
+                  res.redirect('/logout');
+                });
+              }
+          });
+        }
+      })
+    }
+  });
+})
+app.get("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('addJob');
+});
+
+
+
+app.get("/addEvent", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('addEvent');
+});
+
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addAchievement');
 });
 
 app.get("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('addProgram');
 });
 
+app.post("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
+    Program.create(req.body, function (err, program) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/addprogram");
+      } else {
+        req.flash("success", "Added a program successfully.");
+        res.redirect("/addprogram");
+      }
+    });
+});
+
 app.get("/latestUpdates", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
   res.render('latestUpdate');
 });
 
@@ -192,7 +399,29 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
                       req.flash("error","Something went wrong.");
                       res.redirect("/adminDash");
                     } else {
-                      res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application });
+
+                      Item.find({}, function(err, foundItems){
+
+                        if(foundItems.length === 0){
+                          Item.insertMany(defaultItems, function(err){
+                            if(err){
+                              console.log(err);
+                            }
+                            else{
+                              console.log("Success!!");
+                            }
+                          });
+                          res.redirect("/adminDash");
+                        }
+                        else{
+                          res.render('adminDash', { student: student, faculty: faculty, course: course, query: query, application: application, newListItems: foundItems });
+
+                        }
+
+                      })
+
+
+
                     }
                   })
                 }
@@ -203,6 +432,7 @@ app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
       })
     }
   })
+
 });
 
 app.get("/admin", function(req, res) {
@@ -213,16 +443,39 @@ app.get("/admin", function(req, res) {
 app.post("/admin", passport.authenticate("local", {
       failureRedirect: "/admin"
   }), function(req, res) {
-    // console.log(req.body);
-    Student.find({username: req.body.username, usertype: "admin"}, function(err,admin){
-      if(err){
-        req.flash("error","Incorrect Username or Password.");
-        res.redirect("/admin");
-      } else {
-        // console.log(admin);
-        res.redirect('/adminDash');
-      }
-    })
+  const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+  const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+  fetch(verifyUrl, {
+    method: "POST",
+  })
+  .then((response) => response.json())
+  .then((google_response) => {
+    // google_response is the object return by
+    // google as a response
+    console.log(google_response);
+    if (google_response.success == true) {
+      //   if captcha is verified
+      Student.find({username: req.body.username, usertype: "admin"}, function(err,admin){
+        if(err){
+          req.flash("error","Incorrect Username or Password.");
+          res.redirect("/admin");
+        } else {
+          // console.log(admin);
+          res.redirect('/adminDash');
+        }
+      })
+    } else {
+      // if captcha is not verified
+      req.flash("error","Please enter the captcha.");
+      res.redirect("/admin");
+    }
+  })
+  .catch((error) => {
+      // Some error while verify captcha
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/admin");
+  });
+
 });
 
 app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
@@ -304,29 +557,38 @@ app.get("/faculty-login", function(req, res) {
 app.post("/faculty-login", passport.authenticate("local", {
         failureRedirect: "/faculty-login"
     }), function(req, res) {
-      console.log(req.body);
-      Student.find({username: req.body.username, usertype: "faculty" }, function(err,faculty){
-        if(err){
-          req.flash("error","Incorrect Username or Password.");
-          res.redirect("/faculty-login");
-        } else {
-          // res.render("dash_index.ejs");
-          res.redirect('/facultyDash');
-        }
-      })
-// function(req, res) {
-//     console.log(req.body);
-//     Student.find({username: req.body.username, password: req.body.password, usertype: "faculty"}, function(err,student){
-//       if(err){
-//         req.flash("error","Incorrect Username or Password.");
-//         res.redirect("/faculty-login");
-//       } else {
-//         passport.authenticate('local')(req, res, function() {
-//           res.redirect('/');
-//         });
-//         // res.redirect('/');
-//       }
-//     })
+    const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+    fetch(verifyUrl, {
+      method: "POST",
+    })
+    .then((response) => response.json())
+    .then((google_response) => {
+      // google_response is the object return by
+      // google as a response
+      console.log(google_response);
+      if (google_response.success == true) {
+        //   if captcha is verified
+        Student.find({ username: req.body.username, usertype: "faculty" }, function(err,faculty){
+          if(err){
+            req.flash("error","Incorrect Username or Password.");
+            res.redirect("/faculty-login");
+          } else {
+            // res.render("dash_index.ejs");
+            res.redirect('/facultyDash');
+          }
+        })
+      } else {
+        // if captcha is not verified
+        req.flash("error","Please enter the captcha.");
+        res.redirect("/faculty-login");
+      }
+    })
+    .catch((error) => {
+        // Some error while verify captcha
+        req.flash("error","Captcha verification failed.");
+        res.redirect("/faculty-login");
+    });
 });
 
 //FACULTY DASHBOARD
@@ -341,32 +603,53 @@ app.get("/signup", function(req, res) {
 });
 
 app.post("/signup", function(req, res) {
-  console.log(req.body);
-    var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
-    lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
+  const secretkey = '6LdHafogAAAAABx7lH22j_1Iooy7O2Qby6Ypo97_';
+  const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
 
-    Student.register(newUser, req.body.password, function(err, user) {
-        if(err) {
-            // console.log(err);
-            if(newUser.username.length == 0) {
-                req.flash("error", "Invalid username");
-            } else if(req.body.password.length == 0) {
-                req.flash("error", "Invalid password");
-            } else {
-                req.flash("error", "A user with the given username is already registered");
-            }
-            res.redirect("/signup");
-        } else {
-          passport.authenticate('local')(req, res, function() {
-            console.log(req);
-            console.log("/////////////");
-            console.log(user);
-            req.flash("success", "Registered successfully!!");
-            // res.render("dash_index.ejs",{id: user._id.toString()});
-            res.redirect('/dash_index');
-          });
-        }
-    });
+  fetch(verifyUrl, {
+    method: "POST",
+  })
+  .then((response) => response.json())
+  .then((google_response) => {
+    // google_response is the object return by
+    // google as a response
+    console.log(google_response);
+    if (google_response.success == true) {
+      //   if captcha is verified
+      var newUser = new Student({ username: req.body.username, email: req.body.email, firstname: req.body.firstname,
+      lastname: req.body.lastname, MobileNo: req.body.MobileNo, usertype: "student", password: req.body.password });
+
+      Student.register(newUser, req.body.password, function(err, user) {
+          if(err) {
+              // console.log(err);
+              if(newUser.username.length == 0) {
+                  req.flash("error", "Invalid username");
+              } else if(req.body.password.length == 0) {
+                  req.flash("error", "Invalid password");
+              } else {
+                  req.flash("error", "A user with the given username is already registered");
+              }
+              res.redirect("/signup");
+          } else {
+            passport.authenticate('local')(req, res, function() {
+              console.log(user);
+              req.flash("success", "Registered successfully!!");
+              res.redirect('/dash_index');
+            });
+          }
+      });
+    } else {
+      // if captcha is not verified
+      req.flash("error","Please enter the captcha.");
+      res.redirect("/signup");
+    }
+  })
+  .catch((error) => {
+      // Some error while verify captcha
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/signup");
+  });
+
 });
 
 //STUDENT LOGIN
@@ -378,16 +661,36 @@ app.get("/login", function(req, res) {
 app.post("/login", passport.authenticate("local", {
         failureRedirect: "/login"
     }), function(req, res) {
-      console.log(req.body);
-      Student.find({username: req.body.username, usertype: "student" }, function(err,student){
-        if(err){
-          req.flash("error","Incorrect Username or Password.");
-          res.redirect("/login");
-        } else {
-          // res.render("dash_index.ejs");
-          res.redirect('/dash_index');
-        }
-      })
+    const secretkey = '6LeitwEhAAAAAC9zBhycFKckM1cQgebO2hM6fDMN';
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`;
+    fetch(verifyUrl, {
+      method: "POST",
+    })
+    .then((response) => response.json())
+    .then((google_response) => {
+      // google_response is the object return by
+      // google as a response
+      console.log(google_response);
+      if (google_response.success == true) {
+        //   if captcha is verified
+        Student.find({username: req.body.username, usertype: "student" }, function(err,student){
+          if(err){
+            req.flash("error","Incorrect Username or Password.");
+            res.redirect("/login");
+          } else {
+            res.redirect('/dash_index');
+          }
+        })
+      } else {
+        // if captcha is not verified
+        req.flash("error","Please enter the captcha.");
+        res.redirect("/login");
+      }
+    })
+    .catch((error) => {
+      req.flash("error","Captcha verification failed.");
+      res.redirect("/login");
+    });
 });
 
 //LOGOUT
@@ -414,7 +717,7 @@ app.get("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //UPDATE
 app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
     Student.findByIdAndUpdate(req.user._id, req.body, function(err, student) {
         if(err) {
           // console.log(err);
@@ -440,17 +743,33 @@ app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
   res.render('enroll-now.ejs');
 })
 
-app.post('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
+app.post('/enroll', resumeUpload.single('link'), middlewareObj.isStudentLoggedIn, function (req,res) {
+  console.log(req.file);
   console.log(req.body);
-  Application.create(req.body, function (err, app) {
-    if(err) {
-      req.flash("error","Something went wrong.");
-      res.redirect("/enroll");
-    } else {
-      req.flash("success", "Application submitted!");
-      res.redirect('/enroll');
+  if(!req.file) {
+    req.flash("error", "Something went wrong.");
+    res.redirect("/enroll");
+  } else {
+    var app = {
+      username: uuidv4()+":"+req.body.username,
+      name: req.body.name,
+      email: req.body.email,
+      MobileNo: req.body.MobileNo,
+      college: req.body.college,
+      course: req.body.course,
+      skills: req.body.skills,
+      link: `${req.file.filename}`
     }
-  })
+    Application.create(app, function (err, app) {
+      if(err) {
+        req.flash("error","Something went wrong.");
+        res.redirect("/enroll");
+      } else {
+        req.flash("success", "Application submitted successfully!");
+        res.redirect('/enroll');
+      }
+    })
+  }
 })
 
 //ABOUT US
@@ -459,11 +778,11 @@ app.get('/about', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', function (req,res) {
+app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
   res.render('contact');
 })
 
-app.post('/contact', function (req,res) {
+app.post('/contact', middlewareObj.isLoggedIn, function (req,res) {
   Query.create(req.body, function (err, query) {
     if(err) {
       req.flash("error","Something went wrong.");
@@ -473,7 +792,7 @@ app.post('/contact', function (req,res) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        text: req.body.username
+        text: req.body.message
       };
       var transporter = nodemailer.createTransport({
         service: 'hotmail',
@@ -504,6 +823,13 @@ app.post('/contact', function (req,res) {
   })
 })
 
+//Events
+
+app.get("/annualevents", function(req, res) {
+  res.render('annualevents');
+});
+
+
 //COURSES
 app.get('/courses', function (req,res) {
   Course.find({}, function (err, courses) {
@@ -515,6 +841,75 @@ app.get('/courses', function (req,res) {
       console.log(courses);
       res.render('courses.ejs', {courses: courses});
     }
+  })
+})
+
+//STUDENTS TABLE
+app.get('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, res) {
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/give_certificate");
+    } else {
+      Student.find({ usertype: "student" }, function (err, student) {
+        if(err) {
+          req.flash("error","Something went wrong.");
+          res.redirect('/give_certificate');
+        } else {
+          // console.log(course);
+          var students = [];
+          for(var i=0; i<student.length; i++) {
+            for(var j=0; j<student[i].courses.length; j++) {
+              if(student[i].courses[j].username == course[0].username) {
+                students.push(student[i]);
+                break;
+              }
+            }
+          }
+          // console.log(students);
+          res.render('student_table', { student: students, courseid: req.params.id });
+        }
+      })
+    }
+  })
+})
+
+app.post('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, res) {
+  // console.log(req.body);
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect('/give_certificate');
+    } else {
+        Student.find({ usertype: "student" }, function (err, student) {
+          if(err) {
+            console.log(err);
+            req.flash("error","Something went wrong.");
+            res.redirect('/give_certificate');
+          } else {
+            var students = req.body.students;
+            console.log(students);
+            for(var k=0;k<students.length;k++) {
+              for(var i=0; i<student.length; i++) {
+                if(student[i].username == students[k][0]) {
+                  for(var j=0; j<student[i].courses.length; j++) {
+                    if(student[i].courses[j].username == course[0].username) {
+                      student[i].courses[j].grades = students[k][1];
+                      student[i].save();
+                      console.log(student[i].courses[j]);
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+            }
+            req.flash("success","Grades uploaded successfully.");
+            res.redirect('/student_table/'+req.params.id);
+            // console.log(student[0].courses);
+          }
+        })
+      }
   })
 })
 
@@ -530,8 +925,20 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-        // console.log(req.user);
-        res.render('about_course.ejs',{ course: course[0] });
+      console.log(course[0].students);
+      var array = course[0].students;
+      var enroll = false;
+      for(var i=0; i<array.length; i++) {
+        if(array[i] == req.user._id) {
+          enroll = true;
+          break;
+        }
+      }
+      if(enroll) {
+        res.render('about_course.ejs',{ course: course[0], enrolled: true });
+      } else {
+        res.render('about_course.ejs',{ course: course[0], enrolled: false });
+      }
     }
   })
 })
@@ -569,40 +976,58 @@ app.get('/edit-course/:id', middlewareObj.isFacultyLoggedIn, function (req, res)
   });
 })
 
-app.post('/edit-course/:id', middlewareObj.isFacultyLoggedIn, function (req, res) {
-  var username = req.body.username;
-  var name = req.body.name;
-  var syllabus = req.body.syllabus;
-  var description = req.body.description;
-  var duration = req.body.duration;
-  var instructor = {
-    name: req.body.instructor_name,
-    designation: req.body.instructor_designation,
-    college : req.body.instructor_college
-  };
-  var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
-
-  Course.findOneAndUpdate({ username: req.params.id }, newCourse, function(err, course) {
-      if(err) {
-        // console.log(err);
-          req.flash("error","Something went wrong.");
-          res.redirect("/offered_courses");
+app.post('/edit-course/:id', syllabusUpload.single('syllabus'), middlewareObj.isFacultyLoggedIn, function (req, res) {
+  Course.find({ username: req.body.username }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/offered_courses");
+    } else {
+      var username = req.body.username;
+      var name = req.body.name;
+      var syllabus;
+      var description = req.body.description;
+      var duration = req.body.duration;
+      var deadline = req.body.deadline;
+      var cert = req.body.cert;
+      var language = req.body.language;
+      var mode = req.body.mode;
+      var students = course[0].students;
+      var instructor = {
+        name: req.body.instructor_name,
+        designation: req.body.instructor_designation,
+        college : req.body.instructor_college
+      };
+      if(req.file) {
+        syllabus = req.file.filename;
       } else {
-          Student.find({}, function (err, student) {
-            console.log(student);
-            for(var i=0; i<student.length; i++) {
-              for(var j=0; j<student[i].courses.length; j++) {
-                if(student[i].courses[j].username == course.username) {
-                  student[i].courses[j] = newCourse;
-                }
-                console.log(student[i]);
-                student[i].save();
-              }
-            }
-            res.redirect("/offered_courses");
-          })
+        syllabus = course[0].syllabus;
       }
-  });
+      var newCourse = {username: username, name: name, syllabus: syllabus, description: description, deadline: deadline,
+        cert: cert, language: language, mode: mode, students: students, instructor: instructor, duration: duration };
+
+      Course.findOneAndUpdate({ username: req.params.id }, newCourse, function(err, course) {
+          if(err) {
+            // console.log(err);
+              req.flash("error","Something went wrong.");
+              res.redirect("/offered_courses");
+          } else {
+              Student.find({}, function (err, student) {
+                console.log(student);
+                for(var i=0; i<student.length; i++) {
+                  for(var j=0; j<student[i].courses.length; j++) {
+                    if(student[i].courses[j].username == course.username) {
+                      student[i].courses[j] = newCourse;
+                    }
+                    console.log(student[i]);
+                    student[i].save();
+                  }
+                }
+                res.redirect("/offered_courses");
+              })
+          }
+      });
+    }
+  })
 })
 
 //COURSES OFFERED
@@ -621,40 +1046,53 @@ app.get('/course-upload', middlewareObj.isFacultyLoggedIn, function (req,res) {
   res.render('course-upload');
 })
 
-app.post("/course-upload", middlewareObj.isFacultyLoggedIn, function (req, res) {
-        var username = uuidv4();
-        var name = req.body.name;
-        var syllabus = req.body.syllabus;
-        var description = req.body.description;
-        var duration = req.body.duration;
-        var instructor = {
-          name: req.body.instructor_name,
-          designation: req.body.instructor_designation,
-          college : req.body.instructor_college
-        };
-        var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
-        console.log(newCourse);
-        Course.create(newCourse, function(err, allCourse) {
-            if(err) {
-                console.log(err);
+app.post("/course-upload", syllabusUpload.single('syllabus'), middlewareObj.isFacultyLoggedIn, function (req, res) {
+  console.log(req.file);
+  if(!req.file) {
+    req.flash("error", "Something went wrong");
+    res.redirect('/course-upload');
+  } else {
+    var username = uuidv4();
+    var name = req.body.name;
+    var syllabus = req.file.filename;
+    var description = req.body.description;
+    var duration = req.body.duration;
+    var deadline = req.body.deadline;
+    var cert = req.body.cert;
+    var language = req.body.language;
+    var mode = req.body.mode;
+    var students = [];
+    var instructor = {
+      name: req.body.instructor_name,
+      designation: req.body.instructor_designation,
+      college : req.body.instructor_college
+    };
+    var newCourse = {username: username, name: name, syllabus: syllabus, description: description, deadline: deadline,
+      cert: cert, language: language, mode: mode, students: students, instructor: instructor, duration: duration };
+      console.log("/////////");
+    console.log(newCourse);
+    console.log("/////////");
+
+    Course.create(newCourse, function(err, allCourse) {
+        if(err) {
+            console.log(err);
+            req.flash("error", "Something went wrong");
+            res.redirect('/course-upload');
+        } else {
+            Student.findById(req.user._id, function (err, user) {
+              if(err) {
                 req.flash("error", "Something went wrong");
                 res.redirect('/course-upload');
-            } else {
-                Student.findById(req.user._id, function (err, user) {
-                  if(err) {
-                    req.flash("error", "Something went wrong");
-                    res.redirect('/course-upload');
-                  } else {
-                    user.courses.push(newCourse);
-                    user.save();
-                    req.flash("success", "Course uploaded successfully.");
-                    res.redirect("/courses");
-                  }
-                })
-            }
-        });
-    //   }
-    // });
+              } else {
+                user.courses.push(newCourse);
+                user.save();
+                req.flash("success", "Course uploaded successfully.");
+                res.redirect("/courses");
+              }
+            })
+        }
+    });
+  }
 });
 
 //ENROLL COURSE
@@ -671,6 +1109,9 @@ app.post('/:id/course/:courseid', middlewareObj.isStudentLoggedIn, function (req
                 } else {
                     student.courses.push(course);
                     student.save();
+                    course.students.push(req.params.id);
+                    course.save();
+                    console.log(course);
                     res.redirect("/enrolled_course");
                 }
             });
@@ -747,7 +1188,10 @@ app.post('/reset-password', function (req, res) {
           email: student.email,
           MobileNo: student.MobileNo,
           usertype: student.usertype,
-          courses: student.courses
+          courses: student.courses,
+          profileImage: student.profileImage,
+          certificates: student.certificates,
+          password: req.body.password
         };
         Student.remove({ username: student.username }, function (err, student) {
           if(err) {
@@ -808,6 +1252,8 @@ app.post('/change-password', middlewareObj.isLoggedIn, function (req, res) {
         MobileNo: student.MobileNo,
         usertype: student.usertype,
         courses: student.courses,
+        profileImage: student.profileImage,
+        certificates: student.certificates,
         password: req.body.password
       };
 
@@ -900,6 +1346,119 @@ app.post("/upload-profile", upload.single('image'),  middlewareObj.isLoggedIn, f
 //VIEW IDS
 app.get('/view-ids',  middlewareObj.isStudentLoggedIn,  function (req, res) {
   res.render('view-photos');
+})
+
+//DOWNLOAD CERTIFICATE
+app.get('/certificate_download', middlewareObj.isStudentLoggedIn,  function (req, res) {
+  console.log(req.user.certificates);
+  res.render('certificate_download');
+})
+
+//VIEW CERTIFICATE
+app.get('/view_certificate/:id', middlewareObj.isStudentLoggedIn,  function (req, res) {
+  var course;
+  var currentUser = req.user;
+  console.log(currentUser);
+  for(var i=0; i<currentUser.certificates.length; i++) {
+    if(req.user.certificates[i].username == req.params.id) {
+      course = req.user.certificates[i];
+      break;
+    }
+  }
+  res.render('view_certificate', { course: course });
+})
+
+//GIVE CERTIFICATE
+app.get('/give_certificate', middlewareObj.isFacultyLoggedIn,  function (req, res) {
+  res.render('give_certificate');
+})
+
+app.get('/send_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (req, res) {
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect('/give_certificate');
+    } else {
+      Student.find({ usertype: "student" }, function (err, student) {
+        if(err) {
+          req.flash("error","Something went wrong.");
+          res.redirect('/give_certificate');
+        } else {
+          var students = [];
+          for(var i=0; i<student.length; i++) {
+            var array = course[0].students;
+            var enroll = false;
+            for(var ii=0; ii<array.length; ii++) {
+              if(array[ii] == student[i]._id) {
+                enroll = true;
+                break;
+              }
+            }
+            if(enroll) {
+              for(var j=0; j<student[i].courses.length; j++) {
+                if(student[i].courses[j].username == course[0].username) {
+                  students.push(student[i]);
+                  break;
+                }
+              }
+            }
+          }
+          res.render('send_certificate',{ student: students, courseid: req.params.id });
+        }
+      })
+    }
+  })
+})
+
+app.post('/send_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (req, res) {
+  console.log(req.body);
+  Course.find({ username: req.params.id }, function (err, course) {
+    if(err) {
+      // console.log(err);
+      req.flash("error","Something went wrong.");
+      res.redirect('/give_certificate');
+    } else {
+      Student.find({ usertype: "student" }, function (err, student) {
+        if(err) {
+          // console.log(err);
+          req.flash("error","Something went wrong.");
+          res.redirect('/give_certificate');
+        } else {
+          var students = req.body.students;
+          // console.log(students);
+          for(var k=0; k<students.length; k++) {
+            for(var i=0; i<student.length; i++) {
+              if(students[k] == student[i].username) {
+                for(var j=0; j<student[i].courses.length; j++) {
+                  if(student[i].courses[j].username == course[0].username) {
+                    student[i].certificates.push({
+                      username: course[0].username,
+                      name: course[0].name,
+                      grades: student[i].courses[j].grades,
+                      faculty: course[0].instructor.name,
+                      date: Date.now()
+                    });
+                    student[i].save();
+                    var index = course[0].students.indexOf(student[i]._id);
+                    console.log(course[0]);
+                    if (index !== -1) {
+                      course[0].students.splice(index, 1);
+                      course[0].save();
+                    }
+                    console.log(course[0]);
+                    break;
+                  }
+                }
+                break;
+              }
+            }
+          }
+          req.flash("sucess","Sucessfully sent the certificates.");
+          res.redirect('/send_certificate/'+req.params.id);
+        }
+      })
+    }
+  })
 })
 
 //listen on port 3000

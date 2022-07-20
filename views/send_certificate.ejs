@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="/css/courses.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <%- include('header'); -%>
+    <!-- NAVIGATION BAR -->
+    <%- include('navbar'); -%>
+
+
+    <div class="container">
+      <% if(currentUser) { %>
+        <aside id="aside">
+            <ul class="aside-list">
+              <% if(currentUser.usertype == "faculty") { %>
+                <li class="aside-item"><a href="/facultyDash" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+              <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+                <li class="aside-item"><a href="/courses" class="font6"><div>Courses</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                  <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item "><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item "><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+
+                  <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item active"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                <% } %>
+                <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
+            </ul>
+        </aside>
+      <% } %>
+
+        <section id="course-section" class="coursesection">
+            <div class="section-bar">
+                <form id="search-course" class="search-bar" action="/action_page.php">
+                    <input type="text" placeholder="Search Courses.." name="search2">
+                    <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <form action="/send_certificate/<%= courseid %>" method="POST" class="courses-list" style="height: fit-content; padding-bottom: 2em; padding-left: 7em;">
+              <h1 style="text-align: center;">Send Certificates to Students</h1><br>
+              <table>
+                <tr>
+                  <th style="padding: 0px;"><button type="button" id="but1" name="button" value="" onclick="checkAll()" style="width: -webkit-fill-available; height: 32px;
+                          background-color: aliceblue;
+                          border: none;
+                          cursor: pointer;">Select All
+                      </button><button type="button" id="but2" name="button" value="" onclick="uncheckAll()" style="width: -webkit-fill-available; height: 32px;
+                              background-color: aliceblue;
+                              border: none;
+                              cursor: pointer; display: none;">Unselect All
+                          </button></th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+                <% for(var i=0;i<student.length;i++) { %>
+                  <tr>
+                   <td><input type="checkbox" id="btn" name="students[]" class="pl" value="<%= student[i].username %>"></td>
+                   <td><%= student[i].firstname %></td>
+                   <td><%= student[i].lastname %></td>
+                  </tr>
+                <% } %>
+              </table><br>
+              <button type="submit" name="button" style="height: 30px; background-color: cornflowerblue; border-radius: 5px;">Submit</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- <script type="text/javascript">
+      if(!currentUser) {
+        document.getElementById('course-section').style.width = "100%";
+      }
+    </script> -->
+
+      <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
+
+      <script>
+        function checkAll() {
+          var inputs = document.querySelectorAll('.pl');
+          for(var i = 0; i < inputs.length; i++) {
+              inputs[i].checked = true;
+          }
+          document.getElementById('but1').style.display = 'none';
+          document.getElementById('but2').style.display = 'block';
+        }
+
+        function uncheckAll() {
+          var inputs = document.querySelectorAll('.pl');
+          for(var i = 0; i < inputs.length; i++) {
+              inputs[i].checked = false;
+          }
+          document.getElementById('but2').style.display = 'none';
+          document.getElementById('but1').style.display = 'block';
+        }
+
+        document.getElementById('btn').onclick = function() {
+          var markedCheckbox = document.getElementsByName('pl');
+          for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+              document.body.append(checkbox.value + ' ');
+          }
+        }
+      </script>
+
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
+
+</body>
+
+</html>

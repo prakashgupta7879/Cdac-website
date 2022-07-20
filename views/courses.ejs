@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,10 +51,14 @@
                 <% } %>
                 <% if(currentUser.usertype == "student") { %>
                 <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
-                
+
                   <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
                 <% } %>
-                <li class="aside-item"><a href="#" class="font6"><div>Download Certificate</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                <% } %>
                 <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
             </ul>
         </aside>
@@ -65,7 +76,7 @@
                 <div class="course-card" style="height: fit-content;">
                     <div class="card-content">
                         <div id="card-name" class="clr font5 card-info"><%= course.name %></div>
-                        <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering</div>
+                        <!-- <div id="card-branch" class="clr font5 card-info">Electronics and Communication Engineering</div> -->
                         <div id="meta-data" class="card-info">
                             <span class="font5 clr"><%= course.instructor.name %></span>
                             <span class="font5 clr"><%= course.instructor.college %></span>

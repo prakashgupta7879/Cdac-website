@@ -2,6 +2,13 @@
 <html>
 
 <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,30 +45,30 @@
 				<div style="margin-left:280px;" class="forms">
 					<h2 style="margin:10px ;">Add a New Program:</h2>
 					<div  class="form-grids row widget-shadow" data-example-id="basic-forms">
-						
+
 							<!-- <h4>A NEW FACULTY</h4><br> -->
-						
+
 						<div style="margin-left:40px; width: 90%;" class="form-body">
-							<form class="" action="/add" method="POST">
-                                <div class="form-group">
-                                    <label for="Name">Program Title:</label>
-                                    <textarea required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Program Title">
-                                        </textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Name">Hyperink:</label>
-                                    <input required name="firstname" type="text" class="form-control" id="exampleInputEmail1" placeholder="Hyper Link">
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+							<form action="/addprogram" method="POST">
+                  <div class="form-group">
+                      <label for="Name">Program Title:</label>
+                      <textarea required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Program Title">
+                          </textarea>
+                  </div>
+                  <div class="form-group">
+                      <label for="Name">Hyperlink:</label>
+                      <input required name="link" type="text" class="form-control" id="exampleInputEmail1" placeholder="Hyper Link">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->

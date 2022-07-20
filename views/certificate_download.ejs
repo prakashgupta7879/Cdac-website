@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="/css/courses.css">
+
+    <!-- Font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <%- include('header'); -%>
+    <%- include('navbar'); -%>
+
+    <div class="container">
+      <% if(currentUser) { %>
+        <aside id="aside">
+            <ul class="aside-list">
+              <% if(currentUser.usertype == "faculty") { %>
+                <li class="aside-item"><a href="/facultyDash" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+              <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/dash_index" class="font6"><div>View/ Update Profile</div></a></li>
+              <% } %>
+                <li class="aside-item"><a href="/courses" class="font6"><div> Courses</div></a></li>
+                <% if(currentUser.usertype == "faculty") { %>
+                  <li class="aside-item"><a href="/course-upload" class="font6"><div>Add a course</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item "><a href="/offered_courses" class="font6"><div>Courses Offered</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item"><a href="/enrolled_course" class="font6"><div>Courses Enrolled</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "student") { %>
+                <li class="aside-item"><a href="/upload-id" class="font6"><div>Upload your Institute ID Card</div></a></li>
+
+                  <li class="aside-item"><a href="/view-ids" class="font6"><div>View Institute ID Card</div></a></li>
+                <% } %>
+                <% if(currentUser.usertype == "faculty") { %>
+                    <li class="aside-item active"><a href="/give_certificate" class="font6"><div>Grant Certificate</div></a></li>
+                <% } else if(currentUser.usertype == "student") { %>
+                  <li class="aside-item active"><a href="/certificate_download" class="font6"><div>Download Certificate</div></a></li>
+                <% } %>
+                <li class="aside-item"><a href="/change-password" class="font6"><div>Change Password</div></a></li>
+            </ul>
+        </aside>
+      <% } %>
+
+        <section id="course-section">
+            <div class="section-bar">
+                <form id="search-course" class="search-bar" action="/action_page.php">
+                    <input type="text" placeholder="Search Courses.." name="search2">
+                    <button type="submit" class="btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="enrolled-courses-list">
+              <% currentUser.certificates.forEach(function(course) { %>
+                <div class="download-card">
+                    <div class="download-card-content">
+                        <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
+                    </div>
+                    <span class="btn5 font5"><a href="/view_certificate/<%= course.username %>"><div style="color: white;">View Certificate</div></a></span>
+                </div>
+              <% }) %>
+
+            </div>
+        </section>
+    </div>
+
+
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
+
+    <!-- SCRIPT LINK -->
+    <script src="js/script.js"></script>
+
+    <style>
+    .alert {
+      /* padding: 20px;
+      background-color: #f44336; /* Red */
+      /* color: white; */
+      /* margin-bottom: 15px; */
+      padding: 5px;
+      /* background-color: #0bff00; */
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
+
+</body>
+
+</html>

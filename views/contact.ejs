@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
         <title> Contact us</title>
         <meta charset="utf-8" />
         <meta name="viewpoint" content="width=device-width intial-scale=1 shrink-to-fit=no" />
@@ -11,12 +18,13 @@
         <!-- <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/contact.css"> -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/contact.css">
 
          <!-- Font styles -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+        <!-- <script async src="https://www.google.com/recaptcha/api.js"></script> -->
     </head>
 <body>
 
@@ -31,7 +39,9 @@
     <!-- <a href="https://www.google.com/maps/place/C-DAC+Silchar/@24.7588071,92.7885525,625m/data=!3m2!1e3!4b1!4m5!3m4!1s0x374e49c2683c9f95:0x9698a07544a4b227!8m2!3d24.7588406!4d92.7912675" target="_blank"  rel="noreferrer">
         <img src="img/map.png" class="co1" style="margin-top: 20px; display:block; width:50%; height:50%; margin-left: auto; margin-right: auto;" alt="Map"></img>
       </a> -->
-    <form name="myForm" action="/contact" class="forms" method="POST">
+      <br>
+      <hr>
+    <form name="myForm" id="contact" action="/contact" class="forms" method="POST">
 
         <h2 style="text-align: center;">CONTACT US</h2> <br>
         <% if(currentUser) { %>
@@ -45,17 +55,13 @@
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
         <label class="sr-only">Message</label>
-        <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message" required="true" autofocus="" cols="30" rows="10"></textarea>
+        <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message" required="true" autofocus="" cols="30" rows="5"></textarea>
 
-        <br>
+        <!-- <br> -->
 
-        <div>
+        <div class="submit-btn">
 
-            <div>
-                <input type="submit" value="Send Message" class="submitbtn">
-            </div>
-
-
+            <input type="submit" value="Send Message" class="butn">
         </div>
    </form>
 <div style="text-align:center ;">
@@ -70,7 +76,58 @@
 </div>
    <br>
 
+   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+   <script>
+     $(document).ready(function() {
+       $('#contact').submit(function() {
+         $(this).ajaxSubmit({
+           error: function(xhr) {
+             console.log(xhr);
+             status('Error: ' + xhr.status);
+           },
+          success: function(response) {
+           console.log(response);
+          }
+         });
+         return true;
+       });
+     });
+   </script> -->
+
     <!-- FOOTER -->
     <%- include('footer'); -%>
+
+    <!-- SCRIPT LINK -->
+    <script src="js/script.js"></script>
+
+    <style>
+    .alert {
+      /* padding: 20px;
+      background-color: #f44336; /* Red */
+      /* color: white; */
+      /* margin-bottom: 15px; */
+      padding: 5px;
+      /* background-color: #0bff00; */
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
     </body>
 </html>
