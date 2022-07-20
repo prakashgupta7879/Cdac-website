@@ -1,54 +1,60 @@
-
-/* #header{
-=======
 <<<<<<<< HEAD:Adminisration tab/codepen.css
 
 ========
 /* CSS Reset */
-/* *{
+>>>>>>>> abf6c8e6a8c8f3fca2a950fcebd19f434b026d4b:public/css/annual.css
+*{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-} */
+}
 /* *::-webkit-scrollbar {
     display: none;                 ***** TO REMOVE THE SCROLL BAR FROM SCREEN *****
 } */
 
-/* body{
+body{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-} */
+}
 
-/* .log {
+footer{
+  margin-top: auto;
+}
+
+.log {
   color: black;
 }
 
 .log:hover {
   font-weight: bolder;
-} */
+}
 
-    /* background-color: darkslategrey;
+/* HEADER */
+#header{
+    background-color:
+    #05445E;
     display: flex;
     flex-direction: row;
-    padding: 30px 30px;
+    padding: 25px 30px;
     justify-content: space-between;
-} */
-/* .right{
+    align-items: center;
+}
+.right{
     color: whitesmoke;
-} */
+}
 
-/* FOOTER */
+
 
 /* NAVIGATION BAR */
-/* #navbar{
+#navbar{
     display: flex;
     justify-content: space-between;
-    background-color: #189AB4; */
+    background-color: #189AB4;
     /* margin-top: 1px; */
     /* border-top: 1px solid grey;
     border-bottom: 1px solid grey; */
-/* }
+}
 #navbar-items{
     margin-left: 1rem;
 }
@@ -57,7 +63,7 @@
 }
 #navbar-items ul li{
     list-style: none;
-    padding: 0.8rem 0.8rem;
+    padding: 0.8rem 5px;
 }
 #navbar-items ul li a{
     text-decoration: none;
@@ -74,12 +80,12 @@
 }
 #navbar-items ul li a.active{
     background-color: rgb(4, 114, 114);
-    border-radius: 2px; */
-    /* color: whitesmoke;
-} */
+    border-radius: 2px;
+    color: whitesmoke;
+}
 
 
-/* .dropdown:hover .dropdown-content{
+.dropdown:hover .dropdown-content{
     display: block;
 }
 .dropdown-content{
@@ -114,16 +120,16 @@
     margin-right: 2rem;
 }
 .navbar-login{
-    margin: auto 20px;
+    margin: auto 10px;
 }
 .navbar-login button{
     padding: 5px 6px;
     margin: 4px 4px;
-} */
+}
 
 
 /* dropdown buttons */
-/* .dropbtn {
+.dropbtn {
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -170,19 +176,16 @@
     border: 1px solid gray;
     border-radius: 2px;
     outline: none;
-<<<<<<< HEAD
-} */
-/* ======= */
-/* } */
+}
 
-/* <<<<<<<< HEAD:Adminisration tab/codepen.css
+<<<<<<<< HEAD:Adminisration tab/codepen.css
 
 
 ========
->>>>>>>> abf6c8e6a8c8f3fca2a950fcebd19f434b026d4b:public/css/annual.css */
+>>>>>>>> abf6c8e6a8c8f3fca2a950fcebd19f434b026d4b:public/css/annual.css
 /* FOOTER */
 
-/* #footer{
+#footer{
     height: 105px;
     text-align: center;
     background-color:#f5f7fa;
@@ -206,33 +209,44 @@
 .copyrights{
     text-decoration: none;
     font-size: 12px;
-} */
-/* >>>>>>> 54692e0ef29eaa2c95a51253c35046b85f01215b */
+}
 
 
 /* *******************  Utility Classes  ******************** */
 
 /* Fonts used */
-/* .font1{
+.font1{
     font-family: 'Baloo Bhai 2', cursive;
 }
 .font2{
     font-family: 'Ubuntu', sans-serif;
-} */
+}
+.font3{
+    font-family: 'Roboto Mono', monospace;
+}
+.font4{
+    font-family: 'Overpass', sans-serif;
+}
+.font5{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+}
+.font6{
+    font-family: 'Open Sans', sans-serif;
+}
 
 
 /* external social icons */
 .fa {
-    padding: 6px;
-    font-size: 30px;
-    width: 30px;
+    padding: 3px;
+    width: 23px;
     text-align: center;
     text-decoration: none;
-    margin: 12px 10px;
-    border-radius: 3px;
+    margin: 10px 15px;
+    border-radius: 2px;
 }
 .fa:hover{
-    transform: scale(1.14);
+    transform: scale(1.2);
     transition: all 0.3s;
 }
 
@@ -256,13 +270,10 @@
     background-color: transparent;
     color: #007bb5;
     transform: scale(1.06);
-    padding: 8px 2px;
-    margin: 2px 3px;
+    padding: 4px;
+    margin: 2px 2px;
 }
 
-/* <<<<<<< HEAD */
-/*gallery*/
-/* ======= */
 
 
   /* Buttons */
@@ -291,7 +302,7 @@
     color: white;
 }
 
-/* <<<<<<<< HEAD:Adminisration tab/codepen.css */
+<<<<<<<< HEAD:Adminisration tab/codepen.css
 
 /* heading of the containere */
 .heading{
@@ -313,25 +324,25 @@
 
 /* body{
   font-family: 'Josefin Sans', sans-serif;
-
+  
   height: 100vh;
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
 } */
 
 .cards-container{
   width: 100vw;
-
+  
   display: flex;
   justify-content: space-between;
   justify-items: center;
   flex-wrap: wrap;
-
+  
   padding: 50px ;
-
+  
   background-color: rgba(0, 0, 200, .4);
 }
 
@@ -340,51 +351,51 @@
     width: 667px;
   font: 60px;
   margin: 60px 0 30px 0;
-
+  
   border-radius: 10px;
-
+  
   background-color: #fff;
-
+  
   position: relative;
-
+  
   transition: .2s ease-in;
 }
 
 .cards-container .card-member:hover{
   box-shadow: 1px 2px 8px rgba(0, 0, 0, .8);
-
+  
   transform: translatex(-2px)
 }
 
 .cards-container .card-member:hover .member-pic{
   width: 105px;
   height: 105px;
-
+  
   top: -52px;
-
+  
   border: 2px solid rgba(0, 0, 10, .6);
 }
 .cards-container .card-member .member-pic{
   width: 200px;
   height: 185px;
-
+  
   border: 3px solid #fff;
   border-radius: 15% 0;
-
+  
   overflow: hidden;
-
+  
   position: absolute;
   top: -50px;
   left: 50%;
+  
+   transform: translatex(-50%) rotate(0deg); 
 
-   transform: translatex(-50%) rotate(0deg);
-
-  transition: .2s ease-in;
+  transition: .2s ease-in; 
 }
 
 .cards-container .card-member .member-pic img{
   width: 200px;
-
+  
   position: absolute;
   top: 0px;
   left: 50%;
@@ -394,21 +405,21 @@
 .cards-container .card-member .member-info{
   height: 220px;
   width: 100%;
-
+  
   padding: 20px;
-
+  
   position: absolute;
-
+ 
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  
   bottom: 0;
 }
 
 .cards-container .card-member .member-info h3{
   font-size: 2.3rem;
-
+  
   color: rgba(0, 0, 200, .5);
 }
 
@@ -416,17 +427,17 @@
   text-transform: uppercase;
   font-size: .7rem;
   letter-spacing: 1px;
-
+  
   margin-top: 3px;
-
+  
   color: rgba(0, 0, 10, .8);
 }
 
 .cards-container .card-member .member-info .about{
   text-align: center;
-
+  
   color: rgba(0, 0, 10, .8);
-
+  
   margin-top: 35px;
 ========
 /* Sign Up Form */
@@ -495,7 +506,6 @@
   }
 
 
-/* >>>>>>> 54692e0ef29eaa2c95a51253c35046b85f01215b */
 
 /*annual*/
 
@@ -510,9 +520,5 @@ h3{
     margin: 25px auto;
     font-size: 20px;
     color: rgb(44, 44, 44);
-/* <<<<<<< HEAD */
-}
-/* =======
 >>>>>>>> abf6c8e6a8c8f3fca2a950fcebd19f434b026d4b:public/css/annual.css
 }
->>>>>>> 54692e0ef29eaa2c95a51253c35046b85f01215b */
