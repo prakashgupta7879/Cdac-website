@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,40 +26,7 @@
 <body>
     <!-- HEADER -->
     <%- include('header'); -%>
-
-    <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-        <div id="navbar-items">
-            <ul>
-                <li class="item"><a href="/">Home</a></li>
-                <li class="item"><a href="/internships">Internships</a></li>
-                <li class="item dropdown"><a href="#">Adminstration</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item dropdown"><a href="#">Important Links</a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li>
-                <li class="item"><a href="/about">About us</a></li>
-                <li class="item"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div id="navbar-right">
-
-            <form class="search-bar" role="search">
-                <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-                <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
-
+    <%- include('navbar'); -%>
 
     <div class="container">
       <% if(currentUser) { %>
@@ -101,7 +75,7 @@
                     <div class="download-card-content">
                         <div id="download-card-name" class="clr font5 card-info"><%= course.name %></div>
                     </div>
-                    <span class="btn5 font5"><a href="/view_certificate/<%= course.username %>"><div>View Certificate</div></a></span>
+                    <span class="btn5 font5"><a href="/view_certificate/<%= course.username %>"><div style="color: white;">View Certificate</div></a></span>
                 </div>
               <% }) %>
 

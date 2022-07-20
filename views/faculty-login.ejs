@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +26,7 @@
 
     <!-- Glyphicon Icons -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -29,7 +37,7 @@
     <!-- NAVIGATION BAR -->
     <%- include('navbar'); -%>
 
-    <form name="myForm" action="/faculty-login" class="forms" method="POST">
+    <form name="myForm" id="login" action="/faculty-login" class="forms" method="POST">
         <img class="loginImg" src="img/Login.png" alt="" width="80" height="80">
         <h2 style="text-align: center;">Faculty Login</h2> <br>
         <label for="inputEmail" class="sr-only">User Name</label>
@@ -37,10 +45,10 @@
         <label for="password" class="sr-only">Password</label>
         <!-- <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"> -->
         <input placeholder="Password" name="password" class="inputs" type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <br>
-           <a href="/send-email" class="forgotpsw">Forgot Password?</a> <br>
+
         <div>
-            <br>
+            <div style="margin-left:8px ;" class="g-recaptcha" data-sitekey="6LdHafogAAAAAEIxdjvZBf7tYt5Pffe5Ikk4AOqL"></div> <br>
+            <a href="/send-email" class="forgotpsw">Forgot Password?</a> <br><br>
             <div>
                 <input type="submit" value="Login" class="submitbtn">
             </div>
@@ -56,6 +64,24 @@
 
 
     <!-- SCRIPT LINK -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#login').submit(function() {
+          $(this).ajaxSubmit({
+            error: function(xhr) {
+              console.log(xhr);
+              status('Error: ' + xhr.status);
+            },
+           success: function(response) {
+            console.log(response);
+           }
+          });
+          return true;
+        });
+      });
+    </script> -->
     <script src="script.js"></script>
     <style>
     .alert {

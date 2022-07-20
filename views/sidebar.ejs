@@ -1,6 +1,55 @@
 <nav id="sidebar">
   <div class="sidebar-header">
-    <h3>CDAC Silchar</h3>
+    <h2 style="font-size: 37px;"> <b>CDAC CINE</b> </h2>
+    <!-- <b style="margin-left: 10px; margin-right: 5px;">Today is:</b> -->
+    <b style="font-size: 16px; margin-left: 6px;" id="ct7">
+      <script>function display_ct7() {
+        var x = new Date()
+        var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+        hours = x.getHours( ) % 12;
+        hours = hours ? hours : 12;
+        hours=hours.toString().length==1? 0+hours.toString() : hours;
+        
+        var minutes=x.getMinutes().toString()
+        minutes=minutes.length==1 ? 0+minutes : minutes;
+        
+        var seconds=x.getSeconds().toString()
+        seconds=seconds.length==1 ? 0+seconds : seconds;
+        
+        var month=(x.getMonth() +1).toString();
+        month=month.length==1 ? 0+month : month;
+        
+        var dt=x.getDate().toString();
+        dt=dt.length==1 ? 0+dt : dt;
+        
+        var x1=dt + "/" + month + "/" + x.getFullYear(); 
+        x1 = x1 + " - " +  hours + ":" +  minutes + ":" +  seconds + " " + ampm;
+        document.getElementById('ct7').innerHTML = x1;
+        display_c7();
+         }
+         function display_c7(){
+        var refresh=1000; // Refresh rate in milli seconds
+        mytime=setTimeout('display_ct7()',refresh)
+        }
+        display_c7()
+        </script>
+      <!-- <script type="text/javascript">
+        var clockElement = document.getElementById('clock');
+        
+        function clock() {
+            clockElement.textContent = new Date().toString();
+        }
+    
+        setInterval(clock, 1000);
+    </script> -->
+      <!-- <script id="current_date" style="margin-left: 5x; display: inline; color: antiquewhite;" align="right" >
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        document.getElementById("current_date").innerHTML = day + "/" + month + "/" + year;
+        </script> -->
+    </b>
 
   </div>
 
@@ -20,11 +69,15 @@
         <li>
           <a href="/latestUpdates">Add latest updates</a>
         </li>
-        <li>
-          <a href="/addachievement">Add an achievement</a>
-        </li>
+        
         <li>
           <a href="/addprogram">Add a program</a>
+        </li>
+        <li>
+          <a href="/addEvent">Add a New Event</a>
+        </li>
+        <li>
+          <a href="/addJob">Post a New Job</a>
         </li>
       </ul>
     </li>
@@ -50,7 +103,7 @@
       <a href="#">Calender</a>
     </li>
     <li>
-      <a href="#">Learn More</a>
+      <a href="#">Admin Features</a>
     </li>
     <li>
       <a href="/changeadminpassword">Change Password</a>

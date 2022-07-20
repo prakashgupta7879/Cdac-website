@@ -107,6 +107,14 @@ var UserSchema = new mongoose.Schema({
           description: String,
           syllabus: String,
           duration: String,
+          grades: {
+            type: String,
+            default: ''
+          },
+          deadline: String,
+          cert: String,
+          language: String,
+          mode: String,
           instructor: {
             name: String,
             designation: String,
@@ -117,7 +125,10 @@ var UserSchema = new mongoose.Schema({
     certificates : [
       {
           username: String,
-          name: String
+          name: String,
+          grades: String,
+          faculty: String,
+          date: Date
       }
     ]
 }

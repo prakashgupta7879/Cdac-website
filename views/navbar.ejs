@@ -1,7 +1,7 @@
 <nav id="navbar">
     <div id="navbar-items">
         <ul>
-            <li class="item"><a href="/" class="active">Home</a></li>
+            <li class="item"><a href="/" class="">Home</a></li>
             <li class="item"><a href="/about">About us</a></li>
             <li class="item dropdown"><a href="#">Adminstration</a>
               <div class="dropdown-content">
@@ -14,6 +14,14 @@
             </li>
             <li class="item"><a href="/internships">Internships</a></li>
             <li class="item"><a href="/courses">Courses</a></li>
+            <li class="item"><a href="/courses">Careers</a></li>
+            <li class="item dropdown"><a href="#">Important Links</a>
+              <div class="dropdown-content">
+                <a href="https://www.cdac.in/index.aspx?id=sponsored_projects">Sponsored Projects</a>
+                <a href="https://www.cdac.in/index.aspx?id=sponsored_projects">Sponsored Projects</a>
+                <a href="https://www.cdac.in/index.aspx?id=sponsored_projects">Sponsored Projects</a>
+              </div>
+            </li>
             <li class="item"><a href="/contact">Contact Us</a></li>
         </ul>
     </div>
@@ -31,7 +39,15 @@
         </div>
       <% } else { %>
         <div style="text-decoration: none; font-family: 'Ubuntu', sans-serif; color: darkgreen; padding: 7px 9px; font-size: medium;" class="navbar-login">
-            <a style="text-decoration: none; color: darkgreen;" href="/dash_index">Logged in as <%= currentUser.username %></a>
+          <% if(currentUser.usertype == "student") { %>
+            <a class="log" style="text-decoration: none;" href="/dash_index">Logged in as <%= currentUser.username %></a>
+          <% } %>
+          <% if(currentUser.usertype == "faculty") { %>
+            <a class="log" style="text-decoration: none;" href="/facultyDash">Logged in as <%= currentUser.username %></a>
+          <% } %>
+          <% if(currentUser.usertype == "admin") { %>
+            <a class="log" style="text-decoration: none;" href="/adminDash">Logged in as <%= currentUser.username %></a>
+          <% } %>
         </div>
       <% } %>
         <form class="search-bar" role="search">
