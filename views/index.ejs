@@ -35,7 +35,7 @@
     <!-- SECTION-1-->
     <section id="section">
         <div class="section-left">
-            <div class="list-head"><span>Apply Online</span></div>
+            <div class="list-head"><span>Jobs Available</span></div>
             <div class="list">
                 <ul>
                     <li class="list-item"><a href="https://careers.cdac.in/advt-details/CORP-672022-U5PEP">C-DAC Invites online applications for the post of Executive Director (Level 14) to be filled by Direct Recruitment/Transfer (absorption)/Deputation.</a></li>
@@ -43,38 +43,21 @@
                     <li class="list-item"><a href="#">Link3</a></li>
                 </ul>
             </div>
-            <div class="list-head"><span>Application &amp; Training</span></div>
+            <div class="list-head"><span>Education &amp; Training Programs</span></div>
             <div class="list">
                 <ul>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=newregister1">Register for C-CAT (September-22)</a></li>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=DAC&courseid=0">PG-Diploma Courses (September-22)</a></li>
                     <li class="list-item"><a href="https://bit.ly/3tfgf0A">Free Courses for Scheduled Tribe Students</a></li>
-                </ul>
-            </div>
-            <div class="list-head"><span>Programs</span></div>
-            <div class="list">
-                <ul>
-                  <% program.forEach(function(program) { %>
-                    <li class="list-item"><a href="<%= program.link %>"><%= program.username %></a></li>
-                  <% }) %>
-                    <!-- <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_pgpd_pgd_programmes">Post Graduate Diploma Programmes</a></li>
+
+                    <% program.forEach(function(program) { %>
+                        <li class="list-item"><a href="<%= program.link %>"><%= program.username %></a></li>
+                      <% }) %>
+
+                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_pgpd_pgd_programmes">Post Graduate Diploma Programmes</a></li>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_ftp_formal_training_programmes">Formal Training Programmes</a></li>
                     <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_ctp_corp_training_programmes">Corporate Training Programmes</a></li>
-                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_its_int_training_programmes">International Training Programmes</a></li> -->
-                </ul>
-            </div>
-            <div class="list-head"><span> Important Links</span></div>
-            <div class="list">
-                <ul>
-                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=sponsored_projects">Sponsored Projects</a></li>
-                    <li class="list-item"><a href="#">Link2</a></li>
-                    <li class="list-item"><a href="#">Link3</a></li>
-                </ul>
-            </div>
-            <div class="list-head"><span> Opportunities</span></div>
-            <div class="list">
-                <ul>
-                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=pdf_IoA_Collaboration_Innovation_V10">Intent of Association for Collaborative Innovation</a></li>
+                    <li class="list-item"><a href="https://www.cdac.in/index.aspx?id=edu_its_int_training_programmes">International Training Programmes</a></li>
                 </ul>
             </div>
         </div>
