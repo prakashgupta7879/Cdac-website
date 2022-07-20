@@ -911,8 +911,20 @@ app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-        // console.log(req.user);
-        res.render('about_course.ejs',{ course: course[0] });
+      console.log(course[0].students);
+      var array = course[0].students;
+      var enroll = false;
+      for(var i=0; i<array.length; i++) {
+        if(array[i] == req.user._id) {
+          enroll = true;
+          break;
+        }
+      }
+      if(enroll) {
+        res.render('about_course.ejs',{ course: course[0], enrolled: true });
+      } else {
+        res.render('about_course.ejs',{ course: course[0], enrolled: false });
+      }
     }
   })
 })
@@ -961,6 +973,11 @@ app.post('/edit-course/:id', syllabusUpload.single('syllabus'), middlewareObj.is
       var syllabus;
       var description = req.body.description;
       var duration = req.body.duration;
+      var deadline = req.body.deadline;
+      var cert = req.body.cert;
+      var language = req.body.language;
+      var mode = req.body.mode;
+      var students = course[0].students;
       var instructor = {
         name: req.body.instructor_name,
         designation: req.body.instructor_designation,
@@ -971,7 +988,8 @@ app.post('/edit-course/:id', syllabusUpload.single('syllabus'), middlewareObj.is
       } else {
         syllabus = course[0].syllabus;
       }
-      var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
+      var newCourse = {username: username, name: name, syllabus: syllabus, description: description, deadline: deadline,
+        cert: cert, language: language, mode: mode, students: students, instructor: instructor, duration: duration };
 
       Course.findOneAndUpdate({ username: req.params.id }, newCourse, function(err, course) {
           if(err) {
@@ -1025,13 +1043,22 @@ app.post("/course-upload", syllabusUpload.single('syllabus'), middlewareObj.isFa
     var syllabus = req.file.filename;
     var description = req.body.description;
     var duration = req.body.duration;
+    var deadline = req.body.deadline;
+    var cert = req.body.cert;
+    var language = req.body.language;
+    var mode = req.body.mode;
+    var students = [];
     var instructor = {
       name: req.body.instructor_name,
       designation: req.body.instructor_designation,
       college : req.body.instructor_college
     };
-    var newCourse = {username: username, name: name, syllabus: syllabus, description: description, instructor: instructor, duration: duration };
+    var newCourse = {username: username, name: name, syllabus: syllabus, description: description, deadline: deadline,
+      cert: cert, language: language, mode: mode, students: students, instructor: instructor, duration: duration };
+      console.log("/////////");
     console.log(newCourse);
+    console.log("/////////");
+
     Course.create(newCourse, function(err, allCourse) {
         if(err) {
             console.log(err);
@@ -1068,6 +1095,9 @@ app.post('/:id/course/:courseid', middlewareObj.isStudentLoggedIn, function (req
                 } else {
                     student.courses.push(course);
                     student.save();
+                    course.students.push(req.params.id);
+                    course.save();
+                    console.log(course);
                     res.redirect("/enrolled_course");
                 }
             });
@@ -1342,10 +1372,20 @@ app.get('/send_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (req
         } else {
           var students = [];
           for(var i=0; i<student.length; i++) {
-            for(var j=0; j<student[i].courses.length; j++) {
-              if(student[i].courses[j].username == course[0].username) {
-                students.push(student[i]);
+            var array = course[0].students;
+            var enroll = false;
+            for(var ii=0; ii<array.length; ii++) {
+              if(array[ii] == student[i]._id) {
+                enroll = true;
                 break;
+              }
+            }
+            if(enroll) {
+              for(var j=0; j<student[i].courses.length; j++) {
+                if(student[i].courses[j].username == course[0].username) {
+                  students.push(student[i]);
+                  break;
+                }
               }
             }
           }
@@ -1385,7 +1425,13 @@ app.post('/send_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (re
                       date: Date.now()
                     });
                     student[i].save();
-                    console.log(student[i]);
+                    var index = course[0].students.indexOf(student[i]._id);
+                    console.log(course[0]);
+                    if (index !== -1) {
+                      course[0].students.splice(index, 1);
+                      course[0].save();
+                    }
+                    console.log(course[0]);
                     break;
                   }
                 }
@@ -1394,7 +1440,7 @@ app.post('/send_certificate/:id', middlewareObj.isFacultyLoggedIn,  function (re
             }
           }
           req.flash("sucess","Sucessfully sent the certificates.");
-          res.redirect('/give_certificate');
+          res.redirect('/send_certificate/'+req.params.id);
         }
       })
     }

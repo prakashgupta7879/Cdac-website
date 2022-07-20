@@ -54,7 +54,7 @@
                     <svg aria-hidden="true" class="svg-img"
                         style="fill:#284E36;height:20px;width:20px" viewBox="0 0 48 48" role="img"
                         xmlns="http://www.w3.org/2000/svg">
-                        <title id="Flexibledeadlinesde35daae-770c-419c-ccfc-f3859404561e">Flexible deadlines</title>
+                        <title id="Flexibledeadlinesde35daae-770c-419c-ccfc-f3859404561e">Deadlines</title>
                         <g stroke="none" stroke-width="1" fill-rule="evenodd" role="presentation">
                             <g fill-rule="nonzero">
                                 <g>
@@ -66,10 +66,16 @@
                         </g>
                     </svg></div>
                 <div class="productglance-content">
+                  <% if(course.deadline == "Flexible deadlines") { %>
                     <div class="sub font1">Flexible deadlines</div>
                     <div class="font5">Reset deadlines in accordance to your schedule.</div>
+                  <% } else { %>
+                    <div class="sub font1">Strict deadlines</div>
+                    <div class="font5">Fixed deadlines in which the work should be complete.</div>
+                  <% } %>
                 </div>
             </div>
+            <% if(course.cert == "Yes") { %>
             <div class="product-glance-item">
                 <div class="productglance-img">
                     <svg aria-hidden="true" class="svg-img"
@@ -83,10 +89,13 @@
                     </svg>
                 </div>
                 <div class="productglance-content">
+
                     <div class="sub font1">Shareable Certificate</div>
                     <div class="font5">Earn a Certificate upon completion</div>
+
                 </div>
             </div>
+            <% } %>
             <div class="product-glance-item">
                 <div class="productglance-img">
                     <svg aria-hidden="true" class="svg-img"
@@ -98,8 +107,13 @@
                             role="presentation"></path>
                     </svg></div>
                 <div class="productglance-content">
-                    <div class="sub font1">100% online</div>
+                  <% if(course.mode == "Online") { %>
+                    <div class="sub font1">Online</div>
                     <div class="font5">Start instantly and learn at your own schedule.</div>
+                  <% } else { %>
+                    <div class="sub font1">Offline</div>
+                    <div class="font5">Start instantly and learn at your own schedule.</div>
+                  <% } %>
                 </div>
             </div>
             <div class="product-glance-item">
@@ -113,7 +127,11 @@
                             role="presentation"></path>
                     </svg></div>
                 <div class="productglance-content">
+                  <% if(course.language == "English") { %>
                     <div class="sub font1">English</div>
+                  <% } else { %>
+                    <div class="sub font1">Hindi</div>
+                  <% } %>
                 </div>
             </div>
         </div>
@@ -142,13 +160,21 @@
         <div class="course-enroll font5">
             <span>Start Learning Today</span>
             <a href="#">Financial aid available</a>
-            <form action="/<%= currentUser._id %>/course/<%= course._id %>" method="POST">
-              <button class="btn4">Enroll Now </button>
-            </form>
+            <% if(enrolled) { %>
+              <form>
+                <button disabled="true" class="btn4">Enrolled</button>
+              </form>
+            <% } else { %>
+              <form action="/<%= currentUser._id %>/course/<%= course._id %>" method="POST">
+                <button class="btn4">Enroll Now</button>
+              </form>
+            <% } %>
         </div>
-        <div class="course-enroll-info font5">
-            <span>Sharable on <strong>LinkedIn</strong></span>
-            <p>You can share your Course Certificates in the Certifications section of your LinkedIn profile, on printed resumes, CVs, or other documents.</p>
+        <div class="course-enroll-info font5" style="text-align-last: center;">
+            <!-- <span>Sharable on <strong>LinkedIn</strong></span>
+            <p>You can share your Course Certificates in the Certifications section of your LinkedIn profile, on printed resumes, CVs, or other documents.</p> -->
+            <img src="/img/assesment.png" alt=""><br>
+            <span style="font-size: 20px; padding-right: 2em;">Assesment Tests</span>
         </div>
         <div class="cert-img">
             <img src="/img/cert.jpg" alt="Not Available">
@@ -158,38 +184,74 @@
     <section id="course-section5">
         <h1 class="font6">Frequently Asked Questions</h1>
         <div class="faq font5">
-            <ul>
+            <ul style="text-align-last: left;">
                 <li >
                    <div class="faq-div" onclick="faqFunction1()">
-                        <div class="dropdown-faq">
-                            <img src="img/arrow.png">
+                        <button id="view" class="dropdown-faq" onclick="drop()" style="width: 100%;
+                                                                                        height: 100%;
+                                                                                        background-color: white;
+                                                                                        border: none;
+                                                                                        cursor: pointer;">
+                            <!-- <img src="/img/arrow.png"> -->
                             <p>When will I have access to the lectures and assignments?</p>
-                        </div>
-                        <div id="faqDropdown1" class="faq-content font5">
+                        </button>
+                        <button id="hide" class="dropdown-faq" onclick="undrop()" style="display: none; width: 100%;
+                                                                                                        height: 100%;
+                                                                                                        background-color: white;
+                                                                                                        border: none;
+                                                                                                        cursor: pointer;">
+                            <!-- <img src="/img/arrow.png"> -->
+                            <p>When will I have access to the lectures and assignments?</p>
+                        </button>
+                        <div id="faqDropdown1" class="faq-content font5" style="display:none;">
                             Access to lectures and assignments depends on your type of enrollment. If you take a course in audit mode, you will be able to see most course materials for free. To access graded assignments and to earn a Certificate, you will need to purchase the Certificate experience, during or after your audit. If you don't see the audit option.
                         </div>
                    </div>
                 </li>
                 <li >
                    <div class="faq-div" onclick="faqFunction2()">
-                        <div class="dropdown-faq">
-                            <img src="img/arrow.png">
-                            <p>What will I get if I purchase the Certificate?</p>
-                        </div>
-                        <div id="faqDropdown2" class="faq-content font5">
-                            When you enroll in the course, you get access to all of the courses in the Certificate, and you earn a certificate when you complete the work. Your electronic Certificate will be added to your Accomplishments page - from there, you can print your Certificate or add it to your LinkedIn profile.  If you only want to read and view the course content, you can audit the course for free.
-                        </div>
+                     <button id="view1" class="dropdown-faq" onclick="drop1()" style="width: 100%;
+                                                                                     height: 100%;
+                                                                                     background-color: white;
+                                                                                     border: none;
+                                                                                     cursor: pointer;">
+                         <!-- <img src="/img/arrow.png"> -->
+                         <p>What will I get if I purchase the Certificate?</p>
+                     </button>
+                     <button id="hide1" class="dropdown-faq" onclick="undrop1()" style="display: none; width: 100%;
+                                                                                                     height: 100%;
+                                                                                                     background-color: white;
+                                                                                                     border: none;
+                                                                                                     cursor: pointer;">
+                         <!-- <img src="/img/arrow.png"> -->
+                         <p>What will I get if I purchase the Certificate?</p>
+                     </button>
+                     <div id="faqDropdown2" class="faq-content font5" style="display:none;">
+                       When you enroll in the course, you get access to all of the courses in the Certificate, and you earn a certificate when you complete the work. Your electronic Certificate will be added to your Accomplishments page - from there, you can print your Certificate or add it to your LinkedIn profile.  If you only want to read and view the course content, you can audit the course for free.
+                     </div>
                    </div>
                 </li>
                 <li >
                    <div class="faq-div" onclick="faqFunction3()">
-                        <div class="dropdown-faq">
-                            <img src="img/arrow.png">
-                            <p>Is financial aid available?</p>
-                        </div>
-                        <div id="faqDropdown3" class="faq-content font5">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis optio et vitae non architecto aliquam dolorem iusto ratione est quae, fugit, ipsum distinctio autem nihil pariatur quidem culpa beatae impedit, repellat veritatis! Quae similique harum, exercitationem consequatur blanditiis aliquam excepturi temporibus, sapiente corporis ab deleniti at cum voluptatum nihil nemo.
-                        </div>
+                     <button id="view2" class="dropdown-faq" onclick="drop2()" style="width: 100%;
+                                                                                     height: 100%;
+                                                                                     background-color: white;
+                                                                                     border: none;
+                                                                                     cursor: pointer;">
+                         <!-- <img src="/img/arrow.png"> -->
+                         <p>What group sizes will I be taught in?</p>
+                     </button>
+                     <button id="hide2" class="dropdown-faq" onclick="undrop2()" style="display: none; width: 100%;
+                                                                                                     height: 100%;
+                                                                                                     background-color: white;
+                                                                                                     border: none;
+                                                                                                     cursor: pointer;">
+                         <!-- <img src="/img/arrow.png"> -->
+                         <p>What group sizes will I be taught in?</p>
+                     </button>
+                     <div id="faqDropdown3" class="faq-content font5" style="display:none;">
+                       Lectures are usually delivered to large groups of people. It’s the tutorial situations where you really need to understand how much individual attention you’ll be getting. The fewer people in the groups the more the teacher will be focused on you.
+                     </div>
                    </div>
                 </li>
             </ul>
@@ -197,7 +259,39 @@
     </section>
 
     <!-- SCRIPT LINK -->
-    <script src="js/courses.js"></script>
+    <script>
+      function drop() {
+        document.getElementById('view').style.display = 'none';
+        document.getElementById('hide').style.display = 'block';
+        document.getElementById('faqDropdown1').style.display = 'block';
+      }
+      function undrop() {
+        document.getElementById('view').style.display = 'block';
+        document.getElementById('hide').style.display = 'none';
+        document.getElementById('faqDropdown1').style.display = 'none';
+      }
+      function drop1() {
+        document.getElementById('view1').style.display = 'none';
+        document.getElementById('hide1').style.display = 'block';
+        document.getElementById('faqDropdown2').style.display = 'block';
+      }
+      function undrop1() {
+        document.getElementById('view1').style.display = 'block';
+        document.getElementById('hide1').style.display = 'none';
+        document.getElementById('faqDropdown2').style.display = 'none';
+      }
+      function drop2() {
+        document.getElementById('view2').style.display = 'none';
+        document.getElementById('hide2').style.display = 'block';
+        document.getElementById('faqDropdown3').style.display = 'block';
+      }
+      function undrop2() {
+        document.getElementById('view2').style.display = 'block';
+        document.getElementById('hide2').style.display = 'none';
+        document.getElementById('faqDropdown3').style.display = 'none';
+      }
+    </script>
+    <script src="/js/courses.js"></script>
 </body>
 
 </html>
