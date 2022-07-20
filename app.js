@@ -14,6 +14,7 @@ var Course = require('./modules/courses.js');
 var Query = require('./modules/queries.js');
 var Update = require('./modules/latestUpdates.js');
 var Program = require('./modules/program.js');
+var Job = require('./modules/jobs.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -188,8 +189,15 @@ app.get("/",(req, res) => {
             req.flash("error", "Something went wrong.");
             res.redirect("/");
           } else {
-            console.log(program);
-            res.render('index', { update: update, program: program });
+            Job.find({}, function (err, job) {
+              if(err) {
+                req.flash("error", "Something went wrong.");
+                res.redirect("/");
+              } else {
+                console.log(job);
+                res.render('index', { update: update, program: program, job: job });
+              }
+            })
           }
         })
       }
@@ -365,6 +373,10 @@ app.post("/latestUpdates", pdfUpload.single('image'), middlewareObj.isAdminLogge
     });
   }
 });
+
+app.get('/event', function (req, res) {
+  res.render('annualevents');
+})
 
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   Student.count({ usertype: "student" }, function (err, student) {
