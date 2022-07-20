@@ -38,9 +38,12 @@
             <div class="list-head"><span>Jobs Available</span></div>
             <div class="list">
                 <ul>
-                    <li class="list-item"><a href="https://careers.cdac.in/advt-details/CORP-672022-U5PEP">C-DAC Invites online applications for the post of Executive Director (Level 14) to be filled by Direct Recruitment/Transfer (absorption)/Deputation.</a></li>
+                  <% job.forEach(function(job) { %>
+                    <li class="list-item"><a href="<%= job.link %>" target="_blank"><%= job.username %></a></li>
+                  <% }) %>
+                    <!-- <li class="list-item"><a href="https://careers.cdac.in/advt-details/CORP-672022-U5PEP">C-DAC Invites online applications for the post of Executive Director (Level 14) to be filled by Direct Recruitment/Transfer (absorption)/Deputation.</a></li>
                     <li class="list-item"><a href="https://lnkd.in/dC9V_4eV ">Apply for Vega Processors</a></li>
-                    <li class="list-item"><a href="#">Link3</a></li>
+                    <li class="list-item"><a href="#">Link3</a></li> -->
                 </ul>
             </div>
             <div class="list-head"><span>Education &amp; Training Programs</span></div>

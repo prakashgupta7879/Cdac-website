@@ -51,13 +51,21 @@
 
 
 
-    <div class="container">
+    <div class="container" style="text-align-last: center;">
         <h1>Annual Events/ Activities</h1>
 
         <h3>CDAC in North East (CNE)</h3>
 
         <div class="row">
+          <% event.forEach(function(event) { %>
             <div class="col-md-4">
+                <div class="thumbnail">
+                    <a data-fancybox="video-gallery" href="https://www.youtube.com/watch?v=mBYnwWmyVQA&t=2s&amp;autoplay=1"><img src="../event/<%= event.link %>"></a>
+                    <h4 style="text-align:center ;"><%= event.username %></h4>
+                </div>
+            </div>
+          <% }) %>
+            <!-- <div class="col-md-4">
                 <div class="thumbnail">
                     <a data-fancybox="video-gallery" href="https://www.youtube.com/watch?v=mBYnwWmyVQA&t=2s&amp;autoplay=1"><img src="img/download.jpg"></a>
                     <h4 style="text-align:center ;">Independence day 2021</h4>
@@ -98,7 +106,7 @@
                     <a data-fancybox="video-gallery" href="https://www.youtube.com/watch?v=mBYnwWmyVQA&t=2s&amp;autoplay=1"><img src="img/download.jpg"></a>
                     <h4 style="text-align:center ;">Independence day</h4>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>
