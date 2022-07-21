@@ -48,14 +48,14 @@
           <label class="sr-only" style="display: none;">First Name</label>
           <input name="username"  style="display: none;" type="username" id="username" class="inputs" value="<%= currentUser.username %>" autofocus="">
         <% } %>
-        <label class="sr-only">First Name</label>
-        <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name" required="true" autofocus="">
-        <label for="inputEmail" class="sr-only">Last Name</label>
-        <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name" required="true" autofocus="">
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address" required="true" autofocus="">
-        <label class="sr-only">Message</label>
-        <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message" required="true" autofocus="" cols="30" rows="5"></textarea>
+        <label class="required" class="sr-only">First Name</label>
+        <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name*" required="true" autofocus="">
+        <label class="required" for="inputEmail" class="sr-only">Last Name</label>
+        <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name*" required="true" autofocus="">
+        <label class="required" for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address*" required="true" autofocus="">
+        <label class="required" class="sr-only">Message</label>
+        <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message*" required="true" autofocus="" cols="30" rows="5"></textarea>
 
         <!-- <br> -->
 
@@ -102,6 +102,11 @@
     <script src="js/script.js"></script>
 
     <style>
+    .required:after {
+          content:" *";
+          color: red;
+        }
+      
     .alert {
       /* padding: 20px;
       background-color: #f44336; /* Red */
