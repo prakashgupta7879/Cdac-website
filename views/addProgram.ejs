@@ -51,12 +51,12 @@
 						<div style="margin-left:40px; width: 90%;" class="form-body">
 							<form action="/addprogram" method="POST">
                   <div class="form-group">
-                      <label for="Name">Title:</label>
+                      <label for="Name" class="required">Title:</label>
                       <textarea required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Program Title">
                           </textarea>
                   </div>
                   <div class="form-group">
-                      <label for="Name">Hyperlink:</label>
+                      <label for="Name" class="required">Hyperlink:</label>
                       <input required name="link" type="text" class="form-control" id="exampleInputEmail1" placeholder="Hyper Link">
                   </div>
 
@@ -79,7 +79,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+    <style>
+        .required:after {
+          content:" *";
+          color: red;
+        }
+      </style>
 
 </body>
 </html>

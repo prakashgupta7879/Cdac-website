@@ -51,11 +51,11 @@
 						<div style="margin-left:40px;  width: 90%;" class="form-body">
 							<form class="" action="/latestUpdates" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="Name"><b> Update Title:</b></label>
+                    <label for="Name" class="required">Update Title:</label>
                     <textarea name="name" placeholder="Update Title" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1"><b> Update File:</b></label>
+                    <label for="exampleFormControlFile1" class="required">Update File:</label>
                     <input name="image" type="file" class="form-control-file" id="exampleFormControlFile1">
                   </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -77,6 +77,11 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-
+    <style>
+        .required:after {
+          content:" *";
+          color: red;
+        }
+      </style>
 </body>
 </html>

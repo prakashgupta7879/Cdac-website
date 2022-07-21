@@ -51,23 +51,23 @@
 						<div style="margin-left:40px; width: 90%;" class="form-body">
 							<form class="" action="/add" method="POST">
                                 <div class="form-group">
-                                    <label for="Name">User Name</label>
+                                    <label for="Name" class="required">User Name</label>
                                     <input required name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="User Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Name">First Name</label>
+                                    <label for="Name" class="required">First Name</label>
                                     <input required name="firstname" type="text" class="form-control" id="exampleInputEmail1" placeholder="First Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Name">Last Name</label>
+                                    <label for="Name" class="required">Last Name</label>
                                     <input required name="lastname" type="text" class="form-control" id="exampleInputEmail1" placeholder="Last Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
+                                    <label for="exampleInputEmail1" class="required">Email address</label>
                                     <input required name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
+                                    <label for="exampleInputPassword1" class="required">Password</label>
                                     <input required name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>
                                 <!-- <div class="form-group">
@@ -98,6 +98,12 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    <style>
+        .required:after {
+          content:" *";
+          color: red;
+        }
+      </style>
 
 </body>
 </html>
