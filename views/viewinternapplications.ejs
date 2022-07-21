@@ -59,16 +59,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+								<% application.forEach(function(application) { %>
 									<tr>
-									  <td></td>
-                                      <td></td>
-                                      <td></td>
-                                      <td></td>
-                                      <td></td>
+										<td><%= application.name %></td>
+                    <td><%= application.college %></td>
+                    <td><%= application.course %></td>
+                    <td><%= application.skills %></td>
+                    <td> <a href="../resume/<%= application.link %>"> <button class="btn btn-primary" type="button" name="button">View Resume</button> </a> </td>
 	                  <td style="text-align-last: center; width: 10%;"><form action="/" method="POST"><button>❌</button></form></td>
 									</tr>
-								
+								<% }) %>
+
 							</tbody>
 						</table>
 					</div>
