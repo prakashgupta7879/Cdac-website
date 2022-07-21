@@ -964,6 +964,11 @@ app.get('/about', function (req,res) {
   res.render('about');
 })
 
+//GALLERY
+app.get('/gallery', function (req,res) {
+  res.render('gallery2');
+})
+
 //CONTACT US
 app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
   res.render('contact');
