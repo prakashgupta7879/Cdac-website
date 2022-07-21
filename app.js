@@ -570,6 +570,26 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   })
 });
 
+app.get("/viewupdates", middlewareObj.isAdminLoggedIn, function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('viewupdates.ejs');
+});
+
+app.get("/viewprograms", middlewareObj.isAdminLoggedIn, function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('viewprograms.ejs');
+});
+
+app.get("/viewevents", middlewareObj.isAdminLoggedIn, function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('viewevents.ejs');
+});
+
+app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
+  // res.sendFile(__dirname + '/admin/html/index.html');
+  res.render('viewjobs.ejs');
+});
+
 app.get("/students", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   Student.find({usertype: "student"}, function (err, student) {
