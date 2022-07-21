@@ -981,7 +981,7 @@ app.get('/gallery', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
+app.get('/contact', function (req,res) {
   res.render('contact');
 })
 
