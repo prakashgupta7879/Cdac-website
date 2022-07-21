@@ -1,11 +1,11 @@
 <nav style="background-color: #189AB4;" class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="#" style="margin-right: 450px;">Welcome Admin!</a>
-    
-    
-  
+
+
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        
+
         <!-- <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>
         </li> -->
@@ -16,3 +16,21 @@
       </form>
     </div>
 </nav>
+
+<% if(error && error.length>0) { %>
+  <div class="alert" style="background-color: red;
+                            width: 100%;
+                            height: 50px; text-align-last: center; font-family: system-ui;
+    font-size: 17px;">
+        <%= error %>
+  </div>
+<% } %>
+<% if(success && success.length>0) { %>
+  <div class="alert" style="background-color: #0bff00; background-color: #0bff00;
+    width: 100%;
+    height: 50px; text-align-last: center; font-family: system-ui;
+    font-size: 17px;">
+    <!-- <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> -->
+          <%= success %>
+  </div>
+<% } %>

@@ -14,6 +14,8 @@ var Course = require('./modules/courses.js');
 var Query = require('./modules/queries.js');
 var Update = require('./modules/latestUpdates.js');
 var Program = require('./modules/program.js');
+var Event = require('./modules/event.js');
+var Job = require('./modules/jobs.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -164,6 +166,32 @@ var syllabusUpload = multer({
 app.use("/syllabus", express.static(path.join(__dirname, "syllabus")));
 
 
+// EVENT FILE STORAGE
+const storagee = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./event");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFiltere = (req, file, cb) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var eventUpload = multer({
+  storage: storagee,
+  fileFilter: fileFiltere
+});
+
+app.use("/event", express.static(path.join(__dirname, "event")));
+
+
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -188,8 +216,15 @@ app.get("/",(req, res) => {
             req.flash("error", "Something went wrong.");
             res.redirect("/");
           } else {
-            console.log(program);
-            res.render('index', { update: update, program: program });
+            Job.find({}, function (err, job) {
+              if(err) {
+                req.flash("error", "Something went wrong.");
+                res.redirect("/");
+              } else {
+                console.log(job);
+                res.render('index', { update: update, program: program, job: job });
+              }
+            })
           }
         })
       }
@@ -319,10 +354,43 @@ app.get("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addJob');
 });
 
+app.post("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
+    Job.create(req.body, function (err, job) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/addJob");
+      } else {
+        req.flash("success", "Added a program successfully.");
+        res.redirect("/addJob");
+      }
+    });
+});
 
 
 app.get("/addEvent", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addEvent');
+});
+
+app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,  function(req, res) {
+  if(!req.file) {
+    req.flash("error", "Something went wrong.");
+    res.redirect("/addEvent");
+  } else {
+    var add = {
+      username: req.body.username,
+      link: req.file.filename
+    }
+    console.log(add);
+    Event.create(add, function (err, event) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/addEvent");
+      } else {
+        req.flash("success", "Added a program successfully.");
+        res.redirect("/addEvent");
+      }
+    });
+  }
 });
 
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
@@ -372,6 +440,18 @@ app.post("/latestUpdates", pdfUpload.single('image'), middlewareObj.isAdminLogge
     });
   }
 });
+
+app.get('/event', function (req, res) {
+  Event.find({}, function (err, event) {
+    if(err) {
+      req.flash("error", "Something went wrong.");
+      res.redirect("/event");
+    } else {
+      console.log(event);
+      res.render('annualevents', { event: event });
+    }
+  })
+})
 
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   Student.count({ usertype: "student" }, function (err, student) {
@@ -490,6 +570,109 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   })
 });
 
+app.get("/viewapplications", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Application.find({}, function (err, application) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewinternapplications',{ application: application });
+    }
+  })
+});
+
+app.get("/viewupdates", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Update.find({}, function (err, update) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewupdates',{ update: update });
+    }
+  })
+});
+
+app.post("/update-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Update.remove({ username: req.params.id }, function (err, update) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewupdates");
+    } else {
+      req.flash("success","Deleted latest update successfully.");
+      res.redirect("/viewupdates");
+    }
+  })
+})
+
+app.get("/viewprograms", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Program.find({}, function (err, program) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewprograms',{ program: program });
+    }
+  })
+});
+
+app.post("/program-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Program.remove({ username: req.params.id }, function (err, program) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewprograms");
+    } else {
+      req.flash("success","Deleted program successfully.");
+      res.redirect("/viewprograms");
+    }
+  })
+})
+
+app.get("/viewevents", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Event.find({}, function (err, event) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewevents',{ event: event });
+    }
+  })
+});
+
+app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Event.remove({ username: req.params.id }, function (err, event) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewevents");
+    } else {
+      req.flash("success","Deleted program successfully.");
+      res.redirect("/viewevents");
+    }
+  })
+})
+
+app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Job.find({}, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewjobs',{ job: job });
+    }
+  })
+});
+
+app.post("/job-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Job.remove({ username: req.params.id }, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewjobs");
+    } else {
+      req.flash("success","Deleted Job Application successfully.");
+      res.redirect("/viewjobs");
+    }
+  })
+})
+
 app.get("/students", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
   Student.find({usertype: "student"}, function (err, student) {
@@ -501,6 +684,18 @@ app.get("/students", middlewareObj.isAdminLoggedIn, function(req, res) {
     }
   })
 });
+
+app.post("/student-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Student.remove({ _id: req.params.id }, function (err, user) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/students");
+    } else {
+      req.flash("success","Deleted student successfully.");
+      res.redirect("/students");
+    }
+  })
+})
 
 app.get("/add", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');
@@ -514,6 +709,7 @@ app.post("/faculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, re
       req.flash("error","Something went wrong.");
       res.redirect("/view");
     } else {
+      req.flash("success","Deleted the faculty successfully");
       res.redirect("/view");
     }
   })
@@ -725,8 +921,10 @@ app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
             res.redirect("/");
         } else {
             if(student.usertype == "faculty") {
+              req.flash("success","Edited your profile successfully");
               res.redirect('/facultyDash');
             } else {
+              req.flash("success","Edited your profile successfully");
               res.redirect("/dash_index");
             }
         }
@@ -777,6 +975,11 @@ app.get('/about', function (req,res) {
   res.render('about');
 })
 
+//GALLERY
+app.get('/gallery', function (req,res) {
+  res.render('gallery2');
+})
+
 //CONTACT US
 app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
   res.render('contact');
@@ -811,7 +1014,7 @@ app.post('/contact', middlewareObj.isLoggedIn, function (req,res) {
 
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
+          req.flash("error","Something went wrong");
           res.redirect('/contact');
         } else {
           console.log('Email sent: ' + info.response);
@@ -822,6 +1025,13 @@ app.post('/contact', middlewareObj.isLoggedIn, function (req,res) {
     }
   })
 })
+
+//Events
+
+app.get("/annualevents", function(req, res) {
+  res.render('annualevents');
+});
+
 
 //COURSES
 app.get('/courses', function (req,res) {
@@ -906,9 +1116,9 @@ app.post('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, r
   })
 })
 
-app.get('/faculty-dash', function (req, res) {
-  res.render('trial');
-})
+// app.get('/faculty-dash', function (req, res) {
+//   res.render('trial');
+// })
 
 //ABOUT COURSES
 app.get('/about_course/:id', middlewareObj.isLoggedIn, function (req,res) {
@@ -1015,6 +1225,7 @@ app.post('/edit-course/:id', syllabusUpload.single('syllabus'), middlewareObj.is
                     student[i].save();
                   }
                 }
+                req.flash("success","Edited the course successfully");
                 res.redirect("/offered_courses");
               })
           }
@@ -1105,6 +1316,7 @@ app.post('/:id/course/:courseid', middlewareObj.isStudentLoggedIn, function (req
                     course.students.push(req.params.id);
                     course.save();
                     console.log(course);
+                    req.flash("success","Enrolled in a course successfully");
                     res.redirect("/enrolled_course");
                 }
             });
@@ -1140,10 +1352,11 @@ app.post('/send-email', function (req, res) {
 
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
-          res.redirect('/login');
+          req.flash("error","Something went wrong");
+          res.redirect('/send-email');
         } else {
           console.log('Email sent: ' + info.response);
+          req.flash("success","A link is sent to your mail. Please check your mail.");
           res.redirect('/send-email');
         }
       });

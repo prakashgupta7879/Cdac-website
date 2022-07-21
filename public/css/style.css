@@ -254,7 +254,7 @@ footer{
     height: 450px;
     z-index: 4;
     opacity: 0.9;
-    padding: 0px 2px;
+    padding: 0px;
     box-sizing: border-box;
 }
 .bg{
