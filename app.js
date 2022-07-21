@@ -571,24 +571,96 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
 });
 
 app.get("/viewupdates", middlewareObj.isAdminLoggedIn, function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('viewupdates.ejs');
+  Update.find({}, function (err, update) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewupdates',{ update: update });
+    }
+  })
 });
+
+app.post("/update-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Update.remove({ username: req.params.id }, function (err, update) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewupdates");
+    } else {
+      req.flash("success","Deleted latest update successfully.");
+      res.redirect("/viewupdates");
+    }
+  })
+})
 
 app.get("/viewprograms", middlewareObj.isAdminLoggedIn, function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('viewprograms.ejs');
+  Program.find({}, function (err, program) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewprograms',{ program: program });
+    }
+  })
 });
+
+app.post("/program-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Program.remove({ username: req.params.id }, function (err, program) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewprograms");
+    } else {
+      req.flash("success","Deleted program successfully.");
+      res.redirect("/viewprograms");
+    }
+  })
+})
 
 app.get("/viewevents", middlewareObj.isAdminLoggedIn, function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('viewevents.ejs');
+  Event.find({}, function (err, event) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewevents',{ event: event });
+    }
+  })
 });
 
+app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Event.remove({ username: req.params.id }, function (err, event) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewevents");
+    } else {
+      req.flash("success","Deleted program successfully.");
+      res.redirect("/viewevents");
+    }
+  })
+})
+
 app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
-  // res.sendFile(__dirname + '/admin/html/index.html');
-  res.render('viewjobs.ejs');
+  Job.find({}, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewjobs',{ job: job });
+    }
+  })
 });
+
+app.post("/job-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Job.remove({ username: req.params.id }, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewjobs");
+    } else {
+      req.flash("success","Deleted Job Application successfully.");
+      res.redirect("/viewjobs");
+    }
+  })
+})
 
 app.get("/students", middlewareObj.isAdminLoggedIn, function(req, res) {
   // res.sendFile(__dirname + '/admin/html/index.html');

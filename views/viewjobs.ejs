@@ -18,7 +18,7 @@
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/admindash.css">
+    <link rel="stylesheet" href="/css/admindash.css">
 	<!-- Scrollbar Custom CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -52,26 +52,24 @@
 								<tr>
 								  <th>Job Title</th>
 								  <th>Job Application Link</th>
-								  
                   <th style="text-align-last: center; width: 10%;">Delete</th>
 								</tr>
 							</thead>
 							<tbody>
-                
-								<tr>
-								  <td></td>
-								  <td></td>
-								  
-                  <td style="text-align-last: center; width: 10%;"><form action="" method="POST"><button>❌</button></form></td>
-								</tr>
-                
+								<% job.forEach(function(job) { %>
+									<tr>
+									  <td><%= job.username %></td>
+									  <td> <a href="<%= job.link %>"><%= job.link %></a></td>
+	                  <td style="text-align-last: center; width: 10%;"><form action="/job-remove/<%= job.username %>" method="POST"><button>❌</button></form></td>
+									</tr>
+								<% }) %>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -84,6 +82,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 
-	
+
 </body>
 </html>
