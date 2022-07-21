@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="main-menu">
   <div class="sidebar-header">
     <h2 style="font-size: 37px;"> <b>CDAC CINE</b> </h2>
     <!-- <b style="margin-left: 10px; margin-right: 5px;">Today is:</b> -->
@@ -105,6 +105,9 @@
         <li>
           <a href="/viewupdates">View Updates</a>
         </li>
+        <li>
+          <a href="/viewapplications">View Intern Applications</a>
+        </li>
 
       </ul>
     </li>
@@ -126,3 +129,22 @@
   </ul>
 
 </nav>
+<style>
+  .main-menu{
+    overflow-y: scroll;
+  }
+
+  ::-webkit-scrollbar{
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track{
+    background: transparent !important;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background: #bbbbbb;
+    border-radius: 10px;
+  }
+
+</style>

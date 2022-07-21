@@ -570,6 +570,10 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
   })
 });
 
+app.get("/viewapplications", middlewareObj.isAdminLoggedIn, function(req, res) {
+      res.render('viewinternapplications');
+});
+
 app.get("/viewupdates", middlewareObj.isAdminLoggedIn, function(req, res) {
   Update.find({}, function (err, update) {
     if(err) {
