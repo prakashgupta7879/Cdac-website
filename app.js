@@ -571,7 +571,14 @@ app.get("/view", middlewareObj.isAdminLoggedIn, function(req, res) {
 });
 
 app.get("/viewapplications", middlewareObj.isAdminLoggedIn, function(req, res) {
-      res.render('viewinternapplications');
+  Application.find({}, function (err, application) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewinternapplications',{ application: application });
+    }
+  })
 });
 
 app.get("/viewupdates", middlewareObj.isAdminLoggedIn, function(req, res) {
