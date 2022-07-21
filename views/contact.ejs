@@ -14,18 +14,19 @@
         <!-- Icon Link -->
         <link rel="icon" href="fav.ico" />
 
-        <!-- CSS Link -->
-        <!-- <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="css/contact.css"> -->
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/contact.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+   
+        <link rel="stylesheet" href="/css/style.css">
+        
 
          <!-- Font styles -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Open+Sans:wght@300&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
         <!-- <script async src="https://www.google.com/recaptcha/api.js"></script> -->
-    </head>
+        
+      </head>
 <body>
 
     <%- include('header'); -%>
@@ -40,36 +41,36 @@
         <img src="img/map.png" class="co1" style="margin-top: 20px; display:block; width:50%; height:50%; margin-left: auto; margin-right: auto;" alt="Map"></img>
       </a> -->
       <br>
-      <hr>
+      
     <form name="myForm" id="contact" action="/contact" class="forms" method="POST">
 
         <h2 style="text-align: center;">CONTACT US</h2> <br>
         <% if(currentUser) { %>
           <label class="sr-only" style="display: none;">First Name</label>
-          <input name="username"  style="display: none;" type="username" id="username" class="inputs" value="<%= currentUser.username %>" autofocus="">
+          <input name="username" type="username" id="username" class="inputs" placeholder="Username*" required="" autofocus="">
         <% } %>
-        <label class="required" class="sr-only">First Name</label>
-        <input name="firstname" type="username" id="username" class="inputs" placeholder="First Name*" required="true" autofocus="">
-        <label class="required" for="inputEmail" class="sr-only">Last Name</label>
+        <!-- <label class="required" class="sr-only">First Name</label> -->
+        <input name="firstname" type="username" id="username" class="inputs" placeholder="Username*" required="" autofocus="">
+        <!-- <label class="required" for="inputEmail" class="sr-only">Last Name</label> -->
         <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name*" required="true" autofocus="">
-        <label class="required" for="inputEmail" class="sr-only">Email address</label>
+        <!-- <label class="required" for="inputEmail" class="sr-only">Email address</label> -->
         <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address*" required="true" autofocus="">
-        <label class="required" class="sr-only">Message</label>
+        <!-- <label class="required" class="sr-only">Message</label> -->
         <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message*" required="true" autofocus="" cols="30" rows="5"></textarea>
 
         <!-- <br> -->
 
         <div class="submit-btn">
 
-            <input type="submit" value="Send Message" class="butn">
+            <input type="submit" value="Send Message" class="submitbtn">
         </div>
    </form>
 <div style="text-align:center ;">
-    <button style="text-align: center; margin: 2px; width: 155px;" >
+    <button class="btn btn-info " style="text-align: center; margin: 2px; width: 155px;" >
         <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
     </button>
 
-    <button style="text-align: center; margin: 2px; width: 155px;">
+    <button class="btn btn-info " style="text-align: center; margin: 2px; width: 155px;">
         <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
     </button>
 
