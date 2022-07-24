@@ -240,6 +240,12 @@ app.get("/centerhead", function(req, res) {
   res.render('centerHead');
 });
 
+app.get("/technicalstaff", function(req, res) {
+  res.render('technicalstaff');
+});
+
+
+
 const itemsSchema = {
   name: String
 };

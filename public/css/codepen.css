@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Barriecito|Quicksand&display=swap');
+
+* {
+  transition: all .7s ease;
+}
+
+a:link {
+  text-decoration: none;
+  color: #fff;
+}
+
+body {
+  background: #cecece;
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+  font-family: 'Barriecito', cursive;
+  text-align: left;
+}
+
+h3 {
+  font-family: 'Quicksand', sans-serif;
+  text-align: left;
+  margin-top: -20px;
+}
+
+.wrapper {
+    
+    float: left;
+    padding: 10px; 
+  border-radius: 5px;
+  display: inline-block;
+  background: #fff;
+  position: relative;
+  margin: 20px 15px;
+  width: 300px;
+  height: auto;
+  overflow: hidden;
+  box-shadow: 0px 10px 25px #999;
+}
+
+.pic {
+  height: 180px;
+  
+  background-size: 400px;
+  background-position: center;
+  padding: 0 0 20px 0;
+  margin-bottom: 35px;
+}
+
+img{
+    height: 110%; 
+    width: 60%;
+    
+    margin-left: 50px ;}
+
+
+
+h3.header {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  
+}
+
+ul.content {
+  margin-top: 5px;  
+  padding: 0 20px;
+  font-size: 14px;
+  text-align: justify;
+}
+
+a .readmore {
+  height: 40px;
+  width: 100px;
+  float: right;
+  padding-left: 10px;
+  line-height: 40px;
+  background-color: darkslategray;
+  margin: 20px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+a .readmore:hover {
+  background-color: #55dfcd;
+}
+
+a .readmore i {
+  color: #fff;
+  margin-left: 5px;
+  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+}
+
+a .readmore:hover i {
+  margin: 0 0 0 20px;
+}
+
+
+
+
+.button-center {
+  background-color: darkslategray;
+  margin-top: 20px;
+}
+
+a .leesmeer {
+  height: 40px;
+  width: 110px;
+  padding-left: 10px;
+  line-height: 40px;
+  margin: 0 auto;
+  font-size: 15px;
+  border-radius: 5px;
+}
+a .button-center:hover {
+  background-color: #9fdf55;
+}
+a .button-center i {
+  color: #fff;
+  margin-left: 5px;
+  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+}
+a .button-center:hover i {
+  margin: 0 0 0 20px;
+}
