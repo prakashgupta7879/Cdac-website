@@ -32,50 +32,49 @@
     <%- include('header'); -%>
     <%- include('navbar'); -%>
 
-
-
-    <iframe style="margin-top: 20px; display:block; margin-left: auto; margin-right: auto;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.0696146099604!2d92.78855791500077!3d24.758802184102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374e49c2683c9f95%3A0x9698a07544a4b227!2sC-DAC%20Silchar!5e0!3m2!1sen!2sin!4v1657572233213!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-
-    <!-- <a href="https://www.google.com/maps/place/C-DAC+Silchar/@24.7588071,92.7885525,625m/data=!3m2!1e3!4b1!4m5!3m4!1s0x374e49c2683c9f95:0x9698a07544a4b227!8m2!3d24.7588406!4d92.7912675" target="_blank"  rel="noreferrer">
-        <img src="img/map.png" class="co1" style="margin-top: 20px; display:block; width:50%; height:50%; margin-left: auto; margin-right: auto;" alt="Map"></img>
-      </a> -->
-      <br>
+    <div>
+      <div class="float-child">
+        <iframe style="margin: 50px; display:flex ;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.0696146099604!2d92.78855791500077!3d24.758802184102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374e49c2683c9f95%3A0x9698a07544a4b227!2sC-DAC%20Silchar!5e0!3m2!1sen!2sin!4v1657572233213!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="float-child">
+        <form name="myForm" id="contact" action="/contact" class="forms" method="POST">
+          <h2 style="text-align: center;">CONTACT US</h2> <br>
+          <% if(currentUser) { %>
+            <label class="sr-only" style="display: none;">First Name</label>
+            <input name="username" type="username" id="username" class="inputs" placeholder="Username*" required="" autofocus="">
+          <% } %>
+          <!-- <label class="required" class="sr-only">First Name</label> -->
+          <input name="firstname" type="username" id="username" class="inputs" placeholder="Firstname*" required="" autofocus="">
+          <!-- <label class="required" for="inputEmail" class="sr-only">Last Name</label> -->
+          <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name*" required="true" autofocus="">
+          <!-- <label class="required" for="inputEmail" class="sr-only">Email address</label> -->
+          <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address*" required="true" autofocus="">
+          <!-- <label class="required" class="sr-only">Message</label> -->
+          <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message*" required="true" autofocus="" cols="30" rows="5"></textarea>
+  
+          <!-- <br> -->
+  
+          <div class="submit-btn">
+  
+              <input type="submit" value="Send Message" class="submitbtn">
+          </div>
+      </form>
+      <div style="text-align:center ;">
+          <button openpopup="#popUpA" class="btn btn--primary" style="text-align: center; margin: 2px; width: 155px;" >
+              <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
+          </button>
+          <button class="btn btn-info " style="text-align: center; margin: 2px; width: 155px;">
+              <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
+          </button>
+      </div>
       
-    <form name="myForm" id="contact" action="/contact" class="forms" method="POST">
+      </div> 
+        
+      
 
-        <h2 style="text-align: center;">CONTACT US</h2> <br>
-        <% if(currentUser) { %>
-          <label class="sr-only" style="display: none;">First Name</label>
-          <input name="username" type="username" id="username" class="inputs" placeholder="Username*" required="" autofocus="">
-        <% } %>
-        <!-- <label class="required" class="sr-only">First Name</label> -->
-        <input name="firstname" type="username" id="username" class="inputs" placeholder="Username*" required="" autofocus="">
-        <!-- <label class="required" for="inputEmail" class="sr-only">Last Name</label> -->
-        <input name="lastname" type="username" id="username" class="inputs" placeholder="Last Name*" required="true" autofocus="">
-        <!-- <label class="required" for="inputEmail" class="sr-only">Email address</label> -->
-        <input type="email" id="inputEmail" name="email" class="inputs" placeholder="Email address*" required="true" autofocus="">
-        <!-- <label class="required" class="sr-only">Message</label> -->
-        <textarea name="message" type="username" id="username" class="inputs" placeholder="Your Message*" required="true" autofocus="" cols="30" rows="5"></textarea>
+    </div>
 
-        <!-- <br> -->
-
-        <div class="submit-btn">
-
-            <input type="submit" value="Send Message" class="submitbtn">
-        </div>
-   </form>
-<div style="text-align:center ;">
-    <button openpopup="#popUpA" class="btn btn--primary" style="text-align: center; margin: 2px; width: 155px;" >
-        <a href="tel:+91 7032487794"><i class="fa fa-phone">Call</i></a>
-    </button>
-
-    <button class="btn btn-info " style="text-align: center; margin: 2px; width: 155px;">
-        <a href="mailto:rituk@cdac.com"><i class="fa fa-envelope">Mail</i></a>
-    </button>
-
-</div>
-   <br>
+   
 
    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -103,6 +102,13 @@
     <script src="js/script.js"></script>
 
     <style>
+    .float-child {
+    width: 50%;
+    float: left;
+    padding: 40px;
+    
+    }
+
     .required:after {
           content:" *";
           color: red;
