@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/imags/favicon-16x16.png">
+<link rel="manifest" href="/images/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!-- CSS Link -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+Bhai+2:wght@600&family=Dancing+Script:wght@500&family=Lobster&family=Permanent+Marker&family=Ubuntu&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon libraray -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Glyphicon Icons -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
+  </head>
+
+<body>
+    <!-- HEADER -->
+    <%- include('header'); -%>
+
+
+    <!-- NAVIGATION BAR -->
+    <%- include('navbar'); -%>
+
+    <form style="margin: 30px 220px ;" action="/" method="POST">
+      <!-- <img class="loginImg" src="img/Login.png" alt="" width="80" height="80"> -->
+      <h2>Application Form for Guest Faculty positions in C-DAC Centre in North East (CINE)/  सी-डैक पूर्वोत्तर केंद्र (सिने) में अतिथि संकाय पदों के लिए आवेदन पत्र</h2> <br>
+      
+      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="Faculty Name / संकाय का नाम*" required="true" autofocus="">
+      <input type="email" id="email" name="email" class="inputs" placeholder="Email ID / ईमेल आईडी*" required="true" autofocus="">
+      <input type="number" id="lastname" class="inputs" name="lastname" placeholder="Contact Number /संपर्क सूत्र*" required="true" autofocus="">
+      <div  class="inputs">
+        <p style="margin-left: 10px ;">Qualification / योग्यता*</p> <br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> B.E / बी.ई </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> B.TECH / बी.टेक </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> B.Sc / बीएससी </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> BCA /बीसीए </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> M.E / एम.ई </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> M.TECH / एम.टेक </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> M.Sc / एम.एससी </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> MCA / एमसीए </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> MBA /एमबीए </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> PhD / पीएचडी </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> Pursuing PhD / चलित पीएचडी </label><br>
+      </div> <br>
+      <p></p> <br>
+      <div class="inputs">
+        <p style="margin-left: 10px ;">Department / विभाग*</p> <br>
+             <input style="margin-left: 30px ;"  type="radio" id="html" name="fav_language" value="HTML">
+             <label for="html">Computer Science and Engineering / कंप्यूटर विज्ञान और अभियांत्रिकी</label><br>
+             <input style="margin-left: 30px ;"  type="radio" id="css" name="fav_language" value="CSS">
+             <label for="css">Electronics and Communications Engineering / इलेक्ट्रॉनिक्स और संचार अभियांत्रिकी</label><br>
+             <input style="margin-left: 30px ;"  type="radio" id="javascript" name="fav_language" value="JavaScript">
+             <label for="javascript">Electronics and Instrumentation Engineering / इलेक्ट्रॉनिक्स और उपकरण अभियांत्रिकी</label><br>
+             <input style="margin-left: 30px ;"  type="radio" id="html" name="fav_language" value="HTML">
+             <label for="html">Electrical Engineering / विद्युत् अभियांत्रिकी</label><br>
+             <input style="margin-left: 30px ;"  type="radio" id="html" name="fav_language" value="HTML">
+             <label for="html">Computer Science / कंप्यूटर विज्ञान</label><br>
+             <input style="margin-left: 30px ;"  type="radio" id="html" name="fav_language" value="HTML">
+             <label for="html">Computer Applications /कम्प्यूटर अनुप्रयोग</label><br> <br>
+             <input style="margin:0 30px; width: auto;" type="text" id="firstname" class="inputs" name="firstname" placeholder="Other Department" required="true" autofocus="">
+             
+             <!-- <type="text" id="firstname" class="inputs" name="firstname" placeholder="Other Department"> <br> -->
+      </div> <br>
+      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="Institute Name & Address / संस्थान का नाम और पता*" required="true" autofocus="">
+      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="University Name & Address / विश्वविद्यालय का नाम और पता" required="true" autofocus="">
+      <div class="inputs">
+        <p style="margin-left: 10px ;">Subjects/courses Interested to Teach / पढ़ाने के इच्छुक विषय/पाठ्यक्रम*</p> <br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Software Technologies/सॉफ्टवेयर टेक्नोलॉजीज </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Database Technologies/डेटाबेस टेक्नोलॉजीज </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> MS .NET Technologies/एमएस.नेट टेक्नोलॉजीज </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Operating Systems/ऑपरेटिंग सिस्टम </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Object Oriented Programming using Java/जावा के उपयोग से ऑब्जेक्ट ओरिएंटेड प्रोग्रामिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Algorithms and Data Structures/एल्गोरिथ्म और डाटा स्ट्रक्चर </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Concepts of Programming/कांसेप्ट ऑफ़ प्रोग्रामिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Web-Programing Technologies/वेब-प्रोग्रामिंग टेक्नोलॉजीज </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Embedded Systems and IoT/एम्बेडेड सिस्टम एंड आईओटी </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> VLSI and FPGA Design/वीएलएसआई और एफपीजिए डिज़ाइन </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Practical Machine Learning/प्रैक्टिकल मशीन लर्निंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Advance Programming using Python/पाइथन के उपयोग से एडवांस प्रोग्रामिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Logic Building & Problem Solving/लॉजिक बिल्डिंग एंड प्रॉब्लम सॉल्विंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Web-based Java Programming/वेब-आधारित जावा प्रोग्रामिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Data Analytics/डाटा एनालिटिक्स </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Fundamentals of AI/एआई . के लिए गणित </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Mathematics for AI/एआई का मूलतत्व </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Deep Neural Networks/डीप न्यूरल नेटवर्क्स </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Natural Language Processing/नेचुरल लैंग्वेज प्रोसेसिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Computer Vision/कंप्यूटर विज़न </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> AI Trends and Computing Platforms/एआई ट्रेंड्स एंड कंप्यूटिंग प्लेटफॉर्म्स </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> General Aptitude/जनरल एप्टीटुड </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Software Project/सॉफ्टवेयर प्रोजेक्ट </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Big Data Analytics/बिग डाटा एनालिटिक्स </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Cloud Computing/क्लाउड कंप्यूटिंग </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Cyber Security and Forensics/साइबर सिक्योरिटी एंड फोरेंसिक </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> Personality Development and Soft Skill/पर्सनालिटी डेवलपमेंट एंड सॉफ्ट स्किल्स </label><br>
+      </div> <br>
+      <div class="inputs">
+        <p style="margin-left: 10px ;">Do you have any past experience in teaching this course ? / क्या आपको इस पाठ्यक्रम को पढ़ाने का कोई पिछला अनुभव है?*</p> <br>
+             <input style="margin-left: 30px ;" type="radio" id="html" name="fav_language" value="HTML">
+             <label for="html">YES /हाँ</label><br>
+             <input style="margin-left: 30px ;" type="radio" id="css" name="fav_language" value="CSS">
+             <label for="css">NO / नहीं</label><br> <br>
+             <p style="margin-left: 10px ;">If Yes, total experience in Years & months / यदि हां, तो वर्षों और महीनों में कुल अनुभव</p>
+             <br>
+             <input style="margin:0 30px; width: auto;" type="text" id="firstname" class="inputs" name="firstname" placeholder="" required="true" autofocus="">
+      
+      </div>
+      <div class="inputs">
+        <p style="margin-left: 20px ;">Specify the details of Experience (in years and months) in the following format: A) Teaching in Academic Institute(s)_____years _____months B) Teaching in Industry on design & development roles(or providing Hands-on-Training ______years_____months / अनुभव का विवरण (वर्षों और महीनों में) निम्नलिखित प्रारूप में निर्दिष्ट करें: क) शैक्षणिक संस्थान (ओं) में शिक्षण _____ वर्ष _____ महीने ख) अभिकल्पन और विकास भूमिकाओं पर उद्योग में शिक्षण (या प्रशिक्षण ______ वर्ष _____ महीने प्रदान करना)</p>
+        <br>
+        <input style="margin:0 30px; width: auto;" type="text" id="firstname" class="inputs" name="firstname" placeholder="" required="true" autofocus=""> 
+     </div>
+     <div class="inputs">
+        <p style="margin-left: 10px ;">Taught to Students from: / छात्रों को पढ़ाया जाता है:</p> <br>
+        <p style="margin-left: 15px ;">B.TECH / बी.टेक</p> 
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 1st Year / प्रथम वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 2nd Year / द्वितीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 3rd Year / तृतीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 4th Year / चतुर्थ वर्ष </label><br><br>
+        <p style="margin-left: 15px ;">M.TECH / एम.टेक</p>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> 1st Year / प्रथम वर्ष </label><br>
+        <input style="margin-left: 30px ;"  type="checkbox">
+        <label for=""> 2nd Year / द्वितीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label  for=""> 3rd Year / तृतीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label  for=""> 4th Year / चतुर्थ वर्ष </label><br><br>
+        <p style="margin-left: 15px ;">PHD / पीएचडी</p>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 1st Year / प्रथम वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 2nd Year / द्वितीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 3rd Year / तृतीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 4th Year / चतुर्थ वर्ष </label><br><br>
+        <p style="margin-left: 15px ;">Other / अन्य</p>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 1nd Year / प्रथम वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 2nd Year / द्वितीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 3rd Year / तृतीय वर्ष </label><br>
+        <input style="margin-left: 30px ;" type="checkbox">
+        <label for=""> 4th Year / चतुर्थ वर्ष </label><br>
+      </div> <br>
+      <div class="inputs">
+        <p style="margin-left: 20px ;">Have you taught any course(s) related to course(s) mentioned in Question No. 8 above ? If Yes, please mention the course(s). / क्या आपने ऊपर प्रश्न संख्या 8 में उल्लिखित पाठ्यक्रम (पाठ्यक्रमों) से संबंधित कोई पाठ्यक्रम पढ़ाया है? यदि हाँ, तो कृपया पाठ्यक्रम का उल्लेख करें।</p>
+        <!-- <p>Specify the details of Experience (in years and months) in the following format: A) Teaching in Academic Institute(s)_____years _____months B) Teaching in Industry on design & development roles(or providing Hands-on-Training ______years_____months / अनुभव का विवरण (वर्षों और महीनों में) निम्नलिखित प्रारूप में निर्दिष्ट करें: क) शैक्षणिक संस्थान (ओं) में शिक्षण _____ वर्ष _____ महीने ख) अभिकल्पन और विकास भूमिकाओं पर उद्योग में शिक्षण (या प्रशिक्षण ______ वर्ष _____ महीने प्रदान करना)</p> -->
+       <br> <input style="margin:0 30px; width: auto;"type="text" id="firstname" class="inputs" name="firstname" placeholder="" required="true" autofocus=""> 
+     </div>
+     <div class="inputs">
+        <p style="margin-left: 20px ;"> Upload CV / Resume / सीवी / रिज्यूम अपलोड करें* </p> <br>
+       
+        <input style="margin:0 30px; width: auto;" type="file" class="inputs" name="" id="" placeholder=" Upload CV / Resume / सीवी / रिज्यूम अपलोड करें*"> 
+     </div>
+     
+      
+     <br> 
+      
+      
+      <div>
+        <div>
+            <div  class="g-recaptcha" data-sitekey="6LdHafogAAAAAEIxdjvZBf7tYt5Pffe5Ikk4AOqL"></div>
+             <br>
+            <div>
+                <input type="submit" value="Register" class="submitbtn">
+            </div>
+            <br>
+        </div>
+        
+        <br>
+      </div>
+    </form>
+
+    <!-- FOOTER -->
+    <%- include('footer'); -%>
+
+    <!-- SCRIPT LINK -->
+    <script src="js/script.js"></script>
+
+    <style>
+    .alert {
+      /* padding: 20px;
+      background-color: #f44336; /* Red */
+      /* color: white; */
+      /* margin-bottom: 15px; */
+      padding: 5px;
+      /* background-color: #0bff00; */
+      color: black;
+      }
+
+      /* The close button */
+      .closebtn {
+      margin-left: 15px;
+      color: black;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      }
+
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+      color: black;
+      }
+    </style>
+</body>
+
+</html>

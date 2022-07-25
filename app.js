@@ -399,6 +399,10 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   }
 });
 
+app.get("/guestfacultyreg", function(req, res) {
+  res.render('guestfacultyreg');
+});
+
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addAchievement');
 });
