@@ -960,12 +960,39 @@ app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //INTERNSHIP
 app.get('/internships', function (req,res) {
+  var done = [];
+  var notdone = [];
   Internship.find({}, function(err,internship){
     if(err){
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-      res.render('internship', { internship: internship });
+      for(var i=0; i<internship.length; i++) {
+        let ts = Date.now();
+        let date_ob = new Date(ts);
+        let date = date_ob.getDate();
+        let month = date_ob.getMonth() + 1;
+        let year = date_ob.getFullYear();
+        var today = year+ "-" + month + "-" + date;
+        var beg = internship[i].begin;
+        var en = internship[i].end;
+        let date_ob1 = new Date(beg);
+        var m1 = date_ob1.getMonth()+1;
+        let date_ob2 = new Date(en);
+        var m2 = date_ob2.getMonth()+1;
+        var begin = date_ob1.getFullYear() + "-" + m1 + "-" + date_ob1.getDate();
+
+        var end = date_ob2.getFullYear() + "-" + m2 + "-" + date_ob2.getDate();
+        console.log(today);
+        console.log(begin);
+        console.log(end);
+        if(today >= begin && today <=end) {
+          notdone.push(internship[i]);
+        } else {
+          done.push(internship[i]);
+        }
+      }
+      res.render('internship', { done: done, notdone: notdone });
     }
   })
 })
@@ -977,7 +1004,28 @@ app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
       req.flash("error","Something went wrong.");
       res.redirect("/internships");
     } else {
-      res.render('enroll-now', { internship: internship });
+      var intern = [];
+      for(var i=0; i<internship.length; i++) {
+        let ts = Date.now();
+        let date_ob = new Date(ts);
+        let date = date_ob.getDate();
+        let month = date_ob.getMonth() + 1;
+        let year = date_ob.getFullYear();
+        var today = year+ "-" + month + "-" + date;
+        var beg = internship[i].begin;
+        var en = internship[i].end;
+        let date_ob1 = new Date(beg);
+        var m1 = date_ob1.getMonth()+1;
+        let date_ob2 = new Date(en);
+        var m2 = date_ob2.getMonth()+1;
+        var begin = date_ob1.getFullYear() + "-" + m1 + "-" + date_ob1.getDate();
+
+        var end = date_ob2.getFullYear() + "-" + m2 + "-" + date_ob2.getDate();
+        if(today < begin || today >end) {
+          intern.push(internship[i]);
+        }
+      }
+      res.render('enroll-now', { internship: intern });
     }
   })
 })

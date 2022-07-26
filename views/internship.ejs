@@ -36,6 +36,33 @@
 <!-- NAVIGATION BAR -->
 <%- include('navbar'); -%>
 
+    <div id="heading">
+        <h1>Ongoing Internships</h1>
+    </div>
+
+    <!-- internship Section -->
+    <div id="int-container" style="display: grid;
+                                    grid-template-columns: auto auto auto auto;
+                                    grid-gap: 10px;
+                                    padding: 10px;">
+      <% notdone.forEach(function(notdone) { %>
+        <div class="card">
+            <div class="card-img">
+                <img src="img/web-D.png" alt="<%= notdone.username %>">
+            </div>
+            <div class="meta-data">
+                <h3><%= notdone.username %></h3>
+                <p class="course-caption"><%= notdone.description %></p>
+            </div>
+            <div class="enroll">
+                <span>Duration: <%= notdone.duration %></span>
+                <!-- <a><button class="btn">Enroll Now</button></a> -->
+            </div>
+        </div>
+      <% }) %>
+    </div>
+
+
     <!-- heading -->
     <div id="heading">
         <h1>Online Internships we offer</h1>
@@ -46,17 +73,17 @@
                                     grid-template-columns: auto auto auto auto;
                                     grid-gap: 10px;
                                     padding: 10px;">
-      <% internship.forEach(function(internship) { %>
+      <% done.forEach(function(done) { %>
         <div class="card">
             <div class="card-img">
-                <img src="img/web-D.png" alt="<%= internship.username %>">
+                <img src="img/web-D.png" alt="<%= done.username %>">
             </div>
             <div class="meta-data">
-                <h3><%= internship.username %></h3>
-                <p class="course-caption"><%= internship.description %></p>
+                <h3><%= done.username %></h3>
+                <p class="course-caption"><%= done.description %></p>
             </div>
             <div class="enroll">
-                <span>Duration: <%= internship.duration %></span>
+                <span>Duration: <%= done.duration %></span>
                 <a href="/enroll"><button class="btn">Enroll Now</button></a>
             </div>
         </div>
