@@ -16,6 +16,7 @@ var Update = require('./modules/latestUpdates.js');
 var Program = require('./modules/program.js');
 var Event = require('./modules/event.js');
 var Job = require('./modules/jobs.js');
+var Internship = require('./modules/internship.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -419,6 +420,22 @@ app.post("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
       } else {
         req.flash("success", "Added a program successfully.");
         res.redirect("/addprogram");
+      }
+    });
+});
+
+app.get("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res) {
+  res.render('addInternship');
+});
+
+app.post("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res) {
+    Internship.create(req.body, function (err, intern) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        res.redirect("/addInternship");
+      } else {
+        req.flash("success", "Added an internship successfully.");
+        res.redirect("/addInternship");
       }
     });
 });
