@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var InternshipSchema = new mongoose.Schema({
     username: String,
+    description: String,
     duration: String,
     mentor: String
 });

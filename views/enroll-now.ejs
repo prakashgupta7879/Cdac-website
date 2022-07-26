@@ -70,10 +70,12 @@
                     <div class="form-div">
                         <label for="course" class="required">Select Course </label><br>
                         <select name="course" id="course" style="width: 100%; height: 30px;">
-                            <option value="Deep Learning">Deep Learning</option>
-                            <option value="Web Development" selected>Web Development</option>
+                          <% internship.forEach(function(internship) { %>
+                            <option value="<%= internship.username %>"><%= internship.username %></option>
+                            <!-- <option value="Web Development" selected>Web Development</option>
                             <option value="Machine Learning">Machine Learning</option>
-                            <option value="Python Programming">Python Programming</option>
+                            <option value="Python Programming">Python Programming</option> -->
+                          <% }) %>
                         </select>
                     </div>
                     <div class="form-div outline">

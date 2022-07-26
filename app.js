@@ -960,12 +960,26 @@ app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //INTERNSHIP
 app.get('/internships', function (req,res) {
-  res.render('internship.ejs');
+  Internship.find({}, function(err,internship){
+    if(err){
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('internship', { internship: internship });
+    }
+  })
 })
 
 //ENROLL NOW
 app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
-  res.render('enroll-now.ejs');
+  Internship.find({}, function(err,internship){
+    if(err){
+      req.flash("error","Something went wrong.");
+      res.redirect("/internships");
+    } else {
+      res.render('enroll-now', { internship: internship });
+    }
+  })
 })
 
 app.post('/enroll', resumeUpload.single('link'), middlewareObj.isStudentLoggedIn, function (req,res) {

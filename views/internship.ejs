@@ -43,58 +43,21 @@
 
     <!-- internship Section -->
     <div id="int-container">
+      <% internship.forEach(function(internship) { %>
         <div class="card">
             <div class="card-img">
-                <img src="img/web-D.png" alt="Web Development">
+                <img src="img/web-D.png" alt="<%= internship.username %>">
             </div>
             <div class="meta-data">
-                <h3>Web Development</h3>
-                <p class="course-caption">Learn how to create a website from scratch</p>
+                <h3><%= internship.username %></h3>
+                <p class="course-caption"><%= internship.description %></p>
             </div>
             <div class="enroll">
-                <span>Duration: 8 weeks</span>
+                <span>Duration: <%= internship.duration %></span>
                 <a href="/enroll"><button class="btn">Enroll Now</button></a>
             </div>
         </div>
-        <div class="card">
-            <div class="card-img">
-                <img src="img/ml.png" alt="Machine Learning">
-            </div>
-            <div class="meta-data">
-                <h3>Machine Learning</h3>
-                <p class="course-caption">Learn Machine Learning from scratch and take the first step towards AI</p>
-            </div>
-            <div class="enroll">
-                <span>Duration: 8 weeks</span>
-                <a href="/enroll"><button class="btn">Enroll Now</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-img">
-                <img src="img/dl.png" alt="Deep Learning">
-            </div>
-            <div class="meta-data">
-                <h3>Deep Learning</h3>
-                <p class="course-caption">Learn about different neural networks and develop futuristic applications!</p>
-            </div>
-            <div class="enroll">
-                <span>Duration: 6 weeks</span>
-                <a href="/enroll"><button class="btn">Enroll Now</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-img">
-                <img src="img/py.png" alt="Programming with Python">
-            </div>
-            <div class="meta-data">
-                <h3>Programming with Python</h3>
-                <p class="course-caption">Build a fantasy cricket game using Python language</p>
-            </div>
-            <div class="enroll">
-                <span>Duration: 6 weeks</span>
-                <a href="/enroll"><button class="btn">Enroll Now</button></a>
-            </div>
-        </div>
+      <% }) %>
     </div>
 
 
