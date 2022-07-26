@@ -677,6 +677,10 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
   })
 })
 
+app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
+  res.render('viewguestfacultyapp');
+});
+
 app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
   Job.find({}, function (err, job) {
     if(err) {
