@@ -678,8 +678,27 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
 })
 
 app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
-  res.render('viewguestfacultyapp');
+  Job.find({}, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewguestfacultyapp',{ job: job });
+    }
+  })
 });
+
+app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Job.remove({ username: req.params.id }, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewguestfaculty");
+    } else {
+      req.flash("success","Deleted Job Application successfully.");
+      res.redirect("/viewguestfaculty");
+    }
+  })
+})
 
 app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
   Job.find({}, function (err, job) {
