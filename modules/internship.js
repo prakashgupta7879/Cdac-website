@@ -5,7 +5,9 @@ var InternshipSchema = new mongoose.Schema({
     username: String,
     description: String,
     duration: String,
-    mentor: String
+    mentor: String,
+    begin: Date,
+    end: Date
 });
 
 InternshipSchema.plugin(passportLocalMongoose);
