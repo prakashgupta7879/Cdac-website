@@ -60,17 +60,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+								<% guestfaculty.forEach(function(guestfaculty) { %>
 									<tr>
-									  <td></td>
-									  <td></td>
-                                      <td></td>
-									  <td></td>
-                                      <td></td>
-                                      <td></td>
+									  <td><%= guestfaculty.name %></td>
+									  <td><%= guestfaculty.name %></td>
+                                      <td><%= guestfaculty.name %></td>
+									  <td><%= guestfaculty.name %></td>
+                                      <td><%= guestfaculty.experience %></td>
+                                      <td><%= guestfaculty.experience %></td>
 	                  <td style="text-align-last: center; width: 10%;"><form action="" method="POST"><button>❌</button></form></td>
 									</tr>
-								
+								<% }) %>
 							</tbody>
 						</table>
 					</div>

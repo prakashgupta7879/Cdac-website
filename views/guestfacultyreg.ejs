@@ -38,13 +38,13 @@
     <!-- NAVIGATION BAR -->
     <%- include('navbar'); -%>
 
-    <form style="margin: 30px 220px ;" action="/" method="POST">
+    <form style="margin: 30px 220px ;" action="/guestfacultyreg" method="POST">
       <!-- <img class="loginImg" src="img/Login.png" alt="" width="80" height="80"> -->
       <h2>Application Form for Guest Faculty positions in C-DAC Centre in North East (CINE)/  सी-डैक पूर्वोत्तर केंद्र (सिने) में अतिथि संकाय पदों के लिए आवेदन पत्र</h2> <br>
       
-      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="Faculty Name / संकाय का नाम*" required="true" autofocus="">
+      <input type="text" id="firstname" class="inputs" name="name" placeholder="Faculty Name / संकाय का नाम*" required="true" autofocus="">
       <input type="email" id="email" name="email" class="inputs" placeholder="Email ID / ईमेल आईडी*" required="true" autofocus="">
-      <input type="number" id="lastname" class="inputs" name="lastname" placeholder="Contact Number /संपर्क सूत्र*" required="true" autofocus="">
+      <input type="number" id="lastname" class="inputs" name="mobile" placeholder="Contact Number /संपर्क सूत्र*" required="true" autofocus="">
       <div  class="inputs">
         <p style="margin-left: 10px ;">Qualification / योग्यता*</p> <br>
         <input style="margin-left: 30px ;"  type="checkbox">
@@ -89,8 +89,8 @@
              
              <!-- <type="text" id="firstname" class="inputs" name="firstname" placeholder="Other Department"> <br> -->
       </div> <br>
-      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="Institute Name & Address / संस्थान का नाम और पता*" required="true" autofocus="">
-      <input type="text" id="firstname" class="inputs" name="firstname" placeholder="University Name & Address / विश्वविद्यालय का नाम और पता" required="true" autofocus="">
+      <input type="text" id="firstname" class="inputs" name="institute" placeholder="Institute Name & Address / संस्थान का नाम और पता*" required="true" autofocus="">
+      <input type="text" id="firstname" class="inputs" name="university" placeholder="University Name & Address / विश्वविद्यालय का नाम और पता" required="true" autofocus="">
       <div class="inputs">
         <p style="margin-left: 10px ;">Subjects/courses Interested to Teach / पढ़ाने के इच्छुक विषय/पाठ्यक्रम*</p> <br>
         <input style="margin-left: 30px ;"  type="checkbox">
@@ -162,7 +162,7 @@
       <div class="inputs">
         <p style="margin-left: 20px ;">Specify the details of Experience (in years and months) in the following format: A) Teaching in Academic Institute(s)_____years _____months B) Teaching in Industry on design & development roles(or providing Hands-on-Training ______years_____months / अनुभव का विवरण (वर्षों और महीनों में) निम्नलिखित प्रारूप में निर्दिष्ट करें: क) शैक्षणिक संस्थान (ओं) में शिक्षण _____ वर्ष _____ महीने ख) अभिकल्पन और विकास भूमिकाओं पर उद्योग में शिक्षण (या प्रशिक्षण ______ वर्ष _____ महीने प्रदान करना)</p>
         <br>
-        <input style="margin:0 30px; width: auto;" type="text" id="firstname" class="inputs" name="firstname" placeholder="" required="true" autofocus=""> 
+        <input style="margin:0 30px; width: auto;" type="text" id="firstname" class="inputs" name="experience" placeholder="" required="true" autofocus=""> 
      </div>
      <div class="inputs">
         <p style="margin-left: 10px ;">Taught to Students from: / छात्रों को पढ़ाया जाता है:</p> <br>

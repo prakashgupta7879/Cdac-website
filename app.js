@@ -17,6 +17,7 @@ var Program = require('./modules/program.js');
 var Event = require('./modules/event.js');
 var Job = require('./modules/jobs.js');
 var Internship = require('./modules/internship.js');
+var Guestfaculty = require('./modules/guestfaculty.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -404,6 +405,18 @@ app.get("/guestfacultyreg", function(req, res) {
   res.render('guestfacultyreg');
 });
 
+app.post("/guestfacultyreg",  function(req, res) {
+  Guestfaculty.create(req.body, function (err, program) {
+    if(err) {
+      req.flash("error", "Something went wrong.");
+      res.redirect("/guestfacultyreg");
+    } else {
+      req.flash("success", "Added a program successfully.");
+      res.redirect("/guestfacultyreg");
+    }
+  });
+});
+
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addAchievement');
 });
@@ -678,24 +691,24 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
 })
 
 app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
-  Job.find({}, function (err, job) {
+  Guestfaculty.find({}, function (err, guestfaculty) {
     if(err) {
       req.flash("error","Something went wrong.");
       res.redirect("/");
     } else {
-      res.render('viewguestfacultyapp',{ job: job });
+      res.render('viewguestfacultyapp',{ guestfaculty: guestfaculty });
     }
   })
 });
 
 app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
-  Job.remove({ username: req.params.id }, function (err, job) {
+  Guestfaculty.remove({ name: req.params.id }, function (err, guestfaculty) {
     if(err) {
       req.flash("error","Something went wrong.");
       res.redirect("/viewguestfaculty");
     } else {
       req.flash("success","Deleted Job Application successfully.");
-      res.redirect("/viewguestfaculty");
+      res.redirect("/viewguestfacultyapp");
     }
   })
 })

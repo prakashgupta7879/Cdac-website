@@ -9,3 +9,4 @@ var EventSchema = new mongoose.Schema({
 EventSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Event', EventSchema);
+ 
