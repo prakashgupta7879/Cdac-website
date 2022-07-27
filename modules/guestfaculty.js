@@ -1,19 +1,19 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
-// const AdminBroMongoose = require('admin-bro-mongoose')
 
-// AdminBro.registerAdapter(AdminBroMongoose)
-
-var UserSchema = new mongoose.Schema({
+var GuestfacultySchema = new mongoose.Schema({
     name: String,
     email: String,
     mobile: String,
+    qualification: String,
     institute: String,
     university: String,
     experience: String,
+    coursestaught: String,
+    resume: String,
     
 });
 
-UserSchema.plugin(passportLocalMongoose);
+GuestfacultySchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('Guestfaculty', UserSchema);
+module.exports = mongoose.model('Guestfaculty', GuestfacultySchema);
