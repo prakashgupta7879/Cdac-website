@@ -191,6 +191,31 @@ var eventUpload = multer({
 
 app.use("/event", express.static(path.join(__dirname, "event")));
 
+// GUEST FACULTY FILE STORAGE
+const storageg = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./guest_resume");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilterg = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var guestUpload = multer({
+  storage: storageg,
+  fileFilter: fileFilterg
+});
+
+app.use("/guest_resume", express.static(path.join(__dirname, "guest_resume")));
+
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -393,6 +418,41 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   }
 });
 
+<<<<<<< HEAD
+=======
+app.get("/guestfacultyreg", function(req, res) {
+  res.render('guestfacultyreg');
+});
+
+app.post("/guestfacultyreg", guestUpload.single('resume'),  function(req, res) {
+  var guest = {
+    username: uuidv4(),
+    name: req.body.name,
+    email: req.body.email,
+    mobile: req.body.mobile,
+    qualification: req.body.qualification,
+    department: req.body.department[0],
+    institute: req.body.institute,
+    university: req.body.university,
+    courses: req.body.courses,
+    experience: req.body.experience,
+    coursestaught: req.body.coursestaught,
+    resume: req.file.filename,
+  }
+  console.log(guest);
+  Guestfaculty.create(guest, function (err, guest) {
+    if(err) {
+      console.log(err);
+      req.flash("error", "Something went wrong.");
+      res.redirect("/guestfacultyreg");
+    } else {
+      req.flash("success", "Registered Succesfully.");
+      res.redirect("/guestfacultyreg");
+    }
+  });
+});
+
+>>>>>>> f56ee1c39337f7767a17ce8ee1c18200e5baf7c7
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addAchievement');
 });
@@ -650,6 +710,32 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
   })
 })
 
+<<<<<<< HEAD
+=======
+app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
+  Guestfaculty.find({}, function (err, guestfaculty) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('viewguestfacultyapp',{ guestfaculty: guestfaculty });
+    }
+  })
+});
+
+app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
+  Guestfaculty.remove({ username: req.params.id }, function (err, guestfaculty) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/viewguestfaculty");
+    } else {
+      req.flash("success","Deleted Guest Faculty successfully.");
+      res.redirect("/viewguestfaculty");
+    }
+  })
+})
+
+>>>>>>> f56ee1c39337f7767a17ce8ee1c18200e5baf7c7
 app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
   Job.find({}, function (err, job) {
     if(err) {

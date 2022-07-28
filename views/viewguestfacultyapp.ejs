@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Guest Fac App</title>
+    <title>Guest Faculty App</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -41,6 +41,7 @@
 		<!-- //header-ends -->
 
 		<!-- main content start-->
+
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div style="margin-left:290px; margin-top: 20px; width: 75%;" class="tables">
@@ -50,25 +51,57 @@
 						<table class="table">
 							<thead>
 								<tr>
-								  <th>Name</th>
-								  <th>Email</th>
-                                  <th>Contact Number</th>
-                                  <th>Institute</th>
-                                  <th>Experience</th>
-                                  <th>Resume</th>
+								  <th><div style="width: max-content;">Name</div></th>
+								  <th><div style="width: max-content;">Email</div></th>
+                  <th><div style="width: max-content;">Contact Number</div></th>
+									<th><div style="width: max-content;">Qualification</div></th>
+									<th><div style="width: max-content;">Department</div></th>
+                  <th><div style="width: max-content;">Institute</div></th>
+                  <th><div style="width: max-content;">Experience</div></th>
+									<th><div style="width: max-content;">Courses</div></th>
+									<th><div style="width: max-content;">Courses previously taught</div></th>
+                  <th><div style="width: max-content;">Resume</div></th>
                   <th style="text-align-last: center; width: 10%;">Delete</th>
 								</tr>
 							</thead>
 							<tbody>
 								<% guestfaculty.forEach(function(guestfaculty) { %>
 									<tr>
-									  <td><%= guestfaculty.name %></td>
-									  <td><%= guestfaculty.email %></td>
-                                      <td><%= guestfaculty.mobile %></td>
-									  <td><%= guestfaculty.institute %></td>
-                                      <td><%= guestfaculty.experience %></td>
-                                      <td><a href="../resume/<%= guestfaculty.resume %>"> <button class="btn btn-primary" type="button" name="button">View Resume</button> </a> </td>
-	                  <td style="text-align-last: center; width: 10%;"><form action="/guestfaculty-remove/<%= guestfaculty.name %>" method="POST"><button>❌</button></form></td>
+									  <td><div style="width: max-content;"><%= guestfaculty.name %></div></td>
+									  <td><div style="width: max-content;"><%= guestfaculty.email %></div></td>
+                    <td><div style="width: max-content;"><%= guestfaculty.mobile %></div></td>
+										<td>
+											<div style="width: max-content;">
+												<% guestfaculty.qualification.forEach(function(guest) { %>
+													<!-- <ul>
+														<li> -->
+															<%= guest %><br>
+														<!-- </li>
+													</ul> -->
+												<% }) %>
+											</div>
+										</td>
+										<td><div style="width: max-content;"><%= guestfaculty.department %></div></td>
+									  <td><div style="width: max-content;"><%= guestfaculty.institute %></div></td>
+                    <td><div style="width: max-content;"><%= guestfaculty.experience %></div></td>
+										<td>
+											<div id="courses_display" style="width: max-content;">
+												<% guestfaculty.courses.forEach(function(guest) { %>
+													<!-- <ul> -->
+														<!-- <li> -->
+															<%= guest %><br>
+														<!-- </li> -->
+													<!-- </ul> -->
+												<% }) %>
+											</div>
+										</td>
+										<td>
+											<div id="courses_display" style="width: max-content;">
+												<%= guestfaculty.coursestaught%>
+											</div>
+										</td>
+                    <td><a href="../guest_resume/<%= guestfaculty.resume %>"> <button class="btn btn-primary" type="button" name="button">View Resume</button> </a> </td>
+	                  <td style="text-align-last: center; width: 10%;"><form action="/guestfaculty-remove/<%= guestfaculty.username %>" method="POST"><button>❌</button></form></td>
 									</tr>
 								<% }) %>
 							</tbody>
@@ -89,6 +122,11 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+<style>
+.navbar {
+	width: 2250px;
+}
+</style>
 
 
 </body>
