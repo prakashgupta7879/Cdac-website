@@ -193,6 +193,31 @@ var eventUpload = multer({
 
 app.use("/event", express.static(path.join(__dirname, "event")));
 
+// GUEST FACULTY FILE STORAGE
+const storageg = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./guest_resume");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFilterg = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var guestUpload = multer({
+  storage: storageg,
+  fileFilter: fileFilterg
+});
+
+app.use("/guest_resume", express.static(path.join(__dirname, "guest_resume")));
+
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -405,11 +430,26 @@ app.get("/guestfacultyreg", function(req, res) {
   res.render('guestfacultyreg');
 });
 
-app.post("/guestfacultyreg",  function(req, res) {
-  console.log(req.body);
-  Guestfaculty.create(req.body, function (err, program) {
+app.post("/guestfacultyreg", guestUpload.single('resume'),  function(req, res) {
+  var guest = {
+    username: uuidv4(),
+    name: req.body.name,
+    email: req.body.email,
+    mobile: req.body.mobile,
+    qualification: req.body.qualification,
+    department: req.body.department[0],
+    institute: req.body.institute,
+    university: req.body.university,
+    courses: req.body.courses,
+    experience: req.body.experience,
+    coursestaught: req.body.coursestaught,
+    resume: req.file.filename,
+  }
+  console.log(guest);
+  Guestfaculty.create(guest, function (err, guest) {
     if(err) {
-      req.flash("error", "Something went wrong badly.");
+      console.log(err);
+      req.flash("error", "Something went wrong.");
       res.redirect("/guestfacultyreg");
     } else {
       req.flash("success", "Registered Succesfully.");
@@ -703,18 +743,13 @@ app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
 });
 
 app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
-  Guestfaculty.remove({ name: req.params.id }, function (err, guestfaculty) {
+  Guestfaculty.remove({ username: req.params.id }, function (err, guestfaculty) {
     if(err) {
       req.flash("error","Something went wrong.");
       res.redirect("/viewguestfaculty");
     } else {
-<<<<<<< HEAD
       req.flash("success","Deleted Guest Faculty successfully.");
-      res.redirect("/viewguestfacultyapp");
-=======
-      req.flash("success","Deleted Job Application successfully.");
       res.redirect("/viewguestfaculty");
->>>>>>> 108d5b9a223d865498f77479507e27472ba0af54
     }
   })
 })
