@@ -16,6 +16,7 @@ var Update = require('./modules/latestUpdates.js');
 var Program = require('./modules/program.js');
 var Event = require('./modules/event.js');
 var Job = require('./modules/jobs.js');
+var Guestfaculty = require('./modules/guestfaculty.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -42,7 +43,7 @@ saveUninitialized: true
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
-mongoose.connect("mongodb://localhost/cdac", {useNewUrlParser: true});
+
 
 
 app.set('view engine', 'ejs');
@@ -265,6 +266,20 @@ app.get("/centerhead", function(req, res) {
   res.render('centerHead');
 });
 
+
+
+app.get("/career",  function(req, res) {
+  Job.find({}, function (err, job) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/");
+    } else {
+      res.render('career',{ job: job });
+    }
+  })
+});
+
+
 const itemsSchema = {
   name: String
 };
@@ -418,8 +433,6 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   }
 });
 
-<<<<<<< HEAD
-=======
 app.get("/guestfacultyreg", function(req, res) {
   res.render('guestfacultyreg');
 });
@@ -452,7 +465,6 @@ app.post("/guestfacultyreg", guestUpload.single('resume'),  function(req, res) {
   });
 });
 
->>>>>>> f56ee1c39337f7767a17ce8ee1c18200e5baf7c7
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addAchievement');
 });
@@ -710,8 +722,6 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
   })
 })
 
-<<<<<<< HEAD
-=======
 app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
   Guestfaculty.find({}, function (err, guestfaculty) {
     if(err) {
@@ -735,7 +745,6 @@ app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (re
   })
 })
 
->>>>>>> f56ee1c39337f7767a17ce8ee1c18200e5baf7c7
 app.get("/viewjobs", middlewareObj.isAdminLoggedIn, function(req, res) {
   Job.find({}, function (err, job) {
     if(err) {

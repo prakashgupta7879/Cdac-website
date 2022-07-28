@@ -3,7 +3,9 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var JobSchema = new mongoose.Schema({
     username: String,
-    link: String
+    advertisement: String,
+    link: String,
+    lastdate: String
 });
 
 JobSchema.plugin(passportLocalMongoose);

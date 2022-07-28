@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="career.css">
+    <link rel="stylesheet" href="/css/career.css">
 
     <!-- Font styles -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=Overpass:wght@300&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@200&family=Ubuntu&display=swap" rel="stylesheet">
@@ -25,137 +25,77 @@
 
 <body>
     <!-- HEADER -->
-    <header id="header">
-      <div class="logo">
-          <img src="https://www.cdac.in/index.aspx?id=img_cdac-logo">
-      </div>
-      <span class="right font1">Branch : CINE (CDAC in North-East), Silchar</span>
-    </header>
-    
+    <%- include('header'); -%>
+
+
     <!-- NAVIGATION BAR -->
-    <nav id="navbar">
-      <div id="navbar-items">
-          <ul>
-              <li class="item"><a href="/" class="">Home</a></li>
-              <li class="item"><a href="/about">About us</a></li>
-              <li class="item dropdown"><a href="#">Adminstration</a>
-                <div class="dropdown-content">
-                  <a href="/directorgeneral">Director General</a>
-                  <a href="/centerhead">Center Head</a>
-                  <a href="/pgo">Public Grivience Ofcr</a>
-                  <a href="/technicalstaff">Technical Staff</a>
-                  <a href="/nontechnicalstaff">Non-Technical Staff</a>
-              </div>
-              </li>
-              <li class="item"><a href="/internships">Internships</a></li>
-              <li class="item"><a href="/courses">Courses</a></li>
-              <li class="item"><a href="/career" class="active">Careers</a></li>
-              <li class="item dropdown"><a href="#">Important Links</a>
-                <div class="dropdown-content">
-                  <a href="https://www.cdac.in/">CDAC Website</a>
-                  <a href="https://www.meity.gov.in/">Meity.gov</a>
-                  <a href="https://www.education.gov.in/en">Education.gov</a>
-                  <a href="http://www.nitttrchd.ac.in/sitenew1/index11.php">Nitttr,Chandigarh</a>
-                  <a href="https://www.youtube.com/channel/UCMFa_JATsLiXiPidG9V4Z4w">CDAC YouTube</a>
-                </div>
-              </li>
-              <li class="item"><a href="/contact">Contact Us</a></li>
-          </ul>
-      </div>
-  
-  
-      <div id="navbar-right">
-          <div class="navbar-login">
-              <button class="btn-secondary dropbtn font2" onclick="dropdownbtn()"  type="button">Login</button>
-              <div id="myDropdown" class="dropdown-cnt">
-                  <a href="/login" onclick="document.location.href='/login';">As Student</a>
-                  <a href="/faculty-login">As Co-ordinator</a>
-                </div>
-              <button class="btn-secondary dropbtn font2" onclick="document.location.href='/signup';" type="button">Sign Up</button>
-          </div>
-       
-          <form class="search-bar" role="search">
-              <input class="form-control font2" type="search" placeholder="Search.." aria-label="Search">
-              <button class="btn-primary font2" type="submit"><i class="fa fa-search"></i></button>
-          </form>
-      </div>
-  </nav>
+    <%- include('navbar'); -%>
   
 
   <!-- CONTAINER -->
     <div id="container">
-      <!-- SECTION1 -->
-      <div class="section1">
-        <div class="head">
-          <h2>Jobs</h2>
-        </div>
-
-        <div class="sec-content">
-          <div class="job-card">
-            <a href="#">apply header</a>
-          </div>
-          <div class="job-card">
-            <a href="#">apply header</a>
-          </div>
-          <div class="job-card">
-            <a href="#">apply header</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION2 -->
-      <div class="section2">
-          <div class="head">
-            <h2>Upcoming Jobs </h2>
-          </div>
-
-          <div class="sec-content">
-            <div class="job-card">
-              <a href="#">apply header</a>
-            </div>
-            <div class="job-card">
-              <a href="#">apply header</a>
-            </div>
-            <div class="job-card">
-              <a href="#">apply header</a>
-            </div>
-          </div>
-      </div>
-    </div>
-
-
     
+<table>
+	<thead>
+		<tr>
+			<th scope="col">Title</th>
+			<th scope="col">Last Date</th>
+      <!-- <th scope="col">Advertisement</th> -->
+			<th scope="col">Application Link</th>
+			<!-- <th scope="col">Ultimate</th> -->
+		</tr>
+	</thead>
+	<tbody>
+    <% job.forEach(function(job) { %>
+		<tr>
+			<th class="info" scope="row"><%= job.username %></th>
+			<td class="check"><p><%= job.lastdate %></p></td>
+      <!-- <td class="check"><a href="<%= job.advertisement %>" target="_blank" >View</a></td> -->
+			<td class="check"><button class="more" onclick="location.href = '<%= job.link %>';"><span> Apply now!</span></button></td>
+			<!-- <td class="check"><span class="sr-only">Yes</span></td> -->
+		</tr>
+    <% }) %>
+	</tbody>
+	
+</table>
+     
+    </div>
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <div class="contact-logo">
-        <a href="https://www.facebook.com/CDACINDIA/" class="fa fa-facebook"></a>
-        <a href="https://www.linkedin.com/company/cdac?originalSubdomain=in" class="fa fa-linkedin"></a>
-        <a href="https://twitter.com/cdacindia?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" class="fa fa-twitter"></a>
-        <a href="#" class="fa fa-instagram"></a>
-    </div>
-    <div class="other-links">
-        <p class="presskit-links font1">
-            <a href="#" class="copyrights">Website Policies</a>
-            <span class="copyrights">|</span>
-            <a href="#" class="copyrights">Copyright Policy</a>
-            <span class="copyrights">|</span>
-            <a href="#" class="copyrights">Terms &amp; Conditions </a>
-            <span class="copyrights">|</span>
-            <a href="#" class="copyrights">Help</a>
-            <span class="copyrights">|</span>
-            <span class="copyrights">© 2022</span>
-            <span class="copyrights"> C-DAC. All rights reserved</span>
-            <span class="copyrights">|</span>
-            <span id="LastUpdated" class="copyrights">Last Updated: Tuesday,&nbsp; June 07, 2022</span>
-            <br>
-            Website owned &amp; maintained by: Centre for Development of Advanced Computing (C-DAC)
-        </p>
-    </div>
-</footer>
+
+<!-- FOOTER -->
+<%- include('footer'); -%>
 
 <!-- SCRIPT LINK -->
 <script src="js/script.js"></script>
+
+<style>
+.alert {
+  /* padding: 20px;
+  background-color: #f44336; /* Red */
+  /* color: white; */
+  /* margin-bottom: 15px; */
+  padding: 5px;
+  /* background-color: #0bff00; */
+  color: black;
+  }
+
+  /* The close button */
+  .closebtn {
+  margin-left: 15px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  }
+
+  /* When moving the mouse over the close button */
+  .closebtn:hover {
+  color: black;
+  }
+</style>
 
 </body>
 
