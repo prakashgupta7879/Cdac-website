@@ -16,8 +16,6 @@ var Update = require('./modules/latestUpdates.js');
 var Program = require('./modules/program.js');
 var Event = require('./modules/event.js');
 var Job = require('./modules/jobs.js');
-var Internship = require('./modules/internship.js');
-var Guestfaculty = require('./modules/guestfaculty.js');
 var flash=require('connect-flash');
 var middlewareObj = require("./middleware/index.js");
 const {v4 : uuidv4} = require('uuid');
@@ -44,7 +42,7 @@ saveUninitialized: true
 }));
 
 mongoose.connect("mongodb+srv://admin-cdac:Admin%40cdacsilchar@cdac.isrtcby.mongodb.net/cdac", {useNewUrlParser: true});
-// mongoose.connect("mongodb://localhost/cdac", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost/cdac", {useNewUrlParser: true});
 
 
 app.set('view engine', 'ejs');
@@ -242,12 +240,6 @@ app.get("/centerhead", function(req, res) {
   res.render('centerHead');
 });
 
-app.get("/technicalstaff", function(req, res) {
-  res.render('technicalstaff');
-});
-
-
-
 const itemsSchema = {
   name: String
 };
@@ -401,22 +393,6 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   }
 });
 
-app.get("/guestfacultyreg", function(req, res) {
-  res.render('guestfacultyreg');
-});
-
-app.post("/guestfacultyreg",  function(req, res) {
-  Guestfaculty.create(req.body, function (err, guestfaculty) {
-    if(err) {
-      req.flash("error", "Something went wrong badly.");
-      res.redirect("/guestfacultyreg");
-    } else {
-      req.flash("success", "Registered Succesfully.");
-      res.redirect("/guestfacultyreg");
-    }
-  });
-});
-
 app.get("/addachievement", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addAchievement');
 });
@@ -433,22 +409,6 @@ app.post("/addprogram", middlewareObj.isAdminLoggedIn,  function(req, res) {
       } else {
         req.flash("success", "Added a program successfully.");
         res.redirect("/addprogram");
-      }
-    });
-});
-
-app.get("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res) {
-  res.render('addInternship');
-});
-
-app.post("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res) {
-    Internship.create(req.body, function (err, intern) {
-      if(err) {
-        req.flash("error", "Something went wrong.");
-        res.redirect("/addInternship");
-      } else {
-        req.flash("success", "Added an internship successfully.");
-        res.redirect("/addInternship");
       }
     });
 });
@@ -686,29 +646,6 @@ app.post("/event-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res)
     } else {
       req.flash("success","Deleted program successfully.");
       res.redirect("/viewevents");
-    }
-  })
-})
-
-app.get("/viewguestfaculty", middlewareObj.isAdminLoggedIn, function(req, res) {
-  Guestfaculty.find({}, function (err, guestfaculty) {
-    if(err) {
-      req.flash("error","Something went wrong.");
-      res.redirect("/");
-    } else {
-      res.render('viewguestfacultyapp',{ guestfaculty: guestfaculty });
-    }
-  })
-});
-
-app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (req, res) {
-  Guestfaculty.remove({ name: req.params.id }, function (err, guestfaculty) {
-    if(err) {
-      req.flash("error","Something went wrong.");
-      res.redirect("/viewguestfaculty");
-    } else {
-      req.flash("success","Deleted Job Application successfully.");
-      res.redirect("/viewguestfaculty");
     }
   })
 })
@@ -996,74 +933,12 @@ app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //INTERNSHIP
 app.get('/internships', function (req,res) {
-  var done = [];
-  var notdone = [];
-  Internship.find({}, function(err,internship){
-    if(err){
-      req.flash("error","Something went wrong.");
-      res.redirect("/");
-    } else {
-      for(var i=0; i<internship.length; i++) {
-        let ts = Date.now();
-        let date_ob = new Date(ts);
-        let date = date_ob.getDate();
-        let month = date_ob.getMonth() + 1;
-        let year = date_ob.getFullYear();
-        var today = year+ "-" + month + "-" + date;
-        var beg = internship[i].begin;
-        var en = internship[i].end;
-        let date_ob1 = new Date(beg);
-        var m1 = date_ob1.getMonth()+1;
-        let date_ob2 = new Date(en);
-        var m2 = date_ob2.getMonth()+1;
-        var begin = date_ob1.getFullYear() + "-" + m1 + "-" + date_ob1.getDate();
-
-        var end = date_ob2.getFullYear() + "-" + m2 + "-" + date_ob2.getDate();
-        console.log(today);
-        console.log(begin);
-        console.log(end);
-        if(today >= begin && today <=end) {
-          notdone.push(internship[i]);
-        } else {
-          done.push(internship[i]);
-        }
-      }
-      res.render('internship', { done: done, notdone: notdone });
-    }
-  })
+  res.render('internship.ejs');
 })
 
 //ENROLL NOW
 app.get('/enroll', middlewareObj.isStudentLoggedIn, function (req,res) {
-  Internship.find({}, function(err,internship){
-    if(err){
-      req.flash("error","Something went wrong.");
-      res.redirect("/internships");
-    } else {
-      var intern = [];
-      for(var i=0; i<internship.length; i++) {
-        let ts = Date.now();
-        let date_ob = new Date(ts);
-        let date = date_ob.getDate();
-        let month = date_ob.getMonth() + 1;
-        let year = date_ob.getFullYear();
-        var today = year+ "-" + month + "-" + date;
-        var beg = internship[i].begin;
-        var en = internship[i].end;
-        let date_ob1 = new Date(beg);
-        var m1 = date_ob1.getMonth()+1;
-        let date_ob2 = new Date(en);
-        var m2 = date_ob2.getMonth()+1;
-        var begin = date_ob1.getFullYear() + "-" + m1 + "-" + date_ob1.getDate();
-
-        var end = date_ob2.getFullYear() + "-" + m2 + "-" + date_ob2.getDate();
-        if(today < begin || today >end) {
-          intern.push(internship[i]);
-        }
-      }
-      res.render('enroll-now', { internship: intern });
-    }
-  })
+  res.render('enroll-now.ejs');
 })
 
 app.post('/enroll', resumeUpload.single('link'), middlewareObj.isStudentLoggedIn, function (req,res) {
@@ -1106,7 +981,7 @@ app.get('/gallery', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', function (req,res) {
+app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
   res.render('contact');
 })
 
@@ -1171,6 +1046,7 @@ app.get('/courses', function (req,res) {
     }
   })
 })
+
 
 //STUDENTS TABLE
 app.get('/student_table/:id', middlewareObj.isFacultyLoggedIn, function (req, res) {
