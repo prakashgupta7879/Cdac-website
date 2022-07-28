@@ -409,10 +409,10 @@ app.post("/guestfacultyreg",  function(req, res) {
   console.log(req.body);
   Guestfaculty.create(req.body, function (err, program) {
     if(err) {
-      req.flash("error", "Something went wrong.");
+      req.flash("error", "Something went wrong badly.");
       res.redirect("/guestfacultyreg");
     } else {
-      req.flash("success", "Added a program successfully.");
+      req.flash("success", "Registered Succesfully.");
       res.redirect("/guestfacultyreg");
     }
   });
@@ -708,8 +708,13 @@ app.post("/guestfaculty-remove/:id", middlewareObj.isAdminLoggedIn, function (re
       req.flash("error","Something went wrong.");
       res.redirect("/viewguestfaculty");
     } else {
+<<<<<<< HEAD
       req.flash("success","Deleted Guest Faculty successfully.");
       res.redirect("/viewguestfacultyapp");
+=======
+      req.flash("success","Deleted Job Application successfully.");
+      res.redirect("/viewguestfaculty");
+>>>>>>> 108d5b9a223d865498f77479507e27472ba0af54
     }
   })
 })

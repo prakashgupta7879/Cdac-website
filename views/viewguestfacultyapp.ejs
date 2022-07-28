@@ -51,9 +51,9 @@
 							<thead>
 								<tr>
 								  <th>Name</th>
-								  <th>Department</th>
-                                  <th>Qualification</th>
-                                  <th>Subjects Interested to Teach</th>
+								  <th>Email</th>
+                                  <th>Contact Number</th>
+                                  <th>Institute</th>
                                   <th>Experience</th>
                                   <th>Resume</th>
                   <th style="text-align-last: center; width: 10%;">Delete</th>
@@ -63,12 +63,16 @@
 								<% guestfaculty.forEach(function(guestfaculty) { %>
 									<tr>
 									  <td><%= guestfaculty.name %></td>
-									  <td><%= guestfaculty.name %></td>
-                                      <td><%= guestfaculty.name %></td>
-									  <td><%= guestfaculty.name %></td>
+									  <td><%= guestfaculty.email %></td>
+                                      <td><%= guestfaculty.mobile %></td>
+									  <td><%= guestfaculty.institute %></td>
                                       <td><%= guestfaculty.experience %></td>
-                                      <td><%= guestfaculty.experience %></td>
+<<<<<<< HEAD
 	                  <td style="text-align-last: center; width: 10%;"><form action="/guestfaculty-remove/<%= name %>" method="POST"><button>❌</button></form></td>
+=======
+                                      <td><a href="../resume/<%= guestfaculty.resume %>"> <button class="btn btn-primary" type="button" name="button">View Resume</button> </a> </td>
+	                  <td style="text-align-last: center; width: 10%;"><form action="/guestfaculty-remove/<%= guestfaculty.name %>" method="POST"><button>❌</button></form></td>
+>>>>>>> 108d5b9a223d865498f77479507e27472ba0af54
 									</tr>
 								<% }) %>
 							</tbody>
