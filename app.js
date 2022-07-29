@@ -419,6 +419,7 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   } else {
     var add = {
       username: req.body.username,
+      detaillink: req.body.detaillink ,
       link: req.file.filename
     }
     console.log(add);
