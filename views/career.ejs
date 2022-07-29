@@ -30,11 +30,11 @@
 
     <!-- NAVIGATION BAR -->
     <%- include('navbar'); -%>
-  
+
 
   <!-- CONTAINER -->
     <div id="container">
-    
+
 <table>
 	<thead>
 		<tr>
@@ -51,14 +51,14 @@
 			<th class="info" scope="row"><%= job.username %></th>
 			<td class="check"><p><%= job.lastdate %></p></td>
       <!-- <td class="check"><a href="<%= job.advertisement %>" target="_blank" >View</a></td> -->
-			<td class="check"><button class="more" onclick="location.href = '<%= job.link %>';"><span> Apply now!</span></button></td>
+			<td class="check"><a href="<%= job.link %>"><button class="more"><span> Apply now!</span></button></a></td>
 			<!-- <td class="check"><span class="sr-only">Yes</span></td> -->
 		</tr>
     <% }) %>
 	</tbody>
-	
+
 </table>
-     
+
     </div>
 
 

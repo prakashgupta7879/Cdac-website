@@ -1028,6 +1028,7 @@ app.put("/dash_index/edit", middlewareObj.isLoggedIn, function(req, res) {
 
 //INTERNSHIP
 app.get('/internships', function (req,res) {
+
   res.render('internship.ejs');
 })
 
