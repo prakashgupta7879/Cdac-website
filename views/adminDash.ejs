@@ -51,7 +51,7 @@
 			  <div class="card border-secondary mb-3" style="max-width: 18rem; ">
 				<div class="card-header"><button class="btn btn-secondary" type="submit">Internships</button></div>
 				<div class="card-body text-secondary">
-				  <h5 class="card-title">10 Internships Going!</h5>
+				  <h5 class="card-title"><%= internship %> Internships Offered!</h5>
 				  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 				</div>
 			  </div>
@@ -77,7 +77,7 @@
 				</div>
 			  </div>
 
-			  
+
 
 			  <div class="card border-dark mb-3" style="max-width: 18rem;">
 				<div class="card-header"><button class="btn btn-dark" type="submit">Enquiries</button></div>
@@ -89,11 +89,11 @@
 			  <div class="card border-primary mb-3" style="max-width: 18rem;">
 				<div class="card-header"><button class="btn btn-primary" type="submit"><a href="/viewguestfaculty"> Guest Faculties</a></button></div>
 				<div class="card-body text-primary">
-				  <h5 class="card-title"><%= query %> Guest Faculties</h5>
+				  <h5 class="card-title"><%= guest %> Guest Faculties</h5>
 				  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 				</div>
 			  </div>
-			  
+
 		</div>
 		</div>
 		<div class="card-deck">
@@ -104,7 +104,7 @@
 						<i class="ion ion-clipboard mr-1"></i>
 						To Do List
 					  </h3>
-		
+
 					  <!-- <div class="card-tools">
 						<ul class="pagination pagination-sm">
 						  <li class="page-item"><a href="#" class="page-link">«</a></li>
@@ -188,41 +188,41 @@
 							</form>
 
 
-							
+
 						<% }) %>
-						
+
 
 					  </ul>
 					</div>
 					<!-- /.card-body -->
 					<form action="/adminDash" method="post">
-						
+
 						<div class="card-footer clearfix">
 							<input class="form-control" type="text" name="newToDo" placeholder="Add Something..."> <br>
 							<button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add item</button>
 						  </div>
 					</form>
-					
+
 				  </div>
-				  
+
 			</div>
-	
+
 			<div style="margin-left: 8px ;margin-right: 20px ;  width:44%; ">
 				<iframe src="https://calendar.zoho.in/zc/ui/embed/#calendar=e946d1f0a6eee9f17d819938d16411780574996168c779ff4819c82fbaa7a36ea6aa2760311ccfd7a0d58a511c13de9d&title=CDAC&type=1&language=en&timezone=Asia%2FKolkata&showTitle=1&showTimezone=1&startingDayOfWeek=0&view=month&showDetail=1&theme=1&showAttendee=1&showAllEvents=0" style="border:solid 1px yellow" width=500 height=500 frameBorder="0" scrolling="no"></iframe>
 				<!-- <iframe src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%233F51B5&ctz=Asia%2FKolkata&showTitle=0&src=Y182dXFia2JmZ2VwcWowNjkxaGtxdW1odjZiOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4uaW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%230B8043" style="border:solid 1px #777" width="500" height="400" frameborder="0" scrolling="no"></iframe> -->
 				<!-- <iframe src="https://calendar.google.com/calendar/embed?src=c_6uqbkbfgepqj0691hkqumhv6b8%40group.calendar.google.com&ctz=UTC" style="border: 0" width="500" height="400" frameborder="0" scrolling="no"></iframe> -->
 			</div>
 		</div>
-		
 
-		
+
+
 	</div>
 
-    
-		
-	  
 
-    
+
+
+
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
