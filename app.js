@@ -527,6 +527,11 @@ app.get('/event', function (req, res) {
   })
 })
 
+
+app.get("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res){
+  res.render('addInternship');
+})
+
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   Student.count({ usertype: "student" }, function (err, student) {
     if(err) {
@@ -1184,7 +1189,7 @@ app.get('/gallery', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
+app.get('/contact', function (req,res) {
   res.render('contact');
 })
 
