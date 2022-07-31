@@ -564,6 +564,18 @@ app.get("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res){
   res.render('addInternship');
 })
 
+app.post("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res){
+  Internship.create(req.body, function (err, internship) {
+    if(err) {
+      req.flash("error","Something went wrong.");
+      res.redirect("/addInternship");
+    } else {
+      req.flash("success","Added an internship successfully.");
+      res.redirect('/addInternship');
+    }
+  })
+})
+
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
   Student.count({ usertype: "student" }, function (err, student) {
     if(err) {
