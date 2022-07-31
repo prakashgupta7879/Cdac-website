@@ -291,6 +291,9 @@ app.get("/directorgeneral", function(req, res) {
 app.get("/centerhead", function(req, res) {
   res.render('centerHead');
 });
+app.get("/pgo", function(req, res) {
+  res.render('pgo');
+});
 
 
 
