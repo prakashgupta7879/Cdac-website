@@ -218,6 +218,31 @@ var guestUpload = multer({
 
 app.use("/guest_resume", express.static(path.join(__dirname, "guest_resume")));
 
+// JOB Advertisement FILE STORAGE
+const storagea = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./advertisement");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${crypto.randomBytes(12).toString("hex")}-${file.originalname}`);
+  },
+});
+
+const fileFiltera = (req, file, cb) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var advertisementUpload = multer({
+  storage: storagea,
+  fileFilter: fileFiltera
+});
+
+app.use("/advertisement", express.static(path.join(__dirname, "advertisement")));
+
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -395,13 +420,20 @@ app.get("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
   res.render('addJob');
 });
 
-app.post("/addJob", middlewareObj.isAdminLoggedIn,  function(req, res) {
-    Job.create(req.body, function (err, job) {
+app.post("/addJob", advertisementUpload.single('advertisement'), middlewareObj.isAdminLoggedIn,  function(req, res) {
+    var job = {
+      username: req.body.username,
+      advertisement: req.file.filename,
+      link: req.body.link,
+      lastdate: req.body.lastdate
+    }
+    console.log(job);
+    Job.create(job, function (err, job) {
       if(err) {
         req.flash("error", "Something went wrong.");
         res.redirect("/addJob");
       } else {
-        req.flash("success", "Added a program successfully.");
+        req.flash("success", "Added a job successfully.");
         res.redirect("/addJob");
       }
     });

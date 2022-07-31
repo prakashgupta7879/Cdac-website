@@ -51,7 +51,9 @@
 							<thead>
 								<tr>
 								  <th>Job Title</th>
+									<th>Job Advertisement</th>
 								  <th>Job Application Link</th>
+									<th>Last Apply Date</th>
                   <th style="text-align-last: center; width: 10%;">Delete</th>
 								</tr>
 							</thead>
@@ -59,7 +61,9 @@
 								<% job.forEach(function(job) { %>
 									<tr>
 									  <td><%= job.username %></td>
+										<td> <a href="../advertisement/<%= job.advertisement %>"> <button class="btn btn-primary" type="button" name="button">View Advertisement</button> </a> </td>
 									  <td> <a href="<%= job.link %>"><%= job.link %></a></td>
+										<td><%= job.lastdate %></td>
 	                  <td style="text-align-last: center; width: 10%;"><form action="/job-remove/<%= job.username %>" method="POST"><button>❌</button></form></td>
 									</tr>
 								<% }) %>
