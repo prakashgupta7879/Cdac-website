@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var EventSchema = new mongoose.Schema({
     username: String,
+    detaillink: String,
     link: String
 });
 

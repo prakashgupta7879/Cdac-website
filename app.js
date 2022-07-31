@@ -451,6 +451,7 @@ app.post("/addEvent", eventUpload.single('link'), middlewareObj.isAdminLoggedIn,
   } else {
     var add = {
       username: req.body.username,
+      detaillink: req.body.detaillink ,
       link: req.file.filename
     }
     console.log(add);
@@ -556,6 +557,11 @@ app.get('/event', function (req, res) {
       res.render('annualevents', { event: event });
     }
   })
+})
+
+
+app.get("/addInternship", middlewareObj.isAdminLoggedIn,  function(req, res){
+  res.render('addInternship');
 })
 
 app.get("/adminDash", middlewareObj.isAdminLoggedIn,  function(req, res) {
@@ -1215,7 +1221,7 @@ app.get('/gallery', function (req,res) {
 })
 
 //CONTACT US
-app.get('/contact', middlewareObj.isLoggedIn, function (req,res) {
+app.get('/contact', function (req,res) {
   res.render('contact');
 })
 

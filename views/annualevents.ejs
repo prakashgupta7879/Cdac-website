@@ -34,7 +34,7 @@
           <% event.forEach(function(event) { %>
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <a data-fancybox="video-gallery" href="https://www.youtube.com/watch?v=mBYnwWmyVQA&t=2s&amp;autoplay=1"><img src="../event/<%= event.link %>"></a>
+                    <a data-fancybox="video-gallery" href="<%= event.detaillink %>" target="_blank" ><img src="../event/<%= event.link %>"></a>
                     <h4 style="text-align:center ;"><%= event.username %></h4>
                 </div>
             </div>
